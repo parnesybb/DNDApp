@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:id="@+id/item1"
+        android:title="Barbarian" />
+  <item android:id="@+id/item1"
+        android:title="Bard" />
+  <item android:id="@+id/item1"
+        android:title="Cleric" />
+  <item android:id="@+id/item1"
+        android:title="Druid" />
+  <item android:id="@+id/item1"
+        android:title="Fighter" />
+  <item android:id="@+id/item1"
+        android:title="Wizard" />
+  <item android:id="@+id/item1"
+        android:title="Monk" />
+  <item android:id="@+id/item1"
+        android:title="Paladin" />
+  <item android:id="@+id/item1"
+        android:title="Ranger" />
+  <item android:id="@+id/item1"
+        android:title="Sorcerer" />
+  <item android:id="@+id/item1"
+        android:title="Rogue" />
+  <item android:id="@+id/item1"
+        android:title="Thief" />
+  <item android:id="@+id/item1"
+        android:title="Warlock" />
+</menu>

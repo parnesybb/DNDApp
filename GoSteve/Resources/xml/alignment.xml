@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:id="@+id/item0" android:title="Lawful Good" />
+  <item android:id="@+id/item1" android:title="Neutral Good" />
+  <item android:id="@+id/item2" android:title="Chaotic Good" />
+  <item android:id="@+id/item3" android:title="Lawful Neutral" />
+  <item android:id="@+id/item4" android:title="Neutral" />
+  <item android:id="@+id/item5" android:title="Chaotic Neutral" />
+  <item android:id="@+id/item6" android:title="Lawful Evil" />
+  <item android:id="@+id/item7" android:title="Neutral Evil" />
+  <item android:id="@+id/item8" android:title="Chaotic Evil" />
+</menu>

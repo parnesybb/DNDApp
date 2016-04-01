@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:id="@+id/item0" android:title="Dwarf" />
+  <item android:id="@+id/item1" android:title="Elf" />
+  <item android:id="@+id/item2" android:title="Halfling" />
+  <item android:id="@+id/item3" android:title="Human" />
+  <item android:id="@+id/item4" android:title="Dragonborn" />
+  <item android:id="@+id/item5" android:title="Gnome" />
+  <item android:id="@+id/item6" android:title="Half-Elf" />
+  <item android:id="@+id/item7" android:title="Half-Orc" />
+  <item android:id="@+id/item8" android:title="Tiefling" />
+</menu>

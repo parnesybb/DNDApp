@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:id="@+id/item0" android:title="Acolyte" />
+  <item android:id="@+id/item1" android:title="Charlatan" />
+  <item android:id="@+id/item2" android:title="Criminal" />
+  <item android:id="@+id/item3" android:title="Entertainer" />
+  <item android:id="@+id/item4" android:title="Folk Hero" />
+  <item android:id="@+id/item5" android:title="Guild Artisan" />
+  <item android:id="@+id/item6" android:title="Hermit" />
+  <item android:id="@+id/item7" android:title="Noble" />
+  <item android:id="@+id/item8" android:title="Outlander" />
+  <item android:id="@+id/item9" android:title="Sage" />
+  <item android:id="@+id/item10" android:title="Sailor" />
+  <item android:id="@+id/item11" android:title="Soldier" />
+  <item android:id="@+id/item12" android:title="Urchin" />
+</menu>
