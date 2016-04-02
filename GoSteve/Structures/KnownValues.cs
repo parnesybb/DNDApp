@@ -26,5 +26,53 @@ namespace GoSteve
             public const string HALF_ORC = "Half-Orc";
             public const string TIEFLING = "Tiefling";
         }
+
+        public enum ClassType
+        {
+            BARBARIAN,
+            BARD,
+            CLERIC,
+            DRUID,
+            FIGHTER,
+            MONK,
+            PALADIN,
+            RANGER,
+            ROGUE,
+            SORCERER,
+            WARLOCK,
+            WIZARD
+        }
+
+        public enum AbilityType
+        {
+            STRENGTH,
+            DEXTERITY,
+            CONSTITUTION,
+            INTELLIGENCE,
+            WISDOM,
+            CHARISMA
+        }
+
+        public enum SkillType
+        {
+            Acrobatics,
+            Animal_Handling,
+            Arcana,
+            Athletics,
+            Deception,
+            History,
+            Insight,
+            Intimidation,
+            Investigation,
+            Medicine,
+            Nature,
+            Perception,
+            Performance,
+            Persuasion,
+            Religion,
+            Sleight_Of_Hand,
+            Stealth,
+            Survival
+        }
     }
 }

@@ -20,7 +20,7 @@
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
+    <DebugSymbols>True</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
@@ -29,6 +29,15 @@
     <WarningLevel>4</WarningLevel>
     <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
     <AndroidLinkMode>None</AndroidLinkMode>
+    <AndroidLinkSkip />
+    <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
+    <BundleAssemblies>False</BundleAssemblies>
+    <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
+    <AndroidSupportedAbis />
+    <AndroidStoreUncompressedFileExtensions />
+    <MandroidI18n />
+    <Debugger>Xamarin</Debugger>
+    <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -53,7 +62,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Screens\CharacterSheetScreen.cs" />
     <Compile Include="Structures\CharacterSheet.cs" />
+    <Compile Include="Structures\Classes\Abilities.cs" />
+    <Compile Include="Structures\Classes\AClass.cs" />
+    <Compile Include="Structures\Classes\Barbarian.cs" />
+    <Compile Include="Structures\Classes\SavingThrows.cs" />
+    <Compile Include="Structures\Classes\Skills.cs" />
     <Compile Include="Structures\KnownValues.cs" />
+    <Compile Include="Structures\Races\ARace.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\CharacterSheet.axml" />

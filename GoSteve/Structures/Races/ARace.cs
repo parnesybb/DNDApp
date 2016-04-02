@@ -10,21 +10,9 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-namespace GoSteve
+namespace GoSteve.Structures.Races
 {
-    public class CharacterSheet
+    public abstract class ARace
     {
-        private string charName;
-
-
-        public CharacterSheet()
-        {
-
-        }
-
-        public CharacterSheet(string charName)
-        {
-
-        }
     }
 }
