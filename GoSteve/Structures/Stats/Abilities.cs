@@ -17,7 +17,7 @@ namespace GoSteve.Structures.Classes
         // Core abilities
         private int _strength;
         private int _dex;
-        private int _const;
+        private int _con;
         private int _intel;
         private int _wisdom;
         private int _charisma;
@@ -52,17 +52,143 @@ namespace GoSteve.Structures.Classes
             this.InitToDefaults();
         }
 
-        public Abilities(KnownValues.ClassType type, KnownValues.SkillType[] skills)
+        public void SetClassType(KnownValues.ClassType type)
         {
-            this._savingThrows = new SavingThrows(type);
-            this._skills = new Skills();
-            
+            this._savingThrows.IsStrProf = false;
+            this._savingThrows.IsDexProf = false;
+            this._savingThrows.IsConProf = false;
+            this._savingThrows.IsIntlProf = false;
+            this._savingThrows.IsWisProf = false;
+            this._savingThrows.IsChrmProf = false;
+
+            switch (type)
+            {
+                case KnownValues.ClassType.BARBARIAN:
+                    this._savingThrows.IsStrProf = true;
+                    this._savingThrows.IsConProf = true;
+                    break;
+                case KnownValues.ClassType.BARD:
+                    this._savingThrows.IsDexProf = true;
+                    this._savingThrows.IsChrmProf = true;
+                    break;
+                case KnownValues.ClassType.CLERIC:
+                    this._savingThrows.IsWisProf = true;
+                    this._savingThrows.IsChrmProf = true;
+                    break;
+                case KnownValues.ClassType.DRUID:
+                    this._savingThrows.IsIntlProf = true;
+                    this._savingThrows.IsWisProf = true;
+                    break;
+                case KnownValues.ClassType.FIGHTER:
+                    this._savingThrows.IsStrProf = true;
+                    this._savingThrows.IsConProf = true;
+                    break;
+                case KnownValues.ClassType.MONK:
+                    this._savingThrows.IsStrProf = true;
+                    this._savingThrows.IsDexProf = true;
+                    break;
+                case KnownValues.ClassType.PALADIN:
+                    this._savingThrows.IsWisProf = true;
+                    this._savingThrows.IsChrmProf = true;
+                    break;
+                case KnownValues.ClassType.RANGER:
+                    this._savingThrows.IsStrProf = true;
+                    this._savingThrows.IsDexProf = true;
+                    break;
+                case KnownValues.ClassType.ROGUE:
+                    this._savingThrows.IsDexProf = true;
+                    this._savingThrows.IsIntlProf = true;
+                    break;
+                case KnownValues.ClassType.SORCERER:
+                    this._savingThrows.IsConProf = true;
+                    this._savingThrows.IsChrmProf = true;
+                    break;
+                case KnownValues.ClassType.WARLOCK:
+                    this._savingThrows.IsWisProf = true;
+                    this._savingThrows.IsChrmProf = true;
+                    break;
+                case KnownValues.ClassType.WIZARD:
+                    this._savingThrows.IsIntlProf = true;
+                    this._savingThrows.IsWisProf = true;
+                    break;
+                default:
+                    break;
+            }
+
+            this.ProfciencyUpdate();
+        }
+
+        public void SetSkills(KnownValues.SkillType[] skills)
+        {
             foreach (var skill in skills)
             {
                 this._skills.SetProficient = skill;
             }
 
-            this.InitToDefaults();
+            this.ProfciencyUpdate();
+        }
+
+        public void SetBackground(KnownValues.Background bg)
+        {
+            switch (bg)
+            {
+                case KnownValues.Background.ACOLYTE:
+                    this._skills.SetProficient = KnownValues.SkillType.Insight;
+                    this._skills.SetProficient = KnownValues.SkillType.Religion;
+                    break;
+                case KnownValues.Background.CHARLATAN:
+                    this._skills.SetProficient = KnownValues.SkillType.Deception;
+                    this._skills.SetProficient = KnownValues.SkillType.Sleight_Of_Hand;
+                    break;
+                case KnownValues.Background.CRIMINAL:
+                    this._skills.SetProficient = KnownValues.SkillType.Deception;
+                    this._skills.SetProficient = KnownValues.SkillType.Stealth;
+                    break;
+                case KnownValues.Background.ENTERTAINER:
+                    this._skills.SetProficient = KnownValues.SkillType.Acrobatics;
+                    this._skills.SetProficient = KnownValues.SkillType.Performance;
+                    break;
+                case KnownValues.Background.FOLK_HERO:
+                    this._skills.SetProficient = KnownValues.SkillType.Animal_Handling;
+                    this._skills.SetProficient = KnownValues.SkillType.Survival;
+                    break;
+                case KnownValues.Background.GUILD_ARTISAN:
+                    this._skills.SetProficient = KnownValues.SkillType.Insight;
+                    this._skills.SetProficient = KnownValues.SkillType.Persuasion;
+                    break;
+                case KnownValues.Background.HERMIT:
+                    this._skills.SetProficient = KnownValues.SkillType.Medicine;
+                    this._skills.SetProficient = KnownValues.SkillType.Religion;
+                    break;
+                case KnownValues.Background.NOBLE:
+                    this._skills.SetProficient = KnownValues.SkillType.History;
+                    this._skills.SetProficient = KnownValues.SkillType.Persuasion;
+                    break;
+                case KnownValues.Background.OUTLANDER:
+                    this._skills.SetProficient = KnownValues.SkillType.Athletics;
+                    this._skills.SetProficient = KnownValues.SkillType.Survival;
+                    break;
+                case KnownValues.Background.SAGE:
+                    this._skills.SetProficient = KnownValues.SkillType.Arcana;
+                    this._skills.SetProficient = KnownValues.SkillType.History;
+                    break;
+                case KnownValues.Background.SAILOR:
+                    this._skills.SetProficient = KnownValues.SkillType.Athletics;
+                    this._skills.SetProficient = KnownValues.SkillType.Perception;
+                    break;
+                case KnownValues.Background.SOLDIER:
+                    this._skills.SetProficient = KnownValues.SkillType.Athletics;
+                    this._skills.SetProficient = KnownValues.SkillType.Intimidation;
+                    break;
+                case KnownValues.Background.URCHIN:
+                    this._skills.SetProficient = KnownValues.SkillType.Sleight_Of_Hand;
+                    this._skills.SetProficient = KnownValues.SkillType.Stealth;
+                    break;
+                default:
+                    break;
+            }
+
+            this.ProfciencyUpdate();
         }
 
         public int Strength
@@ -98,12 +224,12 @@ namespace GoSteve.Structures.Classes
         {
             get
             {
-                return _const;
+                return _con;
             }
 
             set
             {
-                _const = value;
+                _con = value;
                 this.ConstMod = this._abilityToModifier[this.Const];
             }
         }
@@ -172,7 +298,7 @@ namespace GoSteve.Structures.Classes
 
                 if (this._skills.IsAthletics)
                 {
-                    this._skills.Athletics = this.StrengthMod = this.Proficiency;
+                    this._skills.Athletics = this.StrengthMod + this.Proficiency;
                 }
                 else
                 {
@@ -596,6 +722,16 @@ namespace GoSteve.Structures.Classes
             {
                 return this._skills.Survival;
             }
+        }
+
+        private void ProfciencyUpdate()
+        {
+            this.Strength = this.Strength;
+            this.Dex = this.Dex;
+            this.Const = this.Const;
+            this.Intel = this.Intel;
+            this.Wisdom = this.Wisdom;
+            this.Charisma = this.Charisma;
         }
 
         private void InitToDefaults()

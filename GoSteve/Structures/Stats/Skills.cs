@@ -2,6 +2,7 @@ namespace GoSteve.Structures.Classes
 {
     public class Skills
     {
+
         private int _acrobatics;
         private int _anmlHdl;
         private int _arcana;
