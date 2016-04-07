@@ -9,6 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using GoSteve.Structures.Races;
 
 namespace GoSteve.Structures.Classes
 {
@@ -52,7 +53,101 @@ namespace GoSteve.Structures.Classes
             this.InitToDefaults();
         }
 
-        public void SetClassType(KnownValues.ClassType type)
+        public void SetRace(ARace r)
+        {
+            switch (r.Race)
+            {
+                case KnownValues.Race.DWARF:
+                    this.Con += 2;
+
+                    if (r.SubRace == KnownValues.SubRace.MOUNTAIN_DWARF)
+                    {
+                        this.Strength += 2;
+                    }
+                    else if (r.SubRace == KnownValues.SubRace.HILL_DWARF)
+                    {
+                        this.Wisdom += 1;
+                    }
+                    break;
+
+                case KnownValues.Race.ELF:
+                    this.Dex += 2;
+                    this._skills.SetProficient = KnownValues.SkillType.Perception;
+
+                    if (r.SubRace == KnownValues.SubRace.HIGH_ELF)
+                    {
+                        this.Intel += 1;
+                    }
+                    else if (r.SubRace == KnownValues.SubRace.WOOD_ELF)
+                    {
+                        this.Wisdom += 1;
+                    }
+                    else if (r.SubRace == KnownValues.SubRace.DARK_ELF)
+                    {
+                        this.Charisma += 1;
+                    }
+                    break;
+
+                case KnownValues.Race.HALFLING:
+                    this.Dex += 2;
+
+                    if (r.SubRace == KnownValues.SubRace.LIGHTFOOT_HALFLING)
+                    {
+                        this.Charisma += 1;
+                    }
+                    else if (r.SubRace == KnownValues.SubRace.STOUT_HALFLING)
+                    {
+                        this.Con += 1;
+                    }
+                    break;
+
+                case KnownValues.Race.HUMAN:
+                    this.Strength += 1;
+                    this.Dex += 1;
+                    this.Con += 1;
+                    this.Intel += 1;
+                    this.Wisdom += 1;
+                    this.Charisma += 1;
+                    break;
+
+                case KnownValues.Race.DRAGONBORN:
+                    this.Strength += 2;
+                    this.Charisma += 1;
+                    break;
+
+                case KnownValues.Race.GNOME:
+                    this.Intel += 2;
+
+                    if (r.SubRace == KnownValues.SubRace.FOREST_GNOME)
+                    {
+                        this.Dex += 1;
+                    }
+                    else if (r.SubRace == KnownValues.SubRace.ROCK_GNOME)
+                    {
+                        this.Con += 1;
+                    }
+                    break;
+
+                case KnownValues.Race.HALF_ELF:
+                    this.Charisma += 2;
+                    break;
+
+                case KnownValues.Race.HALF_ORC:
+                    this.Strength += 2;
+                    this.Con += 1;
+                    break;
+
+                case KnownValues.Race.TIEFLING:
+                    this.Intel += 1;
+                    this.Charisma += 2;
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        public void SetClass(KnownValues.ClassType c)
         {
             this._savingThrows.IsStrProf = false;
             this._savingThrows.IsDexProf = false;
@@ -61,7 +156,7 @@ namespace GoSteve.Structures.Classes
             this._savingThrows.IsWisProf = false;
             this._savingThrows.IsChrmProf = false;
 
-            switch (type)
+            switch (c)
             {
                 case KnownValues.ClassType.BARBARIAN:
                     this._savingThrows.IsStrProf = true;
@@ -220,7 +315,7 @@ namespace GoSteve.Structures.Classes
             }
         }
 
-        public int Const
+        public int Con
         {
             get
             {
@@ -230,7 +325,7 @@ namespace GoSteve.Structures.Classes
             set
             {
                 _con = value;
-                this.ConstMod = this._abilityToModifier[this.Const];
+                this.ConstMod = this._abilityToModifier[this.Con];
             }
         }
 
@@ -728,7 +823,7 @@ namespace GoSteve.Structures.Classes
         {
             this.Strength = this.Strength;
             this.Dex = this.Dex;
-            this.Const = this.Const;
+            this.Con = this.Con;
             this.Intel = this.Intel;
             this.Wisdom = this.Wisdom;
             this.Charisma = this.Charisma;
@@ -759,7 +854,7 @@ namespace GoSteve.Structures.Classes
             this.Proficiency = Abilities.LEVEL_ONE_PROF;
             this.Strength = Abilities.STARTING_SCORE;
             this.Dex = Abilities.STARTING_SCORE;
-            this.Const = Abilities.STARTING_SCORE;
+            this.Con = Abilities.STARTING_SCORE;
             this.Intel = Abilities.STARTING_SCORE;
             this.Wisdom = Abilities.STARTING_SCORE;
             this.Charisma = Abilities.STARTING_SCORE;      

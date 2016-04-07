@@ -14,5 +14,22 @@ namespace GoSteve.Structures.Races
 {
     public abstract class ARace
     {
+        protected KnownValues.Race _race;
+        protected KnownValues.SubRace _subRace;
+
+        public ARace()
+        {
+            this._subRace = KnownValues.SubRace.NONE;
+        }
+
+        public abstract KnownValues.Race Race
+        {
+            get;
+        }
+
+        public abstract KnownValues.SubRace SubRace
+        {
+            get; set;
+        }
     }
 }

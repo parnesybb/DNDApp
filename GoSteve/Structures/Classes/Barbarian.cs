@@ -10,13 +10,15 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-namespace GoSteve.Structures.Races
+namespace GoSteve.Structures.Classes
 {
-    class Dragonborn : ARace
+    class Barbarian : AClass
     {
-        public Dragonborn()
+        
+        public Barbarian(KnownValues.SkillType[] skills)
         {
-            this._race = KnownValues.Race.DRAGONBORN;
+            this._classType = KnownValues.ClassType.BARBARIAN;
+            this._skillProf = skills;
         }
     }
 }

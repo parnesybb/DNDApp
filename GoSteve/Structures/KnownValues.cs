@@ -27,6 +27,33 @@ namespace GoSteve
             public const string TIEFLING = "Tiefling";
         }
 
+        public enum Race
+        {
+            DWARF,
+            ELF,
+            HALFLING,
+            HUMAN,
+            DRAGONBORN,
+            GNOME,
+            HALF_ELF,
+            HALF_ORC,
+            TIEFLING
+        }
+
+        public enum SubRace
+        {
+            NONE,
+            HILL_DWARF,
+            MOUNTAIN_DWARF,
+            HIGH_ELF,
+            WOOD_ELF,
+            DARK_ELF,
+            LIGHTFOOT_HALFLING,
+            STOUT_HALFLING,
+            FOREST_GNOME,
+            ROCK_GNOME
+        }
+
         public enum Background
         {
             ACOLYTE,

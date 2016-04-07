@@ -18,6 +18,11 @@ namespace GoSteve.Structures.Classes
         protected Abilities _abilities;
         protected KnownValues.SkillType[] _skillProf;
 
+        public AClass()
+        {
+            this._abilities = new Abilities();
+        }
+
         public KnownValues.ClassType Type
         {
             get
