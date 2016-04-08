@@ -16,20 +16,53 @@ namespace GoSteve.Structures.Races
     {
         protected KnownValues.Race _race;
         protected KnownValues.SubRace _subRace;
+        protected int _speed;
+        protected List<string> _profsAndlanguages;
+        protected List<string> _featuresTraits;
 
         public ARace()
         {
             this._subRace = KnownValues.SubRace.NONE;
-        }
-
-        public abstract KnownValues.Race Race
-        {
-            get;
+            this._profsAndlanguages = new List<string>();
+            this._featuresTraits = new List<string>();
+            this._speed = 0;
         }
 
         public abstract KnownValues.SubRace SubRace
         {
             get; set;
+        }
+
+        public string[] ProficienciesLanguages
+        {
+            get
+            {
+                return this._profsAndlanguages.ToArray();
+            }
+        }
+
+        public string[] FeaturesTraits
+        {
+            get
+            {
+                return this._featuresTraits.ToArray();
+            }
+        }
+
+        public KnownValues.Race Race
+        {
+            get
+            {
+                return this._race;
+            }
+        }
+
+        public int Speed
+        {
+            get
+            {
+                return this._speed;
+            }
         }
     }
 }

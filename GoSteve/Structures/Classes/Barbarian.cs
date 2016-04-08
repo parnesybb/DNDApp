@@ -15,10 +15,9 @@ namespace GoSteve.Structures.Classes
     class Barbarian : AClass
     {
         
-        public Barbarian(KnownValues.SkillType[] skills)
+        public Barbarian()
         {
             this._classType = KnownValues.ClassType.BARBARIAN;
-            this._skillProf = skills;
         }
     }
 }

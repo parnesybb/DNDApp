@@ -15,12 +15,17 @@ namespace GoSteve.Structures.Classes
     public abstract class AClass
     {
         protected KnownValues.ClassType _classType;
-        protected Abilities _abilities;
-        protected KnownValues.SkillType[] _skillProf;
+        protected List<string> _profs;
+        protected List<string> _equip;
+        protected List<string> _traits;
+        protected HitDice _hitDice;
 
         public AClass()
         {
-            this._abilities = new Abilities();
+            this._profs = new List<string>();
+            this._equip = new List<string>();
+            this._traits = new List<string>();
+            this._hitDice = new HitDice();
         }
 
         public KnownValues.ClassType Type
@@ -31,11 +36,35 @@ namespace GoSteve.Structures.Classes
             }
         }
 
-        public KnownValues.SkillType[] Skills
+        public string[] Proficiencies
         {
             get
             {
-                return this._skillProf;
+                return this._profs.ToArray();
+            }
+        }
+
+        public string[] Equipment
+        {
+            get
+            {
+                return this._equip.ToArray();
+            }
+        }
+
+        public string[] Traits
+        {
+            get
+            {
+                return this._traits.ToArray();
+            }
+        }
+
+        public HitDice HitDice
+        {
+            get
+            {
+                return this._hitDice;
             }
         }
     }   

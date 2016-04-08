@@ -33,9 +33,9 @@ namespace GoSteve
         private List<string> _othrProfsLangs;
         private int _armorClass;
         private int _initiative;
-        private int _speed;
+        //private int _speed;
         private HitPoints _hitPoints;
-        private HitDice _hitDice;
+        //private HitDice _hitDice;
         private List<Spell> _spells;
         private List<Weapon> _weapons;
         private List<string> _equipment;
@@ -46,10 +46,8 @@ namespace GoSteve
         private string _flaws;
         private List<String> _featuresTraits;
        
-
         public CharacterSheet()
         {
-
         }
 
         public CharacterSheet(string charName)
