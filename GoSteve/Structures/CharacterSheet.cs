@@ -46,6 +46,20 @@ namespace GoSteve
 
         public CharacterSheet()
         {
+            this._charName = String.Empty;
+            this._level = 0;
+            this._alignment = String.Empty;
+            this._playerName = String.Empty;
+            this._xp = 0;
+            this._hasInspiration = false;
+            this._passiveWisdom = 0;
+            this._armorClass = 0;
+            this._initiative = 0;
+            this._personalityTraits = String.Empty;
+            this._ideals = String.Empty;
+            this._bonds = String.Empty;
+            this._flaws = String.Empty;
+
             this._abilities = new Abilities();
             this._othrProfsLangs = new List<string>();
             this._hitPoints = new HitPoints();
@@ -59,7 +73,7 @@ namespace GoSteve
         /// <summary>
         /// The Name of the character.
         /// </summary>
-        public string CharName
+        public string CharacterName
         {
             get
             {
