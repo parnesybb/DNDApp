@@ -18,5 +18,18 @@ namespace GoSteve.Structures.Races
         {
             this._race = KnownValues.Race.DRAGONBORN;
         }
+
+        public override KnownValues.SubRace SubRace
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
     }
 }

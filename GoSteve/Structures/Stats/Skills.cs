@@ -41,6 +41,8 @@ namespace GoSteve.Structures.Classes
         private bool _isStealth;
         private bool _isSurvival;
 
+        private int _numDupProfs;
+
         public Skills()
         {
             this.Acrobatics = 0;
@@ -80,6 +82,16 @@ namespace GoSteve.Structures.Classes
             this.IsSlghtHnd = false;
             this.IsStealth = false;
             this.IsSurvival = false;
+
+            this._numDupProfs = 0;
+        }
+
+        public int NumberOfDuplicateProfs
+        {
+            get
+            {
+                return this._numDupProfs;
+            }
         }
 
         public KnownValues.SkillType SetProficient
@@ -391,6 +403,9 @@ namespace GoSteve.Structures.Classes
 
             set
             {
+                if (value == true && _isAcrobatics == true)
+                    this._numDupProfs++;
+
                 _isAcrobatics = value;
             }
         }
@@ -404,6 +419,9 @@ namespace GoSteve.Structures.Classes
 
             set
             {
+                if (value == true && _isAnmlHdl == true)
+                    this._numDupProfs++;
+
                 _isAnmlHdl = value;
             }
         }
@@ -417,6 +435,9 @@ namespace GoSteve.Structures.Classes
 
             set
             {
+                if (value == true && _isArcana == true)
+                    this._numDupProfs++;
+
                 _isArcana = value;
             }
         }
@@ -430,6 +451,9 @@ namespace GoSteve.Structures.Classes
 
             set
             {
+                if (value == true && _isAthletics == true)
+                    this._numDupProfs++;
+
                 _isAthletics = value;
             }
         }
@@ -443,6 +467,9 @@ namespace GoSteve.Structures.Classes
 
             set
             {
+                if (value == true && _isDeception == true)
+                    this._numDupProfs++;
+
                 _isDeception = value;
             }
         }
@@ -456,6 +483,9 @@ namespace GoSteve.Structures.Classes
 
             set
             {
+                if (value == true && _isHistory == true)
+                    this._numDupProfs++;
+
                 _isHistory = value;
             }
         }
@@ -469,6 +499,9 @@ namespace GoSteve.Structures.Classes
 
             set
             {
+                if (value == true && _isInsight == true)
+                    this._numDupProfs++;
+
                 _isInsight = value;
             }
         }
@@ -482,6 +515,9 @@ namespace GoSteve.Structures.Classes
 
             set
             {
+                if (value == true && _isIntimidation == true)
+                    this._numDupProfs++;
+
                 _isIntimidation = value;
             }
         }
@@ -495,6 +531,9 @@ namespace GoSteve.Structures.Classes
 
             set
             {
+                if (value == true && _isInvestigation == true)
+                    this._numDupProfs++;
+
                 _isInvestigation = value;
             }
         }
@@ -508,6 +547,9 @@ namespace GoSteve.Structures.Classes
 
             set
             {
+                if (value == true && _isMedicine == true)
+                    this._numDupProfs++;
+
                 _isMedicine = value;
             }
         }
@@ -521,6 +563,9 @@ namespace GoSteve.Structures.Classes
 
             set
             {
+                if (value == true && _isNature == true)
+                    this._numDupProfs++;
+
                 _isNature = value;
             }
         }
@@ -534,6 +579,9 @@ namespace GoSteve.Structures.Classes
 
             set
             {
+                if (value == true && _isPerception == true)
+                    this._numDupProfs++;
+
                 _isPerception = value;
             }
         }
@@ -547,6 +595,9 @@ namespace GoSteve.Structures.Classes
 
             set
             {
+                if (value == true && _isPerformance == true)
+                    this._numDupProfs++;
+
                 _isPerformance = value;
             }
         }
@@ -560,6 +611,9 @@ namespace GoSteve.Structures.Classes
 
             set
             {
+                if (value == true && _isPersuasion == true)
+                    this._numDupProfs++;
+
                 _isPersuasion = value;
             }
         }
@@ -573,6 +627,9 @@ namespace GoSteve.Structures.Classes
 
             set
             {
+                if (value == true && _isReligion == true)
+                    this._numDupProfs++;
+
                 _isReligion = value;
             }
         }
@@ -586,6 +643,9 @@ namespace GoSteve.Structures.Classes
 
             set
             {
+                if (value == true && _isSlghtHnd == true)
+                    this._numDupProfs++;
+
                 _isSlghtHnd = value;
             }
         }
@@ -599,6 +659,9 @@ namespace GoSteve.Structures.Classes
 
             set
             {
+                if (value == true && _isStealth == true)
+                    this._numDupProfs++;
+
                 _isStealth = value;
             }
         }
@@ -612,6 +675,9 @@ namespace GoSteve.Structures.Classes
 
             set
             {
+                if (value == true && _isSurvival == true)
+                    this._numDupProfs++;
+
                 _isSurvival = value;
             }
         }

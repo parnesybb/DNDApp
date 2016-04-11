@@ -14,5 +14,17 @@ namespace GoSteve.Structures.Races
 {
     class Halfling : ARace
     {
+        public override KnownValues.SubRace SubRace
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
     }
 }
