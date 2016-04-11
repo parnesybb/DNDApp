@@ -58,6 +58,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Network\AndroidNDSServer.cs" />
+    <Compile Include="Network\DMServer.cs" />
+    <Compile Include="Network\NDSServiceInfo.cs" />
+    <Compile Include="Network\NetworkServer.cs" />
+    <Compile Include="Network\AndroidWifiP2PNDS.cs" />
+    <Compile Include="Network\TestNetwork.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Screens\CharacterSheetScreen.cs" />
