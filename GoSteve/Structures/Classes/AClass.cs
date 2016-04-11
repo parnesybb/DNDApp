@@ -12,59 +12,62 @@ using Android.Widget;
 
 namespace GoSteve.Structures.Classes
 {
+    [Serializable]
     public abstract class AClass
     {
         protected KnownValues.ClassType _classType;
-        protected List<string> _profs;
-        protected List<string> _equip;
-        protected List<string> _traits;
         protected HitDice _hitDice;
 
         public AClass()
         {
-            this._profs = new List<string>();
-            this._equip = new List<string>();
-            this._traits = new List<string>();
             this._hitDice = new HitDice();
         }
 
+        /// <summary>
+        /// The type of class.
+        /// </summary>
         public KnownValues.ClassType Type
         {
             get
             {
                 return this._classType;
             }
-        }
-
-        public string[] Proficiencies
-        {
-            get
+            set
             {
-                return this._profs.ToArray();
+                this._classType = value;
             }
         }
 
-        public string[] Equipment
-        {
-            get
-            {
-                return this._equip.ToArray();
-            }
-        }
+        /// <summary>
+        /// Gets the classes proficiencies.
+        /// </summary>
+        /// <returns>Array of proficiences.</returns>
+        public abstract string[] GetProficiencies();
 
-        public string[] Traits
-        {
-            get
-            {
-                return this._traits.ToArray();
-            }
-        }
+        /// <summary>
+        /// Gets the classes equipment.
+        /// </summary>
+        /// <returns>Array of equipment.</returns>
+        public abstract string[] GetEquipment();
 
+        /// <summary>
+        /// Gets the classes traits.
+        /// </summary>
+        /// <returns>Array of traits.</returns>
+        public abstract string[] GetTraits();
+
+        /// <summary>
+        /// Gets the classes default hit dice.
+        /// </summary>
         public HitDice HitDice
         {
             get
             {
                 return this._hitDice;
+            }
+            set
+            {
+                this._hitDice = value;
             }
         }
     }   

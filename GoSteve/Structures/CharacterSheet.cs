@@ -17,6 +17,7 @@ using GoSteve.Structures;
 
 namespace GoSteve
 {
+    [Serializable]
     public class CharacterSheet
     {
         private string _charName;
@@ -24,7 +25,7 @@ namespace GoSteve
         private int _level;
         private ARace _race;
         private KnownValues.Background _background;
-        private string _alignment;     
+        private string _alignment;
         private string _playerName;
         private int _xp;
         private bool _hasInspiration;
@@ -40,7 +41,7 @@ namespace GoSteve
         private Currency _currency;
         private string _personalityTraits;
         private string _ideals;
-        private string _bonds;
+        private string _bonds; 
         private string _flaws;
         private List<String> _featuresTraits;
 
@@ -141,9 +142,9 @@ namespace GoSteve
             // Add class values to lists.
             if (isAddDefaults)
             {
-                this._featuresTraits.AddRange(this._class.Traits);
-                this._equipment.AddRange(this._class.Equipment);
-                this._othrProfsLangs.AddRange(this._class.Proficiencies);
+                this._featuresTraits.AddRange(this._class.GetTraits());
+                this._equipment.AddRange(this._class.GetEquipment());
+                this._othrProfsLangs.AddRange(this._class.GetProficiencies());
             }         
         }
 
@@ -231,8 +232,8 @@ namespace GoSteve
             if (isAddDefaults)
             {
                 // Add race values to lists.
-                this._featuresTraits.AddRange(this._race.FeaturesTraits);
-                this._othrProfsLangs.AddRange(this._race.ProficienciesLanguages);
+                this._featuresTraits.AddRange(this._race.GetFeaturesTraits());
+                this._othrProfsLangs.AddRange(this._race.GetProficienciesLanguages());
             }
         }
 

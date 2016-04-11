@@ -26,5 +26,15 @@ namespace GoSteve.Structures.Races
                 throw new NotImplementedException();
             }
         }
+
+        public override string[] GetFeaturesTraits()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string[] GetProficienciesLanguages()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

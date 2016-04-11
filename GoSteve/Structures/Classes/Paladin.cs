@@ -12,6 +12,7 @@ using Android.Widget;
 
 namespace GoSteve.Structures.Classes
 {
+    [Serializable]
     public class Paladin : AClass
     {
         public Paladin()
@@ -20,15 +21,38 @@ namespace GoSteve.Structures.Classes
             this._hitDice.TotalAmount = 1;
             this._hitDice.AvailableAmount = 1;
             this._hitDice.NumberOfSides = 10;
+        }
 
-            this._traits.Add("Divine Sense");
-            this._traits.Add("Lay on Hands");
-            this._profs.Add("All Armor");
-            this._profs.Add("Shields");
-            this._profs.Add("Simple Weapons");
-            this._profs.Add("Martial Weapons");
-            this._equip.Add("Chain Mail");
-            this._equip.Add("Holy Symbol");
+        public override string[] GetEquipment()
+        {
+            var ret = new List<string>();
+
+            ret.Add("Chain Mail");
+            ret.Add("Holy Symbol");
+
+            return ret.ToArray();
+        }
+
+        public override string[] GetProficiencies()
+        {
+            var ret = new List<string>();
+
+            ret.Add("All Armor");
+            ret.Add("Shields");
+            ret.Add("Simple Weapons");
+            ret.Add("Martial Weapons");
+
+            return ret.ToArray();
+        }
+
+        public override string[] GetTraits()
+        {
+            var ret = new List<string>();
+
+            ret.Add("Divine Sense");
+            ret.Add("Lay on Hands");
+
+            return ret.ToArray();
         }
     }
 }

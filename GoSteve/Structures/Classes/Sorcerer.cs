@@ -14,5 +14,19 @@ namespace GoSteve.Structures.Classes
 {
     class Sorcerer : AClass
     {
+        public override string[] GetEquipment()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string[] GetProficiencies()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string[] GetTraits()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
