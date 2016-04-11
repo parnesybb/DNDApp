@@ -12,6 +12,7 @@ using Android.Widget;
 
 namespace GoSteve.Structures.Classes
 {
+    [Serializable]
     public class SavingThrows
     {
         private int _str;

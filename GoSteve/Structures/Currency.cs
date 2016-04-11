@@ -12,6 +12,7 @@ using Android.Widget;
 
 namespace GoSteve.Structures
 {
+    [Serializable]
     public class Currency
     {
         public enum CurrencyType

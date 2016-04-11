@@ -12,12 +12,28 @@ using Android.Widget;
 
 namespace GoSteve.Structures.Classes
 {
+    [Serializable]
     class Barbarian : AClass
     {
         
         public Barbarian()
         {
             this._classType = KnownValues.ClassType.BARBARIAN;
+        }
+
+        public override string[] GetEquipment()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string[] GetProficiencies()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string[] GetTraits()
+        {
+            throw new NotImplementedException();
         }
     }
 }

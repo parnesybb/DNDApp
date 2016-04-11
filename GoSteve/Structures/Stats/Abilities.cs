@@ -10,9 +10,13 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using GoSteve.Structures.Races;
+using System.Xml.Serialization;
+using System.Xml;
+using System.Xml.Schema;
 
 namespace GoSteve.Structures.Classes
 {
+    [Serializable]
     public class Abilities
     {
         // Core abilities

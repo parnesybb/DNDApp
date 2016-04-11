@@ -1,5 +1,8 @@
+using System;
+
 namespace GoSteve.Structures.Classes
 {
+    [Serializable]
     public class Skills
     {
 
