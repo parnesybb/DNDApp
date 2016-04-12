@@ -145,6 +145,8 @@ namespace GoSteve
                 this._featuresTraits.AddRange(this._class.GetTraits());
                 this._equipment.AddRange(this._class.GetEquipment());
                 this._othrProfsLangs.AddRange(this._class.GetProficiencies());
+                this._hitPoints.Max = this._class.GetLevelOneHitPoints(this._abilities.ConstMod);
+                this._hitPoints.Current = this._hitPoints.Max;
             }         
         }
 
