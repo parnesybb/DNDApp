@@ -54,10 +54,6 @@ namespace GoSteve.Structures.Races
             {
                 return this._race;
             }
-            set
-            {
-                this._race = value;
-            }
         }
 
         /// <summary>

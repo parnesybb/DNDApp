@@ -18,6 +18,7 @@ namespace GoSteve.Structures.Races
         public Dwarf()
         {
             this._race = KnownValues.Race.DWARF;
+            this._subRace = KnownValues.SubRace.NONE;
             this._speed = 25;
         }
 

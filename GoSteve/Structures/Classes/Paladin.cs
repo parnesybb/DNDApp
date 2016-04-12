@@ -18,9 +18,9 @@ namespace GoSteve.Structures.Classes
         public Paladin()
         {
             this._classType = KnownValues.ClassType.PALADIN;
-            this._hitDice.TotalAmount = 1;
-            this._hitDice.AvailableAmount = 1;
-            this._hitDice.NumberOfSides = 10;
+            this.HitDice.TotalAmount = 1;
+            this.HitDice.AvailableAmount = 1;
+            this.HitDice.NumberOfSides = 10;
         }
 
         public override string[] GetEquipment()
@@ -29,8 +29,16 @@ namespace GoSteve.Structures.Classes
 
             ret.Add("Chain Mail");
             ret.Add("Holy Symbol");
+            ret.Add("(a)a martial weapon and a shield OR (b)two martial weapons");
+            ret.Add("(a) five javelins OR (b)any simple melee weapon");
+            ret.Add("(a) a priest's pack OR (b)an explorer's pack");
 
             return ret.ToArray();
+        }
+
+        public override int GetLevelOneHitPoints(int modifier)
+        {
+            return 10 + modifier;
         }
 
         public override string[] GetProficiencies()

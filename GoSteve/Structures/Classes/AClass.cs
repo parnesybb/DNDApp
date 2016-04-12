@@ -32,10 +32,6 @@ namespace GoSteve.Structures.Classes
             {
                 return this._classType;
             }
-            set
-            {
-                this._classType = value;
-            }
         }
 
         /// <summary>
@@ -57,6 +53,13 @@ namespace GoSteve.Structures.Classes
         public abstract string[] GetTraits();
 
         /// <summary>
+        /// Gets the number of hit points for this class at level 1.
+        /// </summary>
+        /// <param name="modifier">A modifier value. 0 if no modifer.</param>
+        /// <returns></returns>
+        public abstract int GetLevelOneHitPoints(int modifier);
+
+        /// <summary>
         /// Gets the classes default hit dice.
         /// </summary>
         public HitDice HitDice
@@ -65,7 +68,7 @@ namespace GoSteve.Structures.Classes
             {
                 return this._hitDice;
             }
-            set
+            protected set
             {
                 this._hitDice = value;
             }
