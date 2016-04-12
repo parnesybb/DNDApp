@@ -5,6 +5,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace GoSteve
 {
@@ -25,15 +26,28 @@ namespace GoSteve
             Button subRaceSelectButton = FindViewById<Button>(Resource.Id.subRace);
             Button alignmentSelectButton = FindViewById<Button>(Resource.Id.alignment);
 
+            // orig character sheet.
             var charsheet = new CharacterSheet();
             charsheet.SetClass(KnownValues.ClassType.PALADIN, true);
             charsheet.SetRace(KnownValues.Race.DWARF, true);
             charsheet.Background = KnownValues.Background.SAGE;
 
-            classSelectButton.Text = charsheet.ClassInstance.Type.ToString();
-            backgroundSelectButton.Text = charsheet.Background.ToString();
-            raceSelectButton.Text = charsheet.RaceInstance.Race.ToString();
-            subRaceSelectButton.Text = charsheet.RaceInstance.SubRace.ToString();
+            // serialize to byte array.
+            var ms = new System.IO.MemoryStream();
+            var formatter = new BinaryFormatter();
+            formatter.Serialize(ms, charsheet);
+            var arr = ms.ToArray();
+            ms.Close();
+
+            // deserilize to new object.
+            ms = new System.IO.MemoryStream(arr);
+            var dcs = (CharacterSheet) formatter.Deserialize(ms);
+            ms.Close();
+
+            classSelectButton.Text = dcs.ClassInstance.Type.ToString();
+            backgroundSelectButton.Text = dcs.Background.ToString();
+            raceSelectButton.Text = dcs.RaceInstance.Race.ToString();
+            subRaceSelectButton.Text = dcs.RaceInstance.SubRace.ToString();
 
             // Class selection.
             classSelectButton.Click += (s, arg) => 
