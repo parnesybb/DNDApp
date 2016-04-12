@@ -25,6 +25,16 @@ namespace GoSteve
             Button subRaceSelectButton = FindViewById<Button>(Resource.Id.subRace);
             Button alignmentSelectButton = FindViewById<Button>(Resource.Id.alignment);
 
+            var charsheet = new CharacterSheet();
+            charsheet.SetClass(KnownValues.ClassType.PALADIN, true);
+            charsheet.SetRace(KnownValues.Race.DWARF, true);
+            charsheet.Background = KnownValues.Background.SAGE;
+
+            classSelectButton.Text = charsheet.ClassInstance.Type.ToString();
+            backgroundSelectButton.Text = charsheet.Background.ToString();
+            raceSelectButton.Text = charsheet.RaceInstance.Race.ToString();
+            subRaceSelectButton.Text = charsheet.RaceInstance.SubRace.ToString();
+
             // Class selection.
             classSelectButton.Click += (s, arg) => 
             {
@@ -77,19 +87,19 @@ namespace GoSteve
 
                 switch (raceSelectButton.Text)
                 {
-                    case KnownValues.Races.DWARF:
+                    case "DWARF":
                         m.Inflate(Resource.Xml.dwarfSub);
                         break;
 
-                    case KnownValues.Races.ELF:
+                    case "ELF":
                         m.Inflate(Resource.Xml.elfSub);
                         break;
 
-                    case KnownValues.Races.GNOME:
+                    case "GNOME":
                         m.Inflate(Resource.Xml.gnomeSub);
                         break;
 
-                    case KnownValues.Races.HALFLING:
+                    case "HALFLING":
                         m.Inflate(Resource.Xml.halflingSub);
                         break;
 

@@ -19,6 +19,11 @@ namespace GoSteve.Structures.Classes
             throw new NotImplementedException();
         }
 
+        public override int GetLevelOneHitPoints(int modifier)
+        {
+            throw new NotImplementedException();
+        }
+
         public override string[] GetProficiencies()
         {
             throw new NotImplementedException();
