@@ -15,6 +15,17 @@ namespace GoSteve.Structures.Races
     [Serializable]
     public class Human : ARace
     {
+        public Human()
+        {
+            this._race = KnownValues.Race.HUMAN;
+            this._subRace = KnownValues.SubRace.NONE;
+            this._speed = 30;
+            this._size = ARace.MEDIUM_SIZE;
+        }
+
+        /// <summary>
+        /// Not valid for the Human race.
+        /// </summary>
         public override KnownValues.SubRace SubRace
         {
             get
@@ -30,12 +41,14 @@ namespace GoSteve.Structures.Races
 
         public override string[] GetFeaturesTraits()
         {
-            throw new NotImplementedException();
+            return new List<string>().ToArray();
         }
 
         public override string[] GetProficienciesLanguages()
         {
-            throw new NotImplementedException();
+            var ret = new List<string>();
+            ret.Add("Common");
+            return ret.ToArray();
         }
     }
 }
