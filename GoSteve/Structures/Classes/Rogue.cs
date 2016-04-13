@@ -41,11 +41,6 @@ namespace GoSteve.Structures.Classes
             return 8 + modifier;
         }
 
-        public override int GetLevelOneHitPoints(int modifier)
-        {
-            throw new NotImplementedException();
-        }
-
         public override string[] GetProficiencies()
         {
             var ret = new List<string>();
