@@ -12,7 +12,8 @@ using Android.Widget;
 
 namespace GoSteve.Structures.Races
 {
-    class Halfling : ARace
+    [Serializable]
+    public class Halfling : ARace
     {
         public override KnownValues.SubRace SubRace
         {

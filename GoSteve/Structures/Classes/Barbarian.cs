@@ -13,7 +13,7 @@ using Android.Widget;
 namespace GoSteve.Structures.Classes
 {
     [Serializable]
-    class Barbarian : AClass
+    public class Barbarian : AClass
     {   
         public Barbarian()
         {

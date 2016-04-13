@@ -12,26 +12,54 @@ using Android.Widget;
 
 namespace GoSteve.Structures.Classes
 {
-    class Ranger : AClass
+    [Serializable]
+    public class Ranger : AClass
     {
+        public Ranger()
+        {
+            this.HitDice.TotalAmount = 1;
+            this.HitDice.AvailableAmount = 1;
+            this.HitDice.NumberOfSides = 10;
+        }
+
         public override string[] GetEquipment()
         {
-            throw new NotImplementedException();
+            var ret = new List<string>();
+
+            ret.Add("(a)scalemail or(b) leather armor");
+            ret.Add("(a)two shortswords or(b) two sim pie melee weapons");
+            ret.Add("(a) a dungeoneer's pack or (b) an explorer's pack");
+            ret.Add("A longbow and a quiver of 20 arrows");
+
+            return ret.ToArray();
         }
 
         public override int GetLevelOneHitPoints(int modifier)
         {
-            throw new NotImplementedException();
+            return 10 + modifier;
         }
 
         public override string[] GetProficiencies()
         {
-            throw new NotImplementedException();
+            var ret = new List<string>();
+
+            ret.Add("Light Armor");
+            ret.Add("Medium Armor");
+            ret.Add("Shields");
+            ret.Add("Simple Weapons");
+            ret.Add("Martial Weapons");
+
+            return ret.ToArray();
         }
 
         public override string[] GetTraits()
         {
-            throw new NotImplementedException();
+            var ret = new List<string>();
+
+            ret.Add("Favored Enemy");
+            ret.Add("Natural Explorer");
+
+            return ret.ToArray();
         }
     }
 }
