@@ -28,7 +28,7 @@ namespace GoSteve.Structures.Classes
 
             ret.Add("(a)a quarterstaff or (b)a dagger");
             ret.Add("(a) a eomponent poueh or(b) an areane foeus");
-            ret.Add("(a) a seholar's paek or (b) an explorer's paek"):
+            ret.Add("(a) a seholar's paek or (b) an explorer's paek");
             ret.Add("A spellbook");
 
             return ret.ToArray();
