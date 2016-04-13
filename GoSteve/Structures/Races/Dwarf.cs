@@ -20,7 +20,6 @@ namespace GoSteve.Structures.Races
             this._race = KnownValues.Race.DWARF;
             this._subRace = KnownValues.SubRace.NONE;
             this._speed = 25;
-            this._size = ARace.SMALL_SIZE;
         }
 
         public override KnownValues.SubRace SubRace

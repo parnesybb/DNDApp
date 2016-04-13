@@ -15,20 +15,14 @@ namespace GoSteve.Structures.Races
     [Serializable]
     public abstract class ARace
     {
-        public static readonly string SMALL_SIZE = "SMALL";
-        public static readonly string MEDIUM_SIZE = "MEDIUM";
-        public static readonly string LARGE_SIZE = "LARGE";
-
         protected KnownValues.Race _race;
         protected KnownValues.SubRace _subRace;
         protected int _speed;
-        protected string _size;
 
         public ARace()
         {
             this._subRace = KnownValues.SubRace.NONE;
             this._speed = 0;
-            this._size = ARace.MEDIUM_SIZE;
         }
 
         /// <summary>
@@ -74,17 +68,6 @@ namespace GoSteve.Structures.Races
             set
             {
                 this._speed = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets the races size.
-        /// </summary>
-        public string Size
-        {
-            get
-            {
-                return this._size;
             }
         }
     }

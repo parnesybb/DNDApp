@@ -139,8 +139,6 @@ namespace GoSteve.Structures.Classes
                 case KnownValues.Race.HALF_ORC:
                     this.Strength += 2;
                     this.Con += 1;
-                    this._skills.SetProficient = KnownValues.SkillType.Intimidation;
-
                     break;
 
                 case KnownValues.Race.TIEFLING:

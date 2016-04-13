@@ -15,85 +15,27 @@ namespace GoSteve.Structures.Races
     [Serializable]
     public class Elf : ARace
     {
-        public Elf()
-        {
-            this._race = KnownValues.Race.ELF;
-            this._subRace = KnownValues.SubRace.NONE;
-            this._speed = 30;
-            this._size = ARace.MEDIUM_SIZE;
-        }
-
         public override KnownValues.SubRace SubRace
         {
             get
             {
-                return this._subRace;
+                throw new NotImplementedException();
             }
 
             set
             {
-                if (value == KnownValues.SubRace.DARK_ELF || value == KnownValues.SubRace.HIGH_ELF || value == KnownValues.SubRace.WOOD_ELF)
-                {
-                    this._subRace = value;
-
-                }
-
-                if (value == KnownValues.SubRace.WOOD_ELF)
-                {
-                    this._speed = 35;
-                }
+                throw new NotImplementedException();
             }
         }
 
         public override string[] GetFeaturesTraits()
         {
-            var ret = new List<string>();
-
-            ret.Add("Fey Ancestry");
-            ret.Add("Trance");
-
-            if (this._subRace == KnownValues.SubRace.DARK_ELF)
-            {
-                ret.Add("Superior Dark Vision - 120ft");
-                ret.Add("Sunlight Sensitivity");
-                ret.Add("Drow Magic");
-            }
-            else if (this._subRace == KnownValues.SubRace.HIGH_ELF)
-            {
-                ret.Add("Dark Vision - 60ft");
-            }
-            else if (this._subRace == KnownValues.SubRace.WOOD_ELF)
-            {
-                ret.Add("Dark Vision - 60ft");
-                ret.Add("Mask of the Wild");
-            }
-
-            return ret.ToArray();
+            throw new NotImplementedException();
         }
 
         public override string[] GetProficienciesLanguages()
         {
-            var ret = new List<string>();
-
-            ret.Add("Common");
-            ret.Add("Elvish");
-
-            if (this._subRace == KnownValues.SubRace.DARK_ELF)
-            {
-                ret.Add("Drow Weapon Training");
-            }
-            else if (this._subRace == KnownValues.SubRace.HIGH_ELF)
-            {
-                ret.Add("Elf Weapon Training");
-                ret.Add("CHOOSE ONE WIZARD CANTRIP");
-                ret.Add("CHOOSE ONE EXTRA LANGUAGE");
-            }
-            else if (this._subRace == KnownValues.SubRace.WOOD_ELF)
-            {
-                ret.Add("Elf Weapon Training");
-            }
-
-            return ret.ToArray();
+            throw new NotImplementedException();
         }
     }
 }
