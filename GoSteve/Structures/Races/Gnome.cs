@@ -12,7 +12,8 @@ using Android.Widget;
 
 namespace GoSteve.Structures.Races
 {
-    class Gnome : ARace
+    [Serializable]
+    public class Gnome : ARace
     {
         public override KnownValues.SubRace SubRace
         {

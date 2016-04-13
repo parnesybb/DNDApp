@@ -88,6 +88,17 @@ namespace GoSteve
         }
 
         /// <summary>
+        /// The characters abilities, saving throws and skills.
+        /// </summary>
+        public Abilities AbilitiesAndStats
+        {
+            get
+            {
+                return this._abilities;
+            }
+        }
+
+        /// <summary>
         /// Sets the class for the sheet.
         /// </summary>
         /// <param name="value">The class type.</param>

@@ -12,7 +12,8 @@ using Android.Widget;
 
 namespace GoSteve.Structures.Races
 {
-    class Dragonborn : ARace
+    [Serializable]
+    public class Dragonborn : ARace
     {
         public Dragonborn()
         {

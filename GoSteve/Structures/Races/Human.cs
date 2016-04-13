@@ -12,7 +12,8 @@ using Android.Widget;
 
 namespace GoSteve.Structures.Races
 {
-    class Human : ARace
+    [Serializable]
+    public class Human : ARace
     {
         public override KnownValues.SubRace SubRace
         {

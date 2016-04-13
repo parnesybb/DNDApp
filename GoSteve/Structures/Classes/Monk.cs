@@ -12,26 +12,51 @@ using Android.Widget;
 
 namespace GoSteve.Structures.Classes
 {
-    class Monk : AClass
+    [Serializable]
+    public class Monk : AClass
     {
+        public Monk()
+        {
+            this.HitDice.TotalAmount = 1;
+            this.HitDice.AvailableAmount = 1;
+            this.HitDice.NumberOfSides = 8;
+        }
+
         public override string[] GetEquipment()
         {
-            throw new NotImplementedException();
+            var ret = new List<string>();
+
+            ret.Add("(a)a shortsword or (b)any simple weapon");
+            ret.Add("(a) a dungeoneer's pack or (b) an explorer's pack");
+            ret.Add("10 darts");
+
+            return ret.ToArray();
         }
 
         public override int GetLevelOneHitPoints(int modifier)
         {
-            throw new NotImplementedException();
+            return 8 + modifier;
         }
 
         public override string[] GetProficiencies()
         {
-            throw new NotImplementedException();
+            var ret = new List<string>();
+
+            ret.Add("Simple Weapons");
+            ret.Add("Shortswords");
+            ret.Add("1 artisan's tool or one musical instrument");
+
+            return ret.ToArray();
         }
 
         public override string[] GetTraits()
         {
-            throw new NotImplementedException();
+            var ret = new List<string>();
+
+            ret.Add("Unarmored Defense");
+            ret.Add("Martial Arts");
+
+            return ret.ToArray();
         }
     }
 }
