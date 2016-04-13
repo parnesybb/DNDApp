@@ -15,6 +15,17 @@ namespace GoSteve.Structures.Races
     [Serializable]
     public class HalfOrc : ARace
     {
+        public HalfOrc()
+        {
+            this._race = KnownValues.Race.HALF_ORC;
+            this._subRace = KnownValues.SubRace.NONE;
+            this._speed = 30;
+            this._size = ARace.MEDIUM_SIZE;
+        }
+
+        /// <summary>
+        /// Not valid for the Half-Orc race.
+        /// </summary>
         public override KnownValues.SubRace SubRace
         {
             get
@@ -30,12 +41,23 @@ namespace GoSteve.Structures.Races
 
         public override string[] GetFeaturesTraits()
         {
-            throw new NotImplementedException();
+            var ret = new List<string>();
+
+            ret.Add("Dark Vision - 60ft");
+            ret.Add("Relentless Endurance");
+            ret.Add("Savage Attacks");
+
+            return ret.ToArray();
         }
 
         public override string[] GetProficienciesLanguages()
         {
-            throw new NotImplementedException();
+            var ret = new List<string>();
+
+            ret.Add("Common");
+            ret.Add("Orc");
+
+            return ret.ToArray();
         }
     }
 }
