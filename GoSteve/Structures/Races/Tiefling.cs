@@ -12,8 +12,20 @@ using Android.Widget;
 
 namespace GoSteve.Structures.Races
 {
-    class Tiefling : ARace
+    [Serializable]
+    public class Tiefling : ARace
     {
+        public Tiefling()
+        {
+            this._race = KnownValues.Race.TIEFLING;
+            this._subRace = KnownValues.SubRace.NONE;
+            this._speed = 30;
+            this._size = ARace.MEDIUM_SIZE;
+        }
+
+        /// <summary>
+        /// Not valid for the Tiefling race.
+        /// </summary>
         public override KnownValues.SubRace SubRace
         {
             get
@@ -25,6 +37,27 @@ namespace GoSteve.Structures.Races
             {
                 throw new NotImplementedException();
             }
+        }
+
+        public override string[] GetFeaturesTraits()
+        {
+            var ret = new List<string>();
+
+            ret.Add("Dark Vision - 60ft");
+            ret.Add("Hellish Resistance");
+            ret.Add("Infernal Legacy");
+
+            return ret.ToArray();
+        }
+
+        public override string[] GetProficienciesLanguages()
+        {
+            var ret = new List<string>();
+
+            ret.Add("Common");
+            ret.Add("Infernal Language");
+
+            return ret.ToArray();
         }
     }
 }

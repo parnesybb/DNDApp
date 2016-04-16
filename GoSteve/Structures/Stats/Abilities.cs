@@ -10,9 +10,13 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using GoSteve.Structures.Races;
+using System.Xml.Serialization;
+using System.Xml;
+using System.Xml.Schema;
 
 namespace GoSteve.Structures.Classes
 {
+    [Serializable]
     public class Abilities
     {
         // Core abilities
@@ -135,6 +139,8 @@ namespace GoSteve.Structures.Classes
                 case KnownValues.Race.HALF_ORC:
                     this.Strength += 2;
                     this.Con += 1;
+                    this._skills.SetProficient = KnownValues.SkillType.Intimidation;
+
                     break;
 
                 case KnownValues.Race.TIEFLING:

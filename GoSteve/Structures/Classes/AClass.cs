@@ -12,22 +12,20 @@ using Android.Widget;
 
 namespace GoSteve.Structures.Classes
 {
+    [Serializable]
     public abstract class AClass
     {
         protected KnownValues.ClassType _classType;
-        protected List<string> _profs;
-        protected List<string> _equip;
-        protected List<string> _traits;
         protected HitDice _hitDice;
 
         public AClass()
         {
-            this._profs = new List<string>();
-            this._equip = new List<string>();
-            this._traits = new List<string>();
             this._hitDice = new HitDice();
         }
 
+        /// <summary>
+        /// The type of class.
+        /// </summary>
         public KnownValues.ClassType Type
         {
             get
@@ -36,35 +34,43 @@ namespace GoSteve.Structures.Classes
             }
         }
 
-        public string[] Proficiencies
-        {
-            get
-            {
-                return this._profs.ToArray();
-            }
-        }
+        /// <summary>
+        /// Gets the classes proficiencies.
+        /// </summary>
+        /// <returns>Array of proficiences.</returns>
+        public abstract string[] GetProficiencies();
 
-        public string[] Equipment
-        {
-            get
-            {
-                return this._equip.ToArray();
-            }
-        }
+        /// <summary>
+        /// Gets the classes equipment.
+        /// </summary>
+        /// <returns>Array of equipment.</returns>
+        public abstract string[] GetEquipment();
 
-        public string[] Traits
-        {
-            get
-            {
-                return this._traits.ToArray();
-            }
-        }
+        /// <summary>
+        /// Gets the classes traits.
+        /// </summary>
+        /// <returns>Array of traits.</returns>
+        public abstract string[] GetTraits();
 
+        /// <summary>
+        /// Gets the number of hit points for this class at level 1.
+        /// </summary>
+        /// <param name="modifier">A modifier value. 0 if no modifer.</param>
+        /// <returns></returns>
+        public abstract int GetLevelOneHitPoints(int modifier);
+
+        /// <summary>
+        /// Gets the classes default hit dice.
+        /// </summary>
         public HitDice HitDice
         {
             get
             {
                 return this._hitDice;
+            }
+            protected set
+            {
+                this._hitDice = value;
             }
         }
     }   

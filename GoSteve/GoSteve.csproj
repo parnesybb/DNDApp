@@ -111,7 +111,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\CharacterSheet.axml" />
-    <None Include="ClassDiagram1.cd" />
     <None Include="Resources\xml\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
   </ItemGroup>

@@ -12,12 +12,16 @@ using Android.Widget;
 
 namespace GoSteve.Structures.Spells
 {
+    [Serializable]
     public class Spell
     {
         public Spell()
         {
         }
 
+        /// <summary>
+        /// Spell name.
+        /// </summary>
         public string Name
         {
             get;

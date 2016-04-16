@@ -12,24 +12,34 @@ using Android.Widget;
 
 namespace GoSteve.Structures.Weapons
 {
+    [Serializable]
     public class Weapon
     {
         public Weapon()
         {
         }
 
+        /// <summary>
+        /// Weapon name.
+        /// </summary>
         public string Name
         {
             get;
             set;
         }
 
+        /// <summary>
+        /// Weapon damage type.
+        /// </summary>
         public string DamageType
         {
             get;
             set;
         }
 
+        /// <summary>
+        /// Weapon attack bonus.
+        /// </summary>
         public int AtkBonus
         {
             get;

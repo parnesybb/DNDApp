@@ -12,23 +12,55 @@ using Android.Widget;
 
 namespace GoSteve.Structures.Classes
 {
+    [Serializable]
     public class Paladin : AClass
     {
         public Paladin()
         {
             this._classType = KnownValues.ClassType.PALADIN;
-            this._hitDice.TotalAmount = 1;
-            this._hitDice.AvailableAmount = 1;
-            this._hitDice.NumberOfSides = 10;
+            this.HitDice.TotalAmount = 1;
+            this.HitDice.AvailableAmount = 1;
+            this.HitDice.NumberOfSides = 10;
+        }
 
-            this._traits.Add("Divine Sense");
-            this._traits.Add("Lay on Hands");
-            this._profs.Add("All Armor");
-            this._profs.Add("Shields");
-            this._profs.Add("Simple Weapons");
-            this._profs.Add("Martial Weapons");
-            this._equip.Add("Chain Mail");
-            this._equip.Add("Holy Symbol");
+        public override string[] GetEquipment()
+        {
+            var ret = new List<string>();
+
+            ret.Add("Chain Mail");
+            ret.Add("Holy Symbol");
+            ret.Add("(a)a martial weapon and a shield OR (b)two martial weapons");
+            ret.Add("(a) five javelins OR (b)any simple melee weapon");
+            ret.Add("(a) a priest's pack OR (b)an explorer's pack");
+
+            return ret.ToArray();
+        }
+
+        public override int GetLevelOneHitPoints(int modifier)
+        {
+            return 10 + modifier;
+        }
+
+        public override string[] GetProficiencies()
+        {
+            var ret = new List<string>();
+
+            ret.Add("All Armor");
+            ret.Add("Shields");
+            ret.Add("Simple Weapons");
+            ret.Add("Martial Weapons");
+
+            return ret.ToArray();
+        }
+
+        public override string[] GetTraits()
+        {
+            var ret = new List<string>();
+
+            ret.Add("Divine Sense");
+            ret.Add("Lay on Hands");
+
+            return ret.ToArray();
         }
     }
 }

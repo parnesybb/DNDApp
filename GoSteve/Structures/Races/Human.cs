@@ -12,8 +12,20 @@ using Android.Widget;
 
 namespace GoSteve.Structures.Races
 {
-    class Human : ARace
+    [Serializable]
+    public class Human : ARace
     {
+        public Human()
+        {
+            this._race = KnownValues.Race.HUMAN;
+            this._subRace = KnownValues.SubRace.NONE;
+            this._speed = 30;
+            this._size = ARace.MEDIUM_SIZE;
+        }
+
+        /// <summary>
+        /// Not valid for the Human race.
+        /// </summary>
         public override KnownValues.SubRace SubRace
         {
             get
@@ -25,6 +37,18 @@ namespace GoSteve.Structures.Races
             {
                 throw new NotImplementedException();
             }
+        }
+
+        public override string[] GetFeaturesTraits()
+        {
+            return new List<string>().ToArray();
+        }
+
+        public override string[] GetProficienciesLanguages()
+        {
+            var ret = new List<string>();
+            ret.Add("Common");
+            return ret.ToArray();
         }
     }
 }
