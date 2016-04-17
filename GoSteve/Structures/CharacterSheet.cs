@@ -20,6 +20,7 @@ namespace GoSteve
     [Serializable]
     public class CharacterSheet
     {
+        private string _id;
         private string _charName;
         private AClass _class;
         private int _level;
@@ -47,6 +48,7 @@ namespace GoSteve
 
         public CharacterSheet()
         {
+            this._id = String.Empty;
             this._charName = String.Empty;
             this._level = 0;
             this._alignment = String.Empty;
@@ -69,6 +71,18 @@ namespace GoSteve
             this._equipment = new List<string>();
             this._currency = new Currency();
             this._featuresTraits = new List<string>();
+        }
+
+        public String ID
+        {
+            get
+            {
+                return this._id;
+            }
+            set
+            {
+                this._id = value;
+            }
         }
 
         /// <summary>

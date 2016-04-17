@@ -6,6 +6,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using System.Runtime.Serialization.Formatters.Binary;
+using GoSteve.Screens;
 
 namespace GoSteve
 {
@@ -25,6 +26,7 @@ namespace GoSteve
             Button raceSelectButton = FindViewById<Button>(Resource.Id.race);
             Button subRaceSelectButton = FindViewById<Button>(Resource.Id.subRace);
             Button alignmentSelectButton = FindViewById<Button>(Resource.Id.alignment);
+            Button button = FindViewById<Button>(Resource.Id.button1);
 
             // orig character sheet.
             var charsheet = new CharacterSheet();
@@ -48,6 +50,11 @@ namespace GoSteve
             backgroundSelectButton.Text = dcs.Background.ToString();
             raceSelectButton.Text = dcs.RaceInstance.Race.ToString();
             subRaceSelectButton.Text = dcs.RaceInstance.SubRace.ToString();
+
+            button.Click += (s, arg) =>
+            {
+                StartActivity(typeof(DmScreenBase));
+            };
 
             // Class selection.
             classSelectButton.Click += (s, arg) => 
