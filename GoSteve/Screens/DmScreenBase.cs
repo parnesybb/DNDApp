@@ -29,28 +29,36 @@ namespace GoSteve.Screens
 
         public void Update(CharacterSheet cs)
         {
-            if (String.IsNullOrEmpty(cs.ID))
+            if (String.IsNullOrEmpty(cs.ID) || !_charSheets.Keys.Contains(cs.ID))
             {
                 // New player.
                 cs.ID = System.Guid.NewGuid().ToString();
-                this._charSheets.Add(cs.ID, cs);
+                _charSheets.Add(cs.ID, cs);
 
-                var b = new CharacterButton(this);
-                b.Id = ++this._buttonCount;
-                b.CharacterID = cs.ID;
-                b.Text = cs.CharacterName;
+                var b = new CharacterButton(this)
+                {
+                    Id = ++_buttonCount,
+                    CharacterID = cs.ID,
+                    Text = cs.CharacterName
+                };
 
                 b.Click += (sender, args) => 
                 {
+                    // Screen to call. This will be an instance of Mike's character screen.
                     var charScreen = new Intent(this, typeof(TestScreen));
+
+                    // For serialzation.
+                    byte[] csBytes = null;
                     var ms = new System.IO.MemoryStream();
                     var formatter = new BinaryFormatter();
 
+                    // Serialize the character sheet.
                     formatter.Serialize(ms, _charSheets[b.CharacterID]);
-                    var arr = ms.ToArray();
+                    csBytes = ms.ToArray();
                     ms.Close();
 
-                    charScreen.PutExtra("charSheet", arr);
+                    // Send data to new character sheet screen.
+                    charScreen.PutExtra("charSheet", csBytes);
                     StartActivity(charScreen);
                 };
 
@@ -82,8 +90,22 @@ namespace GoSteve.Screens
             this._layout.Orientation = Orientation.Vertical;
             SetContentView(this._layout);
 
+            var broadcast = new Button(this);
+            broadcast.Id = Button.GenerateViewId();
+            broadcast.Text = "Broadcast Session";
+            broadcast.Click += (sender, args) =>
+            {
+                /// Start Brian's server.
+            };
+
+            _layout.AddView(broadcast);
             // TEST
             this.CreateFakeRequest();
+        }
+
+        private void Broadcast_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }
