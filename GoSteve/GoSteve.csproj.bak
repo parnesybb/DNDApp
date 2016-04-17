@@ -16,7 +16,7 @@
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -58,27 +58,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Network\ChatClient.cs" />
-    <Compile Include="Network\ChatConnection.cs" />
-    <Compile Include="Network\ChatServer.cs" />
-    <Compile Include="Network\MyDiscoveryListener.cs" />
-    <Compile Include="Network\AndroidIPServer.cs" />
     <Compile Include="Network\AndroidNDSServer.cs" />
     <Compile Include="Network\DMServer.cs" />
-    <Compile Include="Network\MyRegistrationListener.cs" />
-    <Compile Include="Network\MyResolveListener.cs" />
     <Compile Include="Network\NDSServiceInfo.cs" />
     <Compile Include="Network\NetworkServer.cs" />
     <Compile Include="Network\AndroidWifiP2PNDS.cs" />
     <Compile Include="Network\TestNetwork.cs" />
-    <Compile Include="Network\NsdData.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Screens\CharacterSheetScreen.cs" />
     <Compile Include="Screens\DmScreenBase.cs" />
-    <Compile Include="Screens\TestScreen.cs" />
     <Compile Include="Structures\CharacterSheet.cs" />
-    <Compile Include="Structures\CharacterButton.cs" />
     <Compile Include="Structures\HitDice.cs" />
     <Compile Include="Structures\HitPoints.cs" />
     <Compile Include="Structures\Currency.cs" />
