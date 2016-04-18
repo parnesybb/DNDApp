@@ -61,4 +61,10 @@
         p1:layout_below="@id/charBG"
         p1:layout_toRightOf="@id/alignment"
         p1:id="@+id/xp" />
+    <Button
+        p1:text="Button"
+        p1:layout_width="wrap_content"
+        p1:layout_height="wrap_content"
+        p1:layout_below="@id/race"
+        p1:id="@+id/button1" />
 </RelativeLayout>
