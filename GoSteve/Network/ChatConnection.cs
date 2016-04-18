@@ -17,9 +17,9 @@ namespace GoSteve.Network
 {
     public class ChatConnection
     {
-        private Handler mUpdateHandler;
-        private ChatServer ChatServer { get; set; }
-        //private ChatClient mChatClient { set; get; }
+        public Handler UpdateHandler;
+        public ChatServer ChatServer { get; set; }
+        public ChatClient ChatClient { set; get; }
 
         private static string tag = "ChatConnection";
 
@@ -39,13 +39,13 @@ namespace GoSteve.Network
 
         public ChatConnection(Handler handler)
         {
-            mUpdateHandler = handler;
-            mChatServer = new ChatServer(handler, this);
+            UpdateHandler = handler;
+            ChatServer = new ChatServer(handler, this);
         }
 
         public void tearDown()
         {
-            mChatServer.tearDown();
+            ChatServer.tearDown();
             //mChatClient.tearDown();
         }
 
@@ -56,9 +56,9 @@ namespace GoSteve.Network
 
         public void sendMessage(String msg)
         {
-            if (mChatClient != null)
+            if (ChatClient != null)
             {
-                mChatClient.sendMessage(msg);
+                ChatClient.sendMessage(msg);
             }
         }
 
@@ -91,7 +91,7 @@ namespace GoSteve.Network
 
             Message message = new Message();
             message.Data=messageBundle;
-            mUpdateHandler.SendMessage(message);
+            UpdateHandler.SendMessage(message);
 
         }
 

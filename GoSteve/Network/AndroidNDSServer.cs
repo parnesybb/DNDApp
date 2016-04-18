@@ -14,7 +14,7 @@ using Android.Util;
 
 namespace GoSteve.Network
 {
-    class AndroidNDSServer
+    public class AndroidNDSServer
     {
         Context Context
         {

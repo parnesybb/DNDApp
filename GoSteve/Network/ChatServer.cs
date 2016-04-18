@@ -16,7 +16,7 @@ using Android.Util;
 
 namespace GoSteve.Network
 {
-    class ChatServer
+    public class ChatServer
     {
         ServerSocket ServerSocket = null;
         Thread mThread = null;

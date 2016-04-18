@@ -13,6 +13,7 @@ using Java.Net;
 using Java.Lang;
 using Android.Util;
 using Java.Util.Concurrent;
+using Java.IO;
 
 namespace GoSteve.Network
 {
@@ -22,39 +23,41 @@ namespace GoSteve.Network
         {
             public InetAddress Address { get; set; }
             public int PORT { get; set; }
+            public Socket Socket { get; set; }
 
             public const string client_tag = "ChatClient";
             public string CLIENT_TAG { get { return client_tag; } }
             public ChatConnection ChatConnection { get; set; }
+            public ChatClient ChatClient { get; set; }
+
+            public ReceivingThread RecRunnable { get; set; }
+
+            public Thread SendThread { get; set; }
+            public Thread RecThread { get; set; }
         }
 
         ChatClientData ChatData { get; set; }
 
-        private Thread mSendThread;
-        private Thread mRecThread;
-
-        public ChatConnection ChatConnection { get; set; }
-
         public ChatClient(ChatConnection chatConnection, InetAddress address, int port)
         {
-            ChatConnection = chatConnection;
+            ChatData.ChatConnection = chatConnection;
             Log.Debug(ChatData.CLIENT_TAG, "Creating chatClient");
             ChatData.Address = address;
             ChatData.PORT = port;
 
-            mSendThread = new Thread(new SendingThread(ChatConnection));
-            mSendThread.Start();
+            ChatData.SendThread = new Thread(new SendingThread(ChatData));
+            ChatData.SendThread.Start();
         }
 
         class SendingThread : IRunnable
         {
-            public ChatConnection ChatConnection;
+            public ChatClientData ChatData { set; get; }
             IBlockingQueue mMessageQueue;
             private int QUEUE_CAPACITY = 10;
 
-            public SendingThread(ChatConnection chatConnection)
+            public SendingThread(ChatClientData chatData)
             {
-                ChatConnection = chatConnection;
+                ChatData = chatData;
                 mMessageQueue = new ArrayBlockingQueue(QUEUE_CAPACITY);
             }
 
@@ -75,80 +78,159 @@ namespace GoSteve.Network
             {
                 try
                 {
-                    if (ChatConnection.getSocket() == null)
+                    if (ChatData.ChatConnection.getSocket() == null)
                     {
-                        ChatConnection.setSocket(new Socket(mAddress, PORT));
-                        Log.Debug(CLIENT_TAG, "Client-side socket initialized.");
+
+                        ChatData.ChatConnection.setSocket(new Socket(ChatData.Address, ChatData.PORT));
+                        Log.Debug(ChatData.CLIENT_TAG, "Client-side socket initialized.");
 
                     }
                     else
                     {
-                        Log.d(CLIENT_TAG, "Socket already initialized. skipping!");
+                        Log.Debug(ChatData.CLIENT_TAG, "Socket already initialized. skipping!");
                     }
 
-                    mRecThread = new Thread(new ReceivingThread());
-                    mRecThread.start();
+                    ChatData.RecRunnable = new ReceivingThread(ChatData);
+
+                    ChatData.RecThread = new Thread(ChatData.RecRunnable);
+                    ChatData.RecThread.Start();
 
                 }
                 catch (UnknownHostException e)
                 {
-                    Log.d(CLIENT_TAG, "Initializing socket failed, UHE", e);
+                    Log.Debug(ChatData.CLIENT_TAG, "Initializing socket failed, UHE", e);
                 }
                 catch (IOException e)
                 {
-                    Log.d(CLIENT_TAG, "Initializing socket failed, IOE.", e);
+                    Log.Debug(ChatData.CLIENT_TAG, "Initializing socket failed, IOE.", e);
                 }
 
-            while (true)
+                while (true)
+                {
+                    try
+                    {
+                        string msg = (string)mMessageQueue.Take();
+                        ChatData.ChatClient.sendMessage(msg);
+                    }
+                    catch (InterruptedException ie)
+                    {
+                        Log.Debug(ChatData.CLIENT_TAG, "Message sending loop interrupted, exiting");
+                    }
+                }
+            }
+        }
+
+        class ReceivingThread : IRunnable
+        {
+            public ChatClientData ChatData { get; set; }
+
+            public IntPtr Handle
             {
+                get
+                {
+                    throw new NotImplementedException();
+                }
+            }
+
+            public ReceivingThread(ChatClientData chatData)
+            {
+                ChatData = chatData;
+            }
+
+            void IRunnable.Run()
+            {
+
+                BufferedReader input;
                 try
                 {
-                    String msg = mMessageQueue.take();
-                    sendMessage(msg);
+                    input = new BufferedReader(new InputStreamReader(
+                           ChatData.Socket.InputStream));
+                    while (!Thread.CurrentThread().IsInterrupted)
+                    {
+
+                        string messageStr = null;
+                        messageStr = input.ReadLine();
+                        if (messageStr != null)
+                        {
+                            Log.Debug(ChatData.CLIENT_TAG, "Read from the stream: " + messageStr);
+                            ChatData.ChatConnection.updateMessages(messageStr, false);
+                        }
+                        else
+                        {
+                            Log.Debug(ChatData.CLIENT_TAG, "The nulls! The nulls!");
+                            break;
+                        }
+                    }
+                    input.Close();
+
                 }
-                catch (InterruptedException ie)
+                catch (IOException e)
                 {
-                    Log.d(CLIENT_TAG, "Message sending loop interrupted, exiting");
+                    Log.Error(ChatData.CLIENT_TAG, "Server loop error: ", e);
                 }
             }
-        }
-    }
 
-    class ReceivingThread implements Runnable
-    {
-
-        @Override
-            public void run()
-    {
-
-        BufferedReader input;
-        try
-        {
-            input = new BufferedReader(new InputStreamReader(
-                    mSocket.getInputStream()));
-            while (!Thread.currentThread().isInterrupted())
+            public void Dispose()
             {
-
-                String messageStr = null;
-                messageStr = input.readLine();
-                if (messageStr != null)
-                {
-                    Log.d(CLIENT_TAG, "Read from the stream: " + messageStr);
-                    updateMessages(messageStr, false);
-                }
-                else
-                {
-                    Log.d(CLIENT_TAG, "The nulls! The nulls!");
-                    break;
-                }
+                throw new NotImplementedException();
             }
-            input.close();
-
         }
-        catch (IOException e)
+
+        public void tearDown()
         {
-            Log.e(CLIENT_TAG, "Server loop error: ", e);
+            try
+            {
+                ChatData.ChatConnection.getSocket().Close();
+            }
+            catch (IOException ioe)
+            {
+                Log.Error(ChatData.CLIENT_TAG, "Error when closing server socket.");
+            }
+        }
+
+        public void sendMessage(string msg)
+        {
+            try
+            {
+                Java.Net.Socket socket = ChatData.ChatConnection.getSocket();
+
+                if (socket == null)
+                {
+                    Log.Debug(ChatData.CLIENT_TAG, "Socket is null, wtf?");
+                }
+                else if (socket.OutputStream == null)
+                {
+                    Log.Debug(ChatData.CLIENT_TAG, "Socket output stream is null, wtf?");
+                }
+
+                /*
+                PrintWriter out = new PrintWriter(
+                        new BufferedWriter(
+                                new OutputStreamWriter(ChatData.ChatConnection.getSocket().OutputStream)), true);
+                out.println(msg);
+                out.flush();
+                */
+
+
+                System.IO.Stream stream = ChatData.ChatConnection.getSocket().OutputStream;
+                byte[] byteAry = Encoding.ASCII.GetBytes(msg);
+                stream.Write(byteAry, 0, byteAry.Length);
+
+                ChatData.ChatConnection.updateMessages(msg, true);
+            }
+            catch (UnknownHostException e)
+            {
+                Log.Debug(ChatData.CLIENT_TAG, "Unknown Host", e);
+            }
+            catch (IOException e)
+            {
+                Log.Debug(ChatData.CLIENT_TAG, "I/O Exception", e);
+            }
+            catch (Java.Lang.Exception e)
+            {
+                Log.Debug(ChatData.CLIENT_TAG, "Error3", e);
+            }
+            Log.Debug(ChatData.CLIENT_TAG, "Client sent message: " + msg);
         }
     }
-}
 }
