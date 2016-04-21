@@ -11,12 +11,20 @@ using Android.Views;
 using Android.Widget;
 using GoSteve.Structures;
 using System.Runtime.Serialization.Formatters.Binary;
+using Server;
+using Java.Net;
+using System.Threading;
+using System.Net.Sockets;
+using System.IO;
 
 namespace GoSteve.Screens
 {
     [Activity(Label = "DmScreenBase")]
     public class DmScreenBase : Activity
     {
+        private volatile bool _isServerUp;
+        private Thread _serverThread;
+        private GSNsdHelper _nsd;
         private Dictionary<string, CharacterSheet> _charSheets;
         private int _buttonCount;
         private LinearLayout _layout;
@@ -29,10 +37,15 @@ namespace GoSteve.Screens
 
         public void Update(CharacterSheet cs)
         {
-            if (String.IsNullOrEmpty(cs.ID) || !_charSheets.Keys.Contains(cs.ID))
+            if (!_charSheets.Keys.Contains(cs.ID))
             {
+                // Need an ID.
+                if (String.IsNullOrWhiteSpace(cs.ID))
+                {
+                    return;
+                }
+
                 // New player.
-                cs.ID = System.Guid.NewGuid().ToString();
                 _charSheets.Add(cs.ID, cs);
 
                 var b = new CharacterButton(this)
@@ -42,7 +55,7 @@ namespace GoSteve.Screens
                     Text = cs.CharacterName
                 };
 
-                b.Click += (sender, args) => 
+                b.Click += (sender, args) =>
                 {
                     // Screen to call. This will be an instance of Mike's character screen.
                     var charScreen = new Intent(this, typeof(TestScreen));
@@ -71,17 +84,6 @@ namespace GoSteve.Screens
             }
         }
 
-        private void CreateFakeRequest()
-        {
-            var cs = new CharacterSheet();
-            cs.SetClass(KnownValues.ClassType.PALADIN, true);
-            cs.SetRace(KnownValues.Race.DWARF, true);
-            cs.Background = KnownValues.Background.SOLDIER;
-            cs.CharacterName = "Flaf";
-
-            this.Update(cs);
-        }
-
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -95,17 +97,114 @@ namespace GoSteve.Screens
             broadcast.Text = "Broadcast Session";
             broadcast.Click += (sender, args) =>
             {
-                /// Start Brian's server.
+                _isServerUp = false;
+
+                var socket = new ServerSocket(0);
+                var port = socket.LocalPort;
+                socket.Close();
+
+                _serverThread = new Thread(() => StartServer(port));
+                _serverThread.Start();
+
+                // announce server/port
+                _nsd = new GSNsdHelper(this);
+                _nsd.StartHelper();
+                _nsd.RegisterService(port);
             };
 
             _layout.AddView(broadcast);
-            // TEST
-            this.CreateFakeRequest();
         }
 
-        private void Broadcast_Click(object sender, EventArgs e)
+        protected override void OnDestroy()
         {
-            throw new NotImplementedException();
+            _nsd.UnregisterService();
+            _isServerUp = false;
+            base.OnDestroy();
         }
+
+        private void StartServer(int port)
+        {
+            TcpListener server = null;
+
+            try
+            {
+                var format = new BinaryFormatter();
+                server = new TcpListener(System.Net.IPAddress.Any, port);
+
+                CharacterSheet cs = null;
+                MemoryStream ms = null;
+                byte[] buffer = null;
+                byte[] retToClient = null;
+
+                server.Start();
+                _isServerUp = true;
+
+                while (_isServerUp)
+                {
+                    // Get/Await data from TCP Client.
+                    var client = server.AcceptTcpClient();
+                    var stream = client.GetStream();
+
+                    try
+                    {
+                        // Information about data from client.
+                        var dataRead = 0;
+                        var msgLength = 0;
+                        var msgByteLength = new byte[4];
+
+                        // Get the size of the incoming object.
+                        stream.Read(msgByteLength, 0, 4);
+                        msgLength = BitConverter.ToInt32(msgByteLength, 0);
+                        buffer = new byte[msgLength];
+
+                        // Read the object into byte buffer.
+                        do
+                        {
+                            dataRead += stream.Read(buffer, dataRead, msgLength - dataRead);
+                        } while (dataRead < msgLength);
+
+                        // Try to deserialize the object and update GUI.
+                        ms = new MemoryStream(buffer);
+                        cs = format.Deserialize(ms) as CharacterSheet;
+
+                        // Create new ID if there's not one for the player.
+                        if (String.IsNullOrWhiteSpace(cs.ID))
+                        {
+                            cs.ID = System.Guid.NewGuid().ToString(); ;
+                        }
+
+                        // Update UI.
+                        RunOnUiThread(() => Update(cs));
+
+                        // Return the ID to client.
+                        retToClient = ASCIIEncoding.ASCII.GetBytes(cs.ID);
+                        stream.Write(retToClient, 0, retToClient.Length);
+
+                        stream.Close();
+                    }
+
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                    finally
+                    {
+                        client.Close();
+                        buffer = null;
+                        cs = null;
+                        ms = null;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+                server.Stop();
+            }
+        }
+
     }
 }
