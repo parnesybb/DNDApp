@@ -76,46 +76,52 @@ namespace GoSteve
 			public const int classSelect = 2131099650;
 			
 			// aapt resource value: 0x7f06000b
-			public const int item0 = 2131099659;
-			
-			// aapt resource value: 0x7f06000c
-			public const int item1 = 2131099660;
-			
-			// aapt resource value: 0x7f060015
-			public const int item10 = 2131099669;
-			
-			// aapt resource value: 0x7f060016
-			public const int item11 = 2131099670;
-			
-			// aapt resource value: 0x7f060017
-			public const int item12 = 2131099671;
+			public const int dmModeBtn = 2131099659;
 			
 			// aapt resource value: 0x7f06000d
-			public const int item2 = 2131099661;
+			public const int item0 = 2131099661;
 			
 			// aapt resource value: 0x7f06000e
-			public const int item3 = 2131099662;
+			public const int item1 = 2131099662;
+			
+			// aapt resource value: 0x7f060017
+			public const int item10 = 2131099671;
+			
+			// aapt resource value: 0x7f060018
+			public const int item11 = 2131099672;
+			
+			// aapt resource value: 0x7f060019
+			public const int item12 = 2131099673;
 			
 			// aapt resource value: 0x7f06000f
-			public const int item4 = 2131099663;
+			public const int item2 = 2131099663;
 			
 			// aapt resource value: 0x7f060010
-			public const int item5 = 2131099664;
+			public const int item3 = 2131099664;
 			
 			// aapt resource value: 0x7f060011
-			public const int item6 = 2131099665;
+			public const int item4 = 2131099665;
 			
 			// aapt resource value: 0x7f060012
-			public const int item7 = 2131099666;
+			public const int item5 = 2131099666;
 			
 			// aapt resource value: 0x7f060013
-			public const int item8 = 2131099667;
+			public const int item6 = 2131099667;
 			
 			// aapt resource value: 0x7f060014
-			public const int item9 = 2131099668;
+			public const int item7 = 2131099668;
+			
+			// aapt resource value: 0x7f060015
+			public const int item8 = 2131099669;
+			
+			// aapt resource value: 0x7f060016
+			public const int item9 = 2131099670;
 			
 			// aapt resource value: 0x7f060003
 			public const int level = 2131099651;
+			
+			// aapt resource value: 0x7f06000c
+			public const int playerModeBtn = 2131099660;
 			
 			// aapt resource value: 0x7f060005
 			public const int playerName = 2131099653;
@@ -150,6 +156,9 @@ namespace GoSteve
 			
 			// aapt resource value: 0x7f030001
 			public const int DmScreenBase = 2130903041;
+			
+			// aapt resource value: 0x7f030002
+			public const int DNDMain = 2130903042;
 			
 			static Layout()
 			{

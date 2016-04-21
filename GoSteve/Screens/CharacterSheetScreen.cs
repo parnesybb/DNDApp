@@ -7,10 +7,11 @@ using Android.Widget;
 using Android.OS;
 using System.Runtime.Serialization.Formatters.Binary;
 using GoSteve.Screens;
+using Server;
 
 namespace GoSteve
 {
-    [Activity(Label = "GoSteve! Dungeons and Dragons", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "GoSteve! Dungeons and Dragons")]
     public class CharacterSheetScreen : Activity
     {
         protected override void OnCreate(Bundle bundle)
@@ -53,7 +54,7 @@ namespace GoSteve
 
             button.Click += (s, arg) =>
             {
-                StartActivity(typeof(DmScreenBase));
+                StartActivity(typeof(GSClient));
             };
 
             // Class selection.

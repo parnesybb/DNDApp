@@ -1,6 +1,7 @@
 
 using Android.App;
 using Android.OS;
+using Android.Util;
 using GoSteve;
 using System;
 using System.Net.Sockets;
@@ -28,6 +29,7 @@ namespace Server
                 AlertDialog.Builder b = new AlertDialog.Builder(this);
                 b.SetMessage("Server Found: " + args.UpdatedNsdServiceInfo.Host + "\nPort: " + args.UpdatedNsdServiceInfo.Port);
                 b.Show();
+                Log.Debug("GSClient", "Server Found: " + args.UpdatedNsdServiceInfo.Host + "\nPort: " + args.UpdatedNsdServiceInfo.Port);
 
                 _serverHost = args.UpdatedNsdServiceInfo.Host.HostName;
                 _serverPort = args.UpdatedNsdServiceInfo.Port;

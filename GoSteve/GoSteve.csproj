@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Screens\DNDMainMenuScreen.cs" />
     <Compile Include="GSNetwork\GSDiscoveryListener.cs" />
     <Compile Include="GSNetwork\GSNsdHelper.cs" />
     <Compile Include="GSNetwork\GSRegistrationListener.cs" />
@@ -106,6 +107,9 @@
   <ItemGroup>
     <AndroidResource Include="Resources\layout\CharacterSheet.axml" />
     <AndroidResource Include="Resources\layout\DmScreenBase.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\DNDMain.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <None Include="Resources\xml\AboutResources.txt" />

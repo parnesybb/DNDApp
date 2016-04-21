@@ -117,7 +117,10 @@ namespace GoSteve.Screens
 
         protected override void OnDestroy()
         {
-            _nsd.UnregisterService();
+            if (_nsd != null)
+            {
+                _nsd.UnregisterService();
+            }
             _isServerUp = false;
             base.OnDestroy();
         }
