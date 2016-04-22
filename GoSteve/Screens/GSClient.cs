@@ -24,12 +24,14 @@ namespace Server
             _bf = new BinaryFormatter();
             var nsd = new GSNsdHelper(this);
 
+            Log.Info("GSClient", "Check it out I'm running I'm running: ");
+
             nsd.ServiceFound += (sender, args) =>
             {
                 AlertDialog.Builder b = new AlertDialog.Builder(this);
                 b.SetMessage("Server Found: " + args.UpdatedNsdServiceInfo.Host + "\nPort: " + args.UpdatedNsdServiceInfo.Port);
                 b.Show();
-                Log.Debug("GSClient", "Server Found: " + args.UpdatedNsdServiceInfo.Host + "\nPort: " + args.UpdatedNsdServiceInfo.Port);
+                Log.Info("GSClient", "Server Found: " + args.UpdatedNsdServiceInfo.Host + "\nPort: " + args.UpdatedNsdServiceInfo.Port);
 
                 _serverHost = args.UpdatedNsdServiceInfo.Host.HostName;
                 _serverPort = args.UpdatedNsdServiceInfo.Port;

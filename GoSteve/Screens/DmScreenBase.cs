@@ -16,6 +16,8 @@ using Java.Net;
 using System.Threading;
 using System.Net.Sockets;
 using System.IO;
+using System.Net;
+using Android.Util;
 
 namespace GoSteve.Screens
 {
@@ -28,6 +30,10 @@ namespace GoSteve.Screens
         private Dictionary<string, CharacterSheet> _charSheets;
         private int _buttonCount;
         private LinearLayout _layout;
+        private Button _broadcastBtn;
+
+        // new Thread variables
+        private TcpListener _server;
 
         public DmScreenBase()
         {
@@ -92,60 +98,57 @@ namespace GoSteve.Screens
             this._layout.Orientation = Orientation.Vertical;
             SetContentView(this._layout);
 
-            var broadcast = new Button(this);
-            broadcast.Id = Button.GenerateViewId();
-            broadcast.Text = "Broadcast Session";
-            broadcast.Click += (sender, args) =>
+            _broadcastBtn = new Button(this);
+            _broadcastBtn.Id = Button.GenerateViewId();
+            _broadcastBtn.Text = "Start Broadcast Session";
+            _broadcastBtn.Click += (sender, args) =>
             {
-                _isServerUp = false;
-
-                var socket = new ServerSocket(0);
-                var port = socket.LocalPort;
-                socket.Close();
-
-                _serverThread = new Thread(() => StartServer(port));
-                _serverThread.Start();
-
-                // announce server/port
-                _nsd = new GSNsdHelper(this);
-                _nsd.StartHelper();
-                _nsd.RegisterService(port);
+                ToggleServerButtonState();
             };
 
-            _layout.AddView(broadcast);
+            _layout.AddView(_broadcastBtn);
         }
 
         protected override void OnDestroy()
         {
+            Log.Info("DmScreenBase","OnDestroy called!");
             if (_nsd != null)
             {
                 _nsd.UnregisterService();
             }
-            _isServerUp = false;
+            StopServer();
+
             base.OnDestroy();
         }
 
         private void StartServer(int port)
         {
-            TcpListener server = null;
-
+            _server = null;
+            Log.Info("DmScreenBase", "server TCPListener startup");
             try
             {
                 var format = new BinaryFormatter();
-                server = new TcpListener(System.Net.IPAddress.Any, port);
+                _server = new TcpListener(System.Net.IPAddress.Any, port);
+
+                Log.Info("DmScreenBase", "PORT: " + port);
+
+                foreach (IPAddress ip in Dns.GetHostEntry(Dns.GetHostName()).AddressList)
+                {
+                    Log.Info("DmScreenBase", "IP: "+ip);
+                }
 
                 CharacterSheet cs = null;
                 MemoryStream ms = null;
                 byte[] buffer = null;
                 byte[] retToClient = null;
 
-                server.Start();
+                _server.Start();
                 _isServerUp = true;
 
                 while (_isServerUp)
                 {
                     // Get/Await data from TCP Client.
-                    var client = server.AcceptTcpClient();
+                    var client = _server.AcceptTcpClient();
                     var stream = client.GetStream();
 
                     try
@@ -183,6 +186,8 @@ namespace GoSteve.Screens
                         retToClient = ASCIIEncoding.ASCII.GetBytes(cs.ID);
                         stream.Write(retToClient, 0, retToClient.Length);
 
+                        Log.Info("DMScreenBase","Receive character ID:"+cs.ID);
+
                         stream.Close();
                     }
 
@@ -205,7 +210,60 @@ namespace GoSteve.Screens
             }
             finally
             {
-                server.Stop();
+                _server.Stop();
+                Log.Info("DmScreenBase", "server TCPListener shutdown");
+                _server = null;
+            }
+        }
+
+        private void StopServer()
+        {
+            _isServerUp = false;
+            if (_server != null)
+            {
+                _server.Stop();
+                _serverThread.Join();
+            }
+        }
+
+        private void StopNSD()
+        {
+            //_nsd.StopDiscovery();
+            _nsd.UnregisterService();
+        }
+
+        private void ToggleServerButtonState()
+        {
+            if(_serverThread!=null && _serverThread.IsAlive)
+            {
+                StopNSD();
+                StopServer();
+                _broadcastBtn.Text = "Start Broadcast Session";
+            }
+            else
+            {
+                _isServerUp = false;
+
+                var socket = new ServerSocket(0);
+                var port = socket.LocalPort;
+                socket.Close();
+
+                if (_serverThread != null && _server != null)
+                {
+                    _server.Stop();
+                }
+
+                StopServer();
+
+                _serverThread = new Thread(() => StartServer(port));
+                _serverThread.Start();
+
+                // announce server/port
+                _nsd = new GSNsdHelper(this);
+                _nsd.StartHelper();
+                _nsd.RegisterService(port);
+
+                _broadcastBtn.Text = "Stop Broadcast Session";
             }
         }
 

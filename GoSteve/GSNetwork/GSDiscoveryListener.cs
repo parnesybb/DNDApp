@@ -34,7 +34,7 @@ namespace Server
         }
 
         public void OnServiceFound(NsdServiceInfo serviceInfo)
-        {;
+        {
             Console.WriteLine(GSNsdHelper.TAG + " Service Found");
 
             if (!serviceInfo.ServiceType.Equals(GSNsdHelper.SERVICE_TYPE))
