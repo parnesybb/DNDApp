@@ -69,6 +69,7 @@
     <Compile Include="Screens\DmScreenBase.cs" />
     <Compile Include="Screens\GSClient.cs" />
     <Compile Include="Screens\TestScreen.cs" />
+    <Compile Include="Services\DmServerService.cs" />
     <Compile Include="Structures\CharacterSheet.cs" />
     <Compile Include="Structures\CharacterButton.cs" />
     <Compile Include="Structures\HitDice.cs" />

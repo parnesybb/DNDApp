@@ -18,6 +18,7 @@ using System.Net.Sockets;
 using System.IO;
 using System.Net;
 using Android.Util;
+using GoSteve.Services;
 
 namespace GoSteve.Screens
 {
@@ -31,6 +32,10 @@ namespace GoSteve.Screens
         private int _buttonCount;
         private LinearLayout _layout;
         private Button _broadcastBtn;
+
+        public bool IsBound { get; set; }
+        public DmServerServiceConnection ServiceConnection { set; get; }
+        public DmServerBinder Binder { get; set; }
 
         // new Thread variables
         private TcpListener _server;
@@ -232,6 +237,13 @@ namespace GoSteve.Screens
             _nsd.UnregisterService();
         }
 
+        private void StartNSD()
+        {
+            _nsd = new GSNsdHelper(this);
+            _nsd.StartHelper();
+            _nsd.RegisterService(port);
+        }
+
         private void ToggleServerButtonState()
         {
             if(_serverThread!=null && _serverThread.IsAlive)
@@ -267,5 +279,54 @@ namespace GoSteve.Screens
             }
         }
 
+        class DmServiceReceiver : BroadcastReceiver
+        {
+            public override void OnReceive(Context context, Android.Content.Intent intent)
+            {
+                // Get Character sheets
+                ((DmScreenBase)context).GetCharacterSheets();
+
+                InvokeAbortBroadcast();
+            }
+        }
+
+    }
+
+    public class DmServerServiceConnection : Java.Lang.Object, IServiceConnection
+    {
+        DmScreenBase activity;
+        DmServerBinder binder;
+
+        public DmServerBinder Binder
+        {
+            get
+            {
+                return binder;
+            }
+        }
+
+        public DmServerServiceConnection(DmScreenBase activity)
+        {
+            this.activity = activity;
+        }
+
+        public void OnServiceConnected(ComponentName name, IBinder service)
+        {
+            var demoServiceBinder = service as DmServerBinder;
+            if (demoServiceBinder != null)
+            {
+                var binder = (DmServerBinder)service;
+                activity.Binder = binder;
+                activity.IsBound = true;
+
+                // keep instance for preservation across configuration changes
+                this.binder = (DmServerBinder)service;
+            }
+        }
+
+        public void OnServiceDisconnected(ComponentName name)
+        {
+            activity.IsBound = false;
+        }
     }
 }
