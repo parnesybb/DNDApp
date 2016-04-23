@@ -25,20 +25,19 @@ namespace GoSteve.Screens
     [Activity(Label = "DmScreenBase")]
     public class DmScreenBase : Activity
     {
-        private volatile bool _isServerUp;
-        private Thread _serverThread;
-        private GSNsdHelper _nsd;
         private Dictionary<string, CharacterSheet> _charSheets;
         private int _buttonCount;
         private LinearLayout _layout;
         private Button _broadcastBtn;
+        private DmServiceReceiver _characterReceiver;
+        private DmStopServiceReceiver _stopServiceReceiver;
+        private DmServerStateChangedReceiver _serverStateReceiver;
+        private Intent _dmServerServiceIntent;
 
         public bool IsBound { get; set; }
+        public bool IsServiceUp { get; set; }
         public DmServerServiceConnection ServiceConnection { set; get; }
         public DmServerBinder Binder { get; set; }
-
-        // new Thread variables
-        private TcpListener _server;
 
         public DmScreenBase()
         {
@@ -103,6 +102,10 @@ namespace GoSteve.Screens
             this._layout.Orientation = Orientation.Vertical;
             SetContentView(this._layout);
 
+            _characterReceiver = new DmServiceReceiver();
+            _stopServiceReceiver = new DmStopServiceReceiver();
+            _serverStateReceiver = new DmServerStateChangedReceiver();
+
             _broadcastBtn = new Button(this);
             _broadcastBtn.Id = Button.GenerateViewId();
             _broadcastBtn.Text = "Start Broadcast Session";
@@ -111,6 +114,8 @@ namespace GoSteve.Screens
                 ToggleServerButtonState();
             };
 
+            UpdateButton();
+
             _layout.AddView(_broadcastBtn);
         }
 
@@ -118,39 +123,118 @@ namespace GoSteve.Screens
         {
             base.OnStart();
 
-            var dmServerServiceIntent = new Intent(DmServerService.IntentFilter);
+            var intentFilter = new IntentFilter(DmServerService.CharSheetUpdatedAction) { Priority = (int)IntentFilterPriority.HighPriority };
+            RegisterReceiver(_characterReceiver, intentFilter);
+
+            var stopServIntentFilter = new IntentFilter(ShutdownDmServerService.StopServerServiceAction) { Priority = (int)IntentFilterPriority.HighPriority };
+            RegisterReceiver(_stopServiceReceiver, stopServIntentFilter);
+
+            var serverStateIntentFilter = new IntentFilter(DmServerService.ServerStateChangedAction) { Priority = (int)IntentFilterPriority.HighPriority };
+            RegisterReceiver(_serverStateReceiver, serverStateIntentFilter);
+
+            _dmServerServiceIntent = new Intent(DmServerService.IntentFilter);
             ServiceConnection = new DmServerServiceConnection(this);
-            ApplicationContext.BindService(dmServerServiceIntent, ServiceConnection, Bind.AutoCreate);
+            ApplicationContext.BindService(_dmServerServiceIntent, ServiceConnection, Bind.AutoCreate);
         }
 
         protected override void OnDestroy()
         {
+            base.OnDestroy();
+
             Log.Info("DmScreenBase", "OnDestroy called!");
 
-            base.OnDestroy();
+            UnregisterReceiver(_characterReceiver);
+            UnregisterReceiver(_stopServiceReceiver);
+            UnregisterReceiver(_serverStateReceiver);
+
+
+            UnbindDmServerService();
         }
 
         private void ToggleServerButtonState()
         {
-            if(IsBound)
+            if(IsServiceUp)
             {
-                //stop
-                _broadcastBtn.Text = "Start Broadcast Session";
+                //stop service
+                StopDmServerService();
             }
             else
             {
-                _broadcastBtn.Text = "Stop Broadcast Session";
+
+                //start service
+                StartDmServerService();
             }
         }
 
-        private void StopService()
+        public void UpdateButton()
         {
-
+            RunOnUiThread(() =>
+            {
+                IsServiceUp = DmServerService.IsServiceRunning;
+                if (IsServiceUp)
+                {
+                    //stop service
+                    _broadcastBtn.Text = "Stop Broadcast Session";
+                }
+                else
+                {
+                    //start service
+                    _broadcastBtn.Text = "Start Broadcast Session";
+                }
+            });
         }
 
-        private void StartService()
+        private void BindDmServerService()
         {
+            if (!IsBound)
+            {
+                ApplicationContext.BindService(_dmServerServiceIntent, ServiceConnection, Bind.AutoCreate);
+                IsBound = true;
+            }
+        }
 
+        private void UnbindDmServerService()
+        {
+            if (IsBound)
+            {
+                ApplicationContext.UnbindService(ServiceConnection);
+                IsBound = false;
+            }
+        }
+
+        private void StopDmServerService()
+        {
+            _broadcastBtn.Text = "Start Broadcast Session";
+            UnbindDmServerService();
+            //StopService(new Intent(DmServerService.IntentFilter));
+            StopService(new Intent(this, typeof(DmServerService)));
+        }
+
+        private void StartDmServerService()
+        {
+            _broadcastBtn.Text = "Stop Broadcast Session";
+            BindDmServerService();
+            StartService(new Intent(this, typeof(DmServerService)));
+        }
+
+        void UpdateCharacterSheets()
+        {
+            if (IsBound)
+            {
+                RunOnUiThread(() => {
+                    var locCs = DmServerService.Service.GetCharacterSheets();
+
+                    if (locCs != null)
+                    {
+                        Update(locCs);
+                    }
+                    else
+                    {
+                        Log.Debug("DmScreenBase", "charactersheet is null");
+                    }
+                }
+                );
+            }
         }
 
         class DmServiceReceiver : BroadcastReceiver
@@ -158,7 +242,32 @@ namespace GoSteve.Screens
             public override void OnReceive(Context context, Android.Content.Intent intent)
             {
                 // Get Character sheets
-                ((DmServerService)context).GetCharacterSheets();
+                ((DmScreenBase)context).UpdateCharacterSheets();
+
+                InvokeAbortBroadcast();
+            }
+        }
+
+        class DmStopServiceReceiver : BroadcastReceiver
+        {
+            public override void OnReceive(Context context, Android.Content.Intent intent)
+            {
+                // Get Character sheets
+                ((DmScreenBase)context).RunOnUiThread(() =>
+                {
+                    ((DmScreenBase)context).StopDmServerService();
+                });
+
+                InvokeAbortBroadcast();
+            }
+        }
+
+        class DmServerStateChangedReceiver : BroadcastReceiver
+        {
+            public override void OnReceive(Context context, Android.Content.Intent intent)
+            {
+                // Get Character sheets
+                ((DmScreenBase)context).UpdateButton();
 
                 InvokeAbortBroadcast();
             }
@@ -185,6 +294,7 @@ namespace GoSteve.Screens
                 var binder = (DmServerBinder)service;
                 activity.Binder = binder;
                 activity.IsBound = true;
+                activity.UpdateButton();
 
                 // keep instance for preservation across configuration changes
                 this.Binder = (DmServerBinder)service;

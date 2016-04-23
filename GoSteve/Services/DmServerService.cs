@@ -27,52 +27,147 @@ namespace GoSteve.Services
     {
         DmServerBinder binder;
 
+        private static bool _isServiceUp = false;
+        private static DmServerService _service=null;
+
+        public static bool IsServiceRunning { get { return _isServiceUp; } }
+        public static DmServerService Service { get { return _service; } }
+
         private volatile bool _isServerUp;
-        public bool IsServiceRunning { get { return _isServerUp; } }
 
         private Thread _serverThread;
         private GSNsdHelper _nsd;
         private TcpListener _server;
 
-        private CharacterSheet cs=null;
+        private CharacterSheet cs = null;
 
         public const string IntentFilter = "com.xamarin.DmServerService";
+        public const string CharSheetUpdatedAction = "CharacterSheetUpdated";
+        public const string ServerStateChangedAction = "ServerStateChanged";
+
+        public const int notifyNewCharID = 0;
 
         public override StartCommandResult OnStartCommand(Android.Content.Intent intent, StartCommandFlags flags, int startId)
         {
+
+            if(_isServiceUp)
+            {
+                StopSelf();
+                return StartCommandResult.Sticky;
+            }
+
+            setServerRunning(true);
+
             Log.Debug("DmServerService", "DemoService started");
 
             StartServiceInForeground();
 
             DoWork();
 
-            return StartCommandResult.NotSticky;
+            return StartCommandResult.Sticky;
         }
 
         void StartServiceInForeground()
         {
+            /*
             var ongoing = new Notification(Resource.Drawable.Icon, "DmServerService in foreground");
             var pendingIntent = PendingIntent.GetActivity(this, 0, new Intent(this, typeof(DmScreenBase)), 0);
             ongoing.SetLatestEventInfo(this, "DmServerService", "DmServerService is running in the foreground", pendingIntent);
+            */
+
+            //var pendingIntent = PendingIntent.GetActivity(this, 0, new Intent(this, typeof(DmScreenBase)), 0);
+
+            var pendingIntent = PendingIntent.GetService(this, 0, new Intent(ShutdownDmServerService.IntentFilter), 0);
+
+            // Instantiate the builder and set notification elements:
+            Notification.Builder builder = new Notification.Builder(this)
+                .SetContentTitle("DmServerService")
+                .SetContentText("Dm Server is running Click to stop")
+                .SetSmallIcon(Resource.Drawable.Icon)
+                .SetContentIntent(pendingIntent);
+
+            // Build the notification:
+            Notification ongoing = builder.Build();
+
+            // Get the notification manager:
+            NotificationManager notificationManager =
+                GetSystemService(Context.NotificationService) as NotificationManager;
+
+            // Publish the notification:
+            //const int notificationId = 0;
 
             StartForeground((int)NotificationFlags.ForegroundService, ongoing);
         }
 
         public override void OnDestroy()
         {
+            Log.Debug("DmServerService", "DmServerService stopped");
             base.OnDestroy();
             StopServer();
 
-            Log.Debug("DmServerService", "DmServerService stopped");
+            setServerRunning(false);
         }
 
         void SendNotification()
         {
+            /*
             var nMgr = (NotificationManager)GetSystemService(NotificationService);
             var notification = new Notification(Resource.Drawable.Icon, "New CharacterSheet uploaded!");
             var pendingIntent = PendingIntent.GetActivity(this, 0, new Intent(this, typeof(DmScreenBase)), 0);
-            notification.SetLatestEventInfo(this, "Dm Server Service Notification", "Message from Dm service", pendingIntent);
+            notification.SetLatestEventInfo(this, "Dm Server Service Notification", "New CharacterSheet uploaded", pendingIntent);
             nMgr.Notify(0, notification);
+            */
+
+
+            var pendingIntent = PendingIntent.GetActivity(this, 0, new Intent(this, typeof(DmScreenBase)), 0);
+            // Instantiate the builder and set notification elements:
+            Notification.Builder builder = new Notification.Builder(this)
+                .SetContentTitle("Go Steve DND Update")
+                .SetContentText("New CharacterSheet uploaded!")
+                .SetSmallIcon(Resource.Drawable.Icon)
+                .SetContentIntent(pendingIntent);
+
+            // Build the notification:
+            Notification notification = builder.Build();
+
+            // Get the notification manager:
+            NotificationManager notificationManager =
+                GetSystemService(Context.NotificationService) as NotificationManager;
+
+            notification.Flags = NotificationFlags.AutoCancel;
+
+            // Publish the notification:
+
+            notificationManager.Notify(notifyNewCharID, notification);
+        }
+
+        void BroadcastNewCharacterToActivity()
+        {
+            var characterIntent = new Intent(CharSheetUpdatedAction);
+
+            SendOrderedBroadcast(characterIntent, null);
+        }
+
+        void OnStateChanged()
+        {
+            var stateIntent = new Intent(ServerStateChangedAction);
+
+            SendOrderedBroadcast(stateIntent, null);
+        }
+
+        private void setServerRunning(bool state)
+        {
+            if(state)
+            {
+                _isServiceUp = true;
+                _service = this;
+            }
+            else
+            {
+                _isServiceUp = false;
+                _service = null;
+            }
+            OnStateChanged();
         }
 
         public void DoWork()
@@ -109,7 +204,6 @@ namespace GoSteve.Services
                     Log.Info("DmScreenBase", "IP: " + ip);
                 }
 
-                CharacterSheet cs = null;
                 MemoryStream ms = null;
                 byte[] buffer = null;
                 byte[] retToClient = null;
@@ -162,6 +256,8 @@ namespace GoSteve.Services
 
                         stream.Close();
                         SendNotification();
+                        Log.Info("DMScreenBase", "Is character null:" + (cs == null));
+                        BroadcastNewCharacterToActivity();
 
                     }
 
@@ -196,6 +292,7 @@ namespace GoSteve.Services
         private void StopServer()
         {
             _isServerUp = false;
+            StopNSD();
             if (_server != null)
             {
                 _server.Stop();
@@ -204,7 +301,6 @@ namespace GoSteve.Services
                 _server = null;
                 cs = null;
             }
-            StopNSD();
         }
 
         private void StopNSD()
@@ -219,7 +315,7 @@ namespace GoSteve.Services
 
         private void StartServer()
         {
-            if (!_isServerUp && _serverThread==null)
+            if (!_isServerUp && _serverThread == null)
             {
                 _isServerUp = false;
 
@@ -266,7 +362,7 @@ namespace GoSteve.Services
 
         public bool IsServiceRunning()
         {
-            return service.IsServiceRunning;
+            return DmServerService.IsServiceRunning;
         }
     }
 }
