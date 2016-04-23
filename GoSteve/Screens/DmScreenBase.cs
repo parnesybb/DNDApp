@@ -114,169 +114,43 @@ namespace GoSteve.Screens
             _layout.AddView(_broadcastBtn);
         }
 
+        protected override void OnStart()
+        {
+            base.OnStart();
+
+            var dmServerServiceIntent = new Intent(DmServerService.IntentFilter);
+            ServiceConnection = new DmServerServiceConnection(this);
+            ApplicationContext.BindService(dmServerServiceIntent, ServiceConnection, Bind.AutoCreate);
+        }
+
         protected override void OnDestroy()
         {
-            Log.Info("DmScreenBase","OnDestroy called!");
-            if (_nsd != null)
-            {
-                _nsd.UnregisterService();
-            }
-            StopServer();
+            Log.Info("DmScreenBase", "OnDestroy called!");
 
             base.OnDestroy();
         }
 
-        private void StartServer(int port)
-        {
-            _server = null;
-            Log.Info("DmScreenBase", "server TCPListener startup");
-            try
-            {
-                var format = new BinaryFormatter();
-                _server = new TcpListener(System.Net.IPAddress.Any, port);
-
-                Log.Info("DmScreenBase", "PORT: " + port);
-
-                foreach (IPAddress ip in Dns.GetHostEntry(Dns.GetHostName()).AddressList)
-                {
-                    Log.Info("DmScreenBase", "IP: "+ip);
-                }
-
-                CharacterSheet cs = null;
-                MemoryStream ms = null;
-                byte[] buffer = null;
-                byte[] retToClient = null;
-
-                _server.Start();
-                _isServerUp = true;
-
-                while (_isServerUp)
-                {
-                    // Get/Await data from TCP Client.
-                    var client = _server.AcceptTcpClient();
-                    var stream = client.GetStream();
-
-                    try
-                    {
-                        // Information about data from client.
-                        var dataRead = 0;
-                        var msgLength = 0;
-                        var msgByteLength = new byte[4];
-
-                        // Get the size of the incoming object.
-                        stream.Read(msgByteLength, 0, 4);
-                        msgLength = BitConverter.ToInt32(msgByteLength, 0);
-                        buffer = new byte[msgLength];
-
-                        // Read the object into byte buffer.
-                        do
-                        {
-                            dataRead += stream.Read(buffer, dataRead, msgLength - dataRead);
-                        } while (dataRead < msgLength);
-
-                        // Try to deserialize the object and update GUI.
-                        ms = new MemoryStream(buffer);
-                        cs = format.Deserialize(ms) as CharacterSheet;
-
-                        // Create new ID if there's not one for the player.
-                        if (String.IsNullOrWhiteSpace(cs.ID))
-                        {
-                            cs.ID = System.Guid.NewGuid().ToString(); ;
-                        }
-
-                        // Update UI.
-                        RunOnUiThread(() => Update(cs));
-
-                        // Return the ID to client.
-                        retToClient = ASCIIEncoding.ASCII.GetBytes(cs.ID);
-                        stream.Write(retToClient, 0, retToClient.Length);
-
-                        Log.Info("DMScreenBase","Receive character ID:"+cs.ID);
-
-                        stream.Close();
-                    }
-
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex.Message);
-                    }
-                    finally
-                    {
-                        client.Close();
-                        buffer = null;
-                        cs = null;
-                        ms = null;
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-            finally
-            {
-                _server.Stop();
-                Log.Info("DmScreenBase", "server TCPListener shutdown");
-                _server = null;
-            }
-        }
-
-        private void StopServer()
-        {
-            _isServerUp = false;
-            if (_server != null)
-            {
-                _server.Stop();
-                _serverThread.Join();
-            }
-        }
-
-        private void StopNSD()
-        {
-            //_nsd.StopDiscovery();
-            _nsd.UnregisterService();
-        }
-
-        private void StartNSD()
-        {
-            _nsd = new GSNsdHelper(this);
-            _nsd.StartHelper();
-            _nsd.RegisterService(port);
-        }
-
         private void ToggleServerButtonState()
         {
-            if(_serverThread!=null && _serverThread.IsAlive)
+            if(IsBound)
             {
-                StopNSD();
-                StopServer();
+                //stop
                 _broadcastBtn.Text = "Start Broadcast Session";
             }
             else
             {
-                _isServerUp = false;
-
-                var socket = new ServerSocket(0);
-                var port = socket.LocalPort;
-                socket.Close();
-
-                if (_serverThread != null && _server != null)
-                {
-                    _server.Stop();
-                }
-
-                StopServer();
-
-                _serverThread = new Thread(() => StartServer(port));
-                _serverThread.Start();
-
-                // announce server/port
-                _nsd = new GSNsdHelper(this);
-                _nsd.StartHelper();
-                _nsd.RegisterService(port);
-
                 _broadcastBtn.Text = "Stop Broadcast Session";
             }
+        }
+
+        private void StopService()
+        {
+
+        }
+
+        private void StartService()
+        {
+
         }
 
         class DmServiceReceiver : BroadcastReceiver
@@ -284,7 +158,7 @@ namespace GoSteve.Screens
             public override void OnReceive(Context context, Android.Content.Intent intent)
             {
                 // Get Character sheets
-                ((DmScreenBase)context).GetCharacterSheets();
+                ((DmServerService)context).GetCharacterSheets();
 
                 InvokeAbortBroadcast();
             }
@@ -295,15 +169,8 @@ namespace GoSteve.Screens
     public class DmServerServiceConnection : Java.Lang.Object, IServiceConnection
     {
         DmScreenBase activity;
-        DmServerBinder binder;
 
-        public DmServerBinder Binder
-        {
-            get
-            {
-                return binder;
-            }
-        }
+        public DmServerBinder Binder { get; set; }
 
         public DmServerServiceConnection(DmScreenBase activity)
         {
@@ -320,7 +187,7 @@ namespace GoSteve.Screens
                 activity.IsBound = true;
 
                 // keep instance for preservation across configuration changes
-                this.binder = (DmServerBinder)service;
+                this.Binder = (DmServerBinder)service;
             }
         }
 

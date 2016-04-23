@@ -17,19 +17,26 @@ using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Net;
 using System.IO;
+using Java.Net;
 
 namespace GoSteve.Services
 {
     [Service]
-    [IntentFilter(new String[] { "com.xamarin.DmServerService" })]
+    [IntentFilter(new String[] { DmServerService.IntentFilter })]
     public class DmServerService : Service
     {
         DmServerBinder binder;
 
         private volatile bool _isServerUp;
+        public bool IsServiceRunning { get { return _isServerUp; } }
+
         private Thread _serverThread;
         private GSNsdHelper _nsd;
         private TcpListener _server;
+
+        private CharacterSheet cs=null;
+
+        public const string IntentFilter = "com.xamarin.DmServerService";
 
         public override StartCommandResult OnStartCommand(Android.Content.Intent intent, StartCommandFlags flags, int startId)
         {
@@ -39,7 +46,7 @@ namespace GoSteve.Services
 
             DoWork();
 
-            return StartCommandResult.Sticky;
+            return StartCommandResult.NotSticky;
         }
 
         void StartServiceInForeground()
@@ -54,37 +61,25 @@ namespace GoSteve.Services
         public override void OnDestroy()
         {
             base.OnDestroy();
+            StopServer();
 
-            Log.Debug("DmServerService", "DemoService stopped");
+            Log.Debug("DmServerService", "DmServerService stopped");
         }
 
         void SendNotification()
         {
             var nMgr = (NotificationManager)GetSystemService(NotificationService);
-            var notification = new Notification(Resource.Drawable.Icon, "Message from demo service");
+            var notification = new Notification(Resource.Drawable.Icon, "New CharacterSheet uploaded!");
             var pendingIntent = PendingIntent.GetActivity(this, 0, new Intent(this, typeof(DmScreenBase)), 0);
-            notification.SetLatestEventInfo(this, "Demo Service Notification", "Message from demo service", pendingIntent);
+            notification.SetLatestEventInfo(this, "Dm Server Service Notification", "Message from Dm service", pendingIntent);
             nMgr.Notify(0, notification);
         }
 
         public void DoWork()
         {
-            Toast.MakeText(this, "The demo service has started", ToastLength.Long).Show();
+            Toast.MakeText(this, "The dm service has started", ToastLength.Long).Show();
 
-            var t = new Thread(() => {
-
-                SendNotification();
-
-                Thread.Sleep(5000);
-
-                Log.Debug("DmServerService", "Stopping foreground");
-                StopForeground(true);
-
-                StopSelf();
-            }
-            );
-
-            t.Start();
+            StartServer();
         }
 
         public override Android.OS.IBinder OnBind(Android.Content.Intent intent)
@@ -93,12 +88,12 @@ namespace GoSteve.Services
             return binder;
         }
 
-        public List<CharacterSheet> GetCharacterSheets()
+        public CharacterSheet GetCharacterSheets()
         {
-            return null;
+            return cs;
         }
 
-        private void StartServer(int port)
+        private void StartServerThread(int port)
         {
             _server = null;
             Log.Info("DmScreenBase", "server TCPListener startup");
@@ -166,6 +161,8 @@ namespace GoSteve.Services
                         Log.Info("DMScreenBase", "Receive character ID:" + cs.ID);
 
                         stream.Close();
+                        SendNotification();
+
                     }
 
                     catch (Exception ex)
@@ -176,7 +173,6 @@ namespace GoSteve.Services
                     {
                         client.Close();
                         buffer = null;
-                        cs = null;
                         ms = null;
                     }
                 }
@@ -204,16 +200,49 @@ namespace GoSteve.Services
             {
                 _server.Stop();
                 _serverThread.Join();
+                _serverThread = null;
+                _server = null;
+                cs = null;
             }
+            StopNSD();
         }
 
         private void StopNSD()
         {
             //_nsd.StopDiscovery();
-            _nsd.UnregisterService();
+            if (_nsd != null)
+            {
+                _nsd.UnregisterService();
+                _nsd = null;
+            }
         }
 
-        private void StartNSD()
+        private void StartServer()
+        {
+            if (!_isServerUp && _serverThread==null)
+            {
+                _isServerUp = false;
+
+                var socket = new ServerSocket(0);
+                var port = socket.LocalPort;
+                socket.Close();
+
+                if (_serverThread != null && _server != null)
+                {
+                    _server.Stop();
+                }
+
+                StopServer();
+
+                _serverThread = new Thread(() => StartServerThread(port));
+                _serverThread.Start();
+
+                // announce server/port
+                StartNSD(port);
+            }
+        }
+
+        private void StartNSD(int port)
         {
             _nsd = new GSNsdHelper(this);
             _nsd.StartHelper();
@@ -230,9 +259,14 @@ namespace GoSteve.Services
             this.service = service;
         }
 
-        public DmServerService GetDemoService()
+        public DmServerService GetDmServerService()
         {
             return service;
+        }
+
+        public bool IsServiceRunning()
+        {
+            return service.IsServiceRunning;
         }
     }
 }
