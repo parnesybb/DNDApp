@@ -22,7 +22,7 @@ using GoSteve.Services;
 
 namespace GoSteve.Screens
 {
-    [Activity(Label = "DmScreenBase")]
+    [Activity(Label = "DmScreenBase", LaunchMode = Android.Content.PM.LaunchMode.SingleTask)]
     public class DmScreenBase : Activity
     {
         private Dictionary<string, CharacterSheet> _charSheets;
@@ -30,7 +30,7 @@ namespace GoSteve.Screens
         private LinearLayout _layout;
         private Button _broadcastBtn;
         private DmServiceReceiver _characterReceiver;
-        private DmStopServiceReceiver _stopServiceReceiver;
+        //private DmStopServiceReceiver _stopServiceReceiver;
         private DmServerStateChangedReceiver _serverStateReceiver;
         private Intent _dmServerServiceIntent;
 
@@ -103,7 +103,7 @@ namespace GoSteve.Screens
             SetContentView(this._layout);
 
             _characterReceiver = new DmServiceReceiver();
-            _stopServiceReceiver = new DmStopServiceReceiver();
+            //_stopServiceReceiver = new DmStopServiceReceiver();
             _serverStateReceiver = new DmServerStateChangedReceiver();
 
             _broadcastBtn = new Button(this);
@@ -126,13 +126,13 @@ namespace GoSteve.Screens
             var intentFilter = new IntentFilter(DmServerService.CharSheetUpdatedAction) { Priority = (int)IntentFilterPriority.HighPriority };
             RegisterReceiver(_characterReceiver, intentFilter);
 
-            var stopServIntentFilter = new IntentFilter(ShutdownDmServerService.StopServerServiceAction) { Priority = (int)IntentFilterPriority.HighPriority };
-            RegisterReceiver(_stopServiceReceiver, stopServIntentFilter);
+            //var stopServIntentFilter = new IntentFilter(ShutdownDmServerService.StopServerServiceAction) { Priority = (int)IntentFilterPriority.HighPriority };
+            //RegisterReceiver(_stopServiceReceiver, stopServIntentFilter);
 
             var serverStateIntentFilter = new IntentFilter(DmServerService.ServerStateChangedAction) { Priority = (int)IntentFilterPriority.HighPriority };
             RegisterReceiver(_serverStateReceiver, serverStateIntentFilter);
 
-            _dmServerServiceIntent = new Intent(DmServerService.IntentFilter);
+            _dmServerServiceIntent = new Intent(this, typeof(DmServerService));
             ServiceConnection = new DmServerServiceConnection(this);
             ApplicationContext.BindService(_dmServerServiceIntent, ServiceConnection, Bind.AutoCreate);
         }
@@ -144,7 +144,7 @@ namespace GoSteve.Screens
             Log.Info("DmScreenBase", "OnDestroy called!");
 
             UnregisterReceiver(_characterReceiver);
-            UnregisterReceiver(_stopServiceReceiver);
+            //UnregisterReceiver(_stopServiceReceiver);
             UnregisterReceiver(_serverStateReceiver);
 
 
@@ -207,14 +207,14 @@ namespace GoSteve.Screens
             _broadcastBtn.Text = "Start Broadcast Session";
             UnbindDmServerService();
             //StopService(new Intent(DmServerService.IntentFilter));
-            StopService(new Intent(this, typeof(DmServerService)));
+            ApplicationContext.StopService(new Intent(this, typeof(DmServerService)));
         }
 
         private void StartDmServerService()
         {
             _broadcastBtn.Text = "Stop Broadcast Session";
             BindDmServerService();
-            StartService(new Intent(this, typeof(DmServerService)));
+            ApplicationContext.StartService(new Intent(this, typeof(DmServerService)));
         }
 
         void UpdateCharacterSheets()
@@ -248,6 +248,7 @@ namespace GoSteve.Screens
             }
         }
 
+        /*
         class DmStopServiceReceiver : BroadcastReceiver
         {
             public override void OnReceive(Context context, Android.Content.Intent intent)
@@ -261,6 +262,7 @@ namespace GoSteve.Screens
                 InvokeAbortBroadcast();
             }
         }
+        */
 
         class DmServerStateChangedReceiver : BroadcastReceiver
         {

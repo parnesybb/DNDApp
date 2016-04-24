@@ -21,7 +21,7 @@ using Java.Net;
 
 namespace GoSteve.Services
 {
-    [Service]
+    [Service(Exported=true)]
     [IntentFilter(new String[] { DmServerService.IntentFilter })]
     public class DmServerService : Service
     {
@@ -32,6 +32,8 @@ namespace GoSteve.Services
 
         public static bool IsServiceRunning { get { return _isServiceUp; } }
         public static DmServerService Service { get { return _service; } }
+
+        private DmStopServiceReceiver _stopServiceReceiver;
 
         private volatile bool _isServerUp;
 
@@ -57,6 +59,10 @@ namespace GoSteve.Services
             }
 
             setServerRunning(true);
+
+            _stopServiceReceiver = new DmStopServiceReceiver();
+            var stopServIntentFilter = new IntentFilter(ShutdownDmServerService.StopServerServiceAction) { Priority = (int)IntentFilterPriority.HighPriority };
+            RegisterReceiver(_stopServiceReceiver, stopServIntentFilter);
 
             Log.Debug("DmServerService", "DemoService started");
 
@@ -89,6 +95,8 @@ namespace GoSteve.Services
             // Build the notification:
             Notification ongoing = builder.Build();
 
+            ongoing.Flags = NotificationFlags.AutoCancel;
+
             // Get the notification manager:
             NotificationManager notificationManager =
                 GetSystemService(Context.NotificationService) as NotificationManager;
@@ -103,9 +111,8 @@ namespace GoSteve.Services
         {
             Log.Debug("DmServerService", "DmServerService stopped");
             base.OnDestroy();
-            StopServer();
 
-            setServerRunning(false);
+            StopService();
         }
 
         void SendNotification()
@@ -313,6 +320,18 @@ namespace GoSteve.Services
             }
         }
 
+        private void StopService()
+        {
+            UnregisterReceiver(_stopServiceReceiver);
+            StopServer();
+
+            setServerRunning(false);
+
+            NotificationManager nManager =
+               GetSystemService(Context.NotificationService) as NotificationManager;
+            nManager.CancelAll();
+        }
+
         private void StartServer()
         {
             if (!_isServerUp && _serverThread == null)
@@ -343,6 +362,24 @@ namespace GoSteve.Services
             _nsd = new GSNsdHelper(this);
             _nsd.StartHelper();
             _nsd.RegisterService(port);
+        }
+
+        class DmStopServiceReceiver : BroadcastReceiver
+        {
+            public override void OnReceive(Context context, Android.Content.Intent intent)
+            {
+                // Get Character sheets
+                DmServerService service;
+
+                service = ((DmServerService)context);
+
+                if (service != null)
+                {
+                    service.StopService();
+                }
+
+                InvokeAbortBroadcast();
+            }
         }
     }
 

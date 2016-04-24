@@ -12,7 +12,7 @@ using Android.Widget;
 
 namespace GoSteve.Services
 {
-    [Service]
+    [Service(Exported = true)]
     [IntentFilter(new String[] { ShutdownDmServerService.IntentFilter })]
     class ShutdownDmServerService : IntentService
     {
