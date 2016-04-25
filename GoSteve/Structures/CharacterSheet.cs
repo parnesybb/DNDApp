@@ -20,11 +20,13 @@ namespace GoSteve
     [Serializable]
     public class CharacterSheet
     {
+        private string _gender;
         private string _id;
         private string _charName;
         private AClass _class;
         private int _level;
         private ARace _race;
+        //private KnownValues.SubRace _subrace;
         private KnownValues.Background _background;
         private string _alignment;
         private string _playerName;
@@ -49,6 +51,7 @@ namespace GoSteve
         public CharacterSheet()
         {
             this._id = String.Empty;
+            this._gender = String.Empty;
             this._charName = String.Empty;
             this._level = 0;
             this._alignment = String.Empty;
@@ -85,6 +88,18 @@ namespace GoSteve
             }
         }
 
+        public string Gender
+        {
+            get
+            {
+                return this._gender;
+            }
+            set
+            {
+                this._gender = value;
+            }
+        }
+
         /// <summary>
         /// The Name of the character.
         /// </summary>
@@ -97,7 +112,7 @@ namespace GoSteve
 
             set
             {
-                _charName = value;
+                this._charName = value;
             }
         }
 
@@ -186,6 +201,21 @@ namespace GoSteve
             }
         }
 
+        public void setSubRace(KnownValues.SubRace sub)
+        {
+            try
+            {
+                this.RaceInstance.SubRace = sub;
+            }
+            catch (Exception)
+            { }
+        }
+
+        public KnownValues.SubRace getSubRace()
+        {
+            return this.RaceInstance.SubRace;
+        }
+
         /// <summary>
         /// The characters level.
         /// </summary>
@@ -198,7 +228,7 @@ namespace GoSteve
 
             set
             {
-                _level = value;
+                this._level = value;
             }
         }
 

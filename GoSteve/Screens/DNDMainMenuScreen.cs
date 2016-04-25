@@ -33,7 +33,7 @@ namespace GoSteve
 
             playerModeBtn.Click += (s, arg) =>
             {
-                StartActivity(typeof(CharacterSheetScreen));
+                StartActivity(typeof(CharacterSelectScreen));
             };
         }
     }

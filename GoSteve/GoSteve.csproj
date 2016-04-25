@@ -58,6 +58,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Screens\CharacterSelectScreen.cs" />
+    <Compile Include="Screens\NewChar1Screen.cs" />
     <Compile Include="Screens\DNDMainMenuScreen.cs" />
     <Compile Include="GSNetwork\GSDiscoveryListener.cs" />
     <Compile Include="GSNetwork\GSNsdHelper.cs" />
@@ -68,6 +70,8 @@
     <Compile Include="Screens\CharacterSheetScreen.cs" />
     <Compile Include="Screens\DmScreenBase.cs" />
     <Compile Include="Screens\GSClient.cs" />
+    <Compile Include="Screens\NewChar2Screen.cs" />
+    <Compile Include="Screens\NewChar3Screen.cs" />
     <Compile Include="Screens\TestScreen.cs" />
     <Compile Include="Structures\CharacterSheet.cs" />
     <Compile Include="Structures\CharacterButton.cs" />
@@ -112,14 +116,23 @@
     <AndroidResource Include="Resources\layout\DNDMain.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\CharacterSelect.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\newChar1.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\newChar2.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\newChar3.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
     <None Include="Resources\xml\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Strings.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Icon.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
@@ -134,7 +147,9 @@
     <AndroidResource Include="Resources\xml\halflingSub.xml" />
     <AndroidResource Include="Resources\xml\RaceList.xml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\icon.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
      Other similar extension points exist, see Microsoft.Common.targets.

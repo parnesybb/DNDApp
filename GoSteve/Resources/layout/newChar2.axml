@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:p1="http://schemas.android.com/apk/res/android"
+    p1:orientation="vertical"
+    p1:layout_width="match_parent"
+    p1:layout_height="match_parent"
+    p1:id="@+id/linearLayout1">
+    <TextView
+        p1:text="Lets Generate Ability Scores!"
+        p1:textAppearance="?android:attr/textAppearanceMedium"
+        p1:layout_width="match_parent"
+        p1:layout_height="wrap_content"
+        p1:id="@+id/instructionAb1"
+        p1:textAlignment="center" />
+    <TextView
+        p1:text="You will have 27 points to spend to generate six scores for your character.  The scores are as follows: Strength, Dexterity, Constitution, Intelligence, Wisdom, and Charisma"
+        p1:textAppearance="?android:attr/textAppearanceSmall"
+        p1:layout_width="match_parent"
+        p1:layout_height="wrap_content"
+        p1:id="@+id/instructionAb2" />
+    <TextView
+        p1:textAppearance="?android:attr/textAppearanceLarge"
+        p1:layout_width="match_parent"
+        p1:layout_height="12.5dp"
+        p1:id="@+id/blank1"
+        p1:visibility="invisible" />
+    <TextView
+        p1:text="STR"
+        p1:textAppearance="?android:attr/textAppearanceLarge"
+        p1:layout_width="49.0dp"
+        p1:layout_height="wrap_content"
+        p1:id="@+id/strScore" />
+    <TextView
+        p1:textAppearance="?android:attr/textAppearanceLarge"
+        p1:layout_width="match_parent"
+        p1:layout_height="wrap_content"
+        p1:id="@+id/blank2"
+        p1:visibility="invisible" />
+    <TextView
+        p1:text="DEX"
+        p1:textAppearance="?android:attr/textAppearanceLarge"
+        p1:layout_width="49.0dp"
+        p1:layout_height="wrap_content"
+        p1:id="@+id/dexScore" />
+    <TextView
+        p1:textAppearance="?android:attr/textAppearanceLarge"
+        p1:layout_width="match_parent"
+        p1:layout_height="wrap_content"
+        p1:id="@+id/blank3"
+        p1:visibility="invisible" />
+    <TextView
+        p1:text="CON"
+        p1:textAppearance="?android:attr/textAppearanceLarge"
+        p1:layout_width="49.0dp"
+        p1:layout_height="wrap_content"
+        p1:id="@+id/conScore" />
+    <TextView
+        p1:textAppearance="?android:attr/textAppearanceLarge"
+        p1:layout_width="match_parent"
+        p1:layout_height="wrap_content"
+        p1:id="@+id/blank4"
+        p1:visibility="invisible" />
+    <TextView
+        p1:text="INT"
+        p1:textAppearance="?android:attr/textAppearanceLarge"
+        p1:layout_width="49.0dp"
+        p1:layout_height="wrap_content"
+        p1:id="@+id/intScore" />
+    <TextView
+        p1:textAppearance="?android:attr/textAppearanceLarge"
+        p1:layout_width="match_parent"
+        p1:layout_height="wrap_content"
+        p1:id="@+id/blank5"
+        p1:visibility="invisible" />
+    <TextView
+        p1:text="WIS"
+        p1:textAppearance="?android:attr/textAppearanceLarge"
+        p1:layout_width="49.0dp"
+        p1:layout_height="wrap_content"
+        p1:id="@+id/wisScore" />
+    <TextView
+        p1:textAppearance="?android:attr/textAppearanceLarge"
+        p1:layout_width="match_parent"
+        p1:layout_height="wrap_content"
+        p1:id="@+id/blank6"
+        p1:visibility="invisible" />
+    <TextView
+        p1:text="CHA"
+        p1:textAppearance="?android:attr/textAppearanceLarge"
+        p1:layout_width="49.0dp"
+        p1:layout_height="wrap_content"
+        p1:id="@+id/chaScore" />
+    <TextView
+        p1:text="Remaining Points: 27"
+        p1:textAppearance="?android:attr/textAppearanceLarge"
+        p1:layout_width="match_parent"
+        p1:layout_height="wrap_content"
+        p1:id="@+id/remPoints"
+        p1:textColor="@android:color/holo_blue_light" />
+    <TextView
+        p1:textAppearance="?android:attr/textAppearanceLarge"
+        p1:layout_width="match_parent"
+        p1:layout_height="29.0dp"
+        p1:id="@+id/errMsg"
+        p1:visibility="invisible"
+        p1:textColor="@android:color/holo_red_dark" />
+    <Button
+        p1:text="Continue"
+        p1:layout_width="match_parent"
+        p1:layout_height="wrap_content"
+        p1:id="@+id/continueBtn" />
+</LinearLayout>
