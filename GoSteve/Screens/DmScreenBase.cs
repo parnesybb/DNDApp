@@ -18,22 +18,26 @@ using System.Net.Sockets;
 using System.IO;
 using System.Net;
 using Android.Util;
+using GoSteve.Services;
 
 namespace GoSteve.Screens
 {
-    [Activity(Label = "DmScreenBase")]
+    [Activity(Label = "DmScreenBase", LaunchMode = Android.Content.PM.LaunchMode.SingleTask)]
     public class DmScreenBase : Activity
     {
-        private volatile bool _isServerUp;
-        private Thread _serverThread;
-        private GSNsdHelper _nsd;
         private Dictionary<string, CharacterSheet> _charSheets;
         private int _buttonCount;
         private LinearLayout _layout;
         private Button _broadcastBtn;
+        private DmServiceReceiver _characterReceiver;
+        //private DmStopServiceReceiver _stopServiceReceiver;
+        private DmServerStateChangedReceiver _serverStateReceiver;
+        private Intent _dmServerServiceIntent;
 
-        // new Thread variables
-        private TcpListener _server;
+        public bool IsBound { get; set; }
+        public bool IsServiceUp { get; set; }
+        public DmServerServiceConnection ServiceConnection { set; get; }
+        public DmServerBinder Binder { get; set; }
 
         public DmScreenBase()
         {
@@ -98,6 +102,10 @@ namespace GoSteve.Screens
             this._layout.Orientation = Orientation.Vertical;
             SetContentView(this._layout);
 
+            _characterReceiver = new DmServiceReceiver();
+            //_stopServiceReceiver = new DmStopServiceReceiver();
+            _serverStateReceiver = new DmServerStateChangedReceiver();
+
             _broadcastBtn = new Button(this);
             _broadcastBtn.Id = Button.GenerateViewId();
             _broadcastBtn.Text = "Start Broadcast Session";
@@ -106,166 +114,198 @@ namespace GoSteve.Screens
                 ToggleServerButtonState();
             };
 
+            UpdateButton();
+
             _layout.AddView(_broadcastBtn);
+        }
+
+        protected override void OnStart()
+        {
+            base.OnStart();
+
+            var intentFilter = new IntentFilter(DmServerService.CharSheetUpdatedAction) { Priority = (int)IntentFilterPriority.HighPriority };
+            RegisterReceiver(_characterReceiver, intentFilter);
+
+            //var stopServIntentFilter = new IntentFilter(ShutdownDmServerService.StopServerServiceAction) { Priority = (int)IntentFilterPriority.HighPriority };
+            //RegisterReceiver(_stopServiceReceiver, stopServIntentFilter);
+
+            var serverStateIntentFilter = new IntentFilter(DmServerService.ServerStateChangedAction) { Priority = (int)IntentFilterPriority.HighPriority };
+            RegisterReceiver(_serverStateReceiver, serverStateIntentFilter);
+
+            _dmServerServiceIntent = new Intent(this, typeof(DmServerService));
+            ServiceConnection = new DmServerServiceConnection(this);
+            ApplicationContext.BindService(_dmServerServiceIntent, ServiceConnection, Bind.AutoCreate);
         }
 
         protected override void OnDestroy()
         {
-            Log.Info("DmScreenBase","OnDestroy called!");
-            if (_nsd != null)
-            {
-                _nsd.UnregisterService();
-            }
-            StopServer();
-
             base.OnDestroy();
-        }
 
-        private void StartServer(int port)
-        {
-            _server = null;
-            Log.Info("DmScreenBase", "server TCPListener startup");
-            try
-            {
-                var format = new BinaryFormatter();
-                _server = new TcpListener(System.Net.IPAddress.Any, port);
+            Log.Info("DmScreenBase", "OnDestroy called!");
 
-                Log.Info("DmScreenBase", "PORT: " + port);
+            UnregisterReceiver(_characterReceiver);
+            //UnregisterReceiver(_stopServiceReceiver);
+            UnregisterReceiver(_serverStateReceiver);
 
-                foreach (IPAddress ip in Dns.GetHostEntry(Dns.GetHostName()).AddressList)
-                {
-                    Log.Info("DmScreenBase", "IP: "+ip);
-                }
 
-                CharacterSheet cs = null;
-                MemoryStream ms = null;
-                byte[] buffer = null;
-                byte[] retToClient = null;
-
-                _server.Start();
-                _isServerUp = true;
-
-                while (_isServerUp)
-                {
-                    // Get/Await data from TCP Client.
-                    var client = _server.AcceptTcpClient();
-                    var stream = client.GetStream();
-
-                    try
-                    {
-                        // Information about data from client.
-                        var dataRead = 0;
-                        var msgLength = 0;
-                        var msgByteLength = new byte[4];
-
-                        // Get the size of the incoming object.
-                        stream.Read(msgByteLength, 0, 4);
-                        msgLength = BitConverter.ToInt32(msgByteLength, 0);
-                        buffer = new byte[msgLength];
-
-                        // Read the object into byte buffer.
-                        do
-                        {
-                            dataRead += stream.Read(buffer, dataRead, msgLength - dataRead);
-                        } while (dataRead < msgLength);
-
-                        // Try to deserialize the object and update GUI.
-                        ms = new MemoryStream(buffer);
-                        cs = format.Deserialize(ms) as CharacterSheet;
-
-                        // Create new ID if there's not one for the player.
-                        if (String.IsNullOrWhiteSpace(cs.ID))
-                        {
-                            cs.ID = System.Guid.NewGuid().ToString(); ;
-                        }
-
-                        // Update UI.
-                        RunOnUiThread(() => Update(cs));
-
-                        // Return the ID to client.
-                        retToClient = ASCIIEncoding.ASCII.GetBytes(cs.ID);
-                        stream.Write(retToClient, 0, retToClient.Length);
-
-                        Log.Info("DMScreenBase","Receive character ID:"+cs.ID);
-
-                        stream.Close();
-                    }
-
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex.Message);
-                    }
-                    finally
-                    {
-                        client.Close();
-                        buffer = null;
-                        cs = null;
-                        ms = null;
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-            finally
-            {
-                _server.Stop();
-                Log.Info("DmScreenBase", "server TCPListener shutdown");
-                _server = null;
-            }
-        }
-
-        private void StopServer()
-        {
-            _isServerUp = false;
-            if (_server != null)
-            {
-                _server.Stop();
-                _serverThread.Join();
-            }
-        }
-
-        private void StopNSD()
-        {
-            //_nsd.StopDiscovery();
-            _nsd.UnregisterService();
+            UnbindDmServerService();
         }
 
         private void ToggleServerButtonState()
         {
-            if(_serverThread!=null && _serverThread.IsAlive)
+            if(IsServiceUp)
             {
-                StopNSD();
-                StopServer();
-                _broadcastBtn.Text = "Start Broadcast Session";
+                //stop service
+                StopDmServerService();
             }
             else
             {
-                _isServerUp = false;
 
-                var socket = new ServerSocket(0);
-                var port = socket.LocalPort;
-                socket.Close();
-
-                if (_serverThread != null && _server != null)
-                {
-                    _server.Stop();
-                }
-
-                StopServer();
-
-                _serverThread = new Thread(() => StartServer(port));
-                _serverThread.Start();
-
-                // announce server/port
-                _nsd = new GSNsdHelper(this);
-                _nsd.StartHelper();
-                _nsd.RegisterService(port);
-
-                _broadcastBtn.Text = "Stop Broadcast Session";
+                //start service
+                StartDmServerService();
             }
         }
 
+        public void UpdateButton()
+        {
+            RunOnUiThread(() =>
+            {
+                IsServiceUp = DmServerService.IsServiceRunning;
+                if (IsServiceUp)
+                {
+                    //stop service
+                    _broadcastBtn.Text = "Stop Broadcast Session";
+                }
+                else
+                {
+                    //start service
+                    _broadcastBtn.Text = "Start Broadcast Session";
+                }
+            });
+        }
+
+        private void BindDmServerService()
+        {
+            if (!IsBound)
+            {
+                ApplicationContext.BindService(_dmServerServiceIntent, ServiceConnection, Bind.AutoCreate);
+                IsBound = true;
+            }
+        }
+
+        private void UnbindDmServerService()
+        {
+            if (IsBound)
+            {
+                ApplicationContext.UnbindService(ServiceConnection);
+                IsBound = false;
+            }
+        }
+
+        private void StopDmServerService()
+        {
+            _broadcastBtn.Text = "Start Broadcast Session";
+            UnbindDmServerService();
+            //StopService(new Intent(DmServerService.IntentFilter));
+            ApplicationContext.StopService(new Intent(this, typeof(DmServerService)));
+        }
+
+        private void StartDmServerService()
+        {
+            _broadcastBtn.Text = "Stop Broadcast Session";
+            BindDmServerService();
+            ApplicationContext.StartService(new Intent(this, typeof(DmServerService)));
+        }
+
+        void UpdateCharacterSheets()
+        {
+            if (IsBound)
+            {
+                RunOnUiThread(() => {
+                    var locCs = DmServerService.Service.GetCharacterSheets();
+
+                    if (locCs != null)
+                    {
+                        Update(locCs);
+                    }
+                    else
+                    {
+                        Log.Debug("DmScreenBase", "charactersheet is null");
+                    }
+                }
+                );
+            }
+        }
+
+        class DmServiceReceiver : BroadcastReceiver
+        {
+            public override void OnReceive(Context context, Android.Content.Intent intent)
+            {
+                // Get Character sheets
+                ((DmScreenBase)context).UpdateCharacterSheets();
+
+                InvokeAbortBroadcast();
+            }
+        }
+
+        /*
+        class DmStopServiceReceiver : BroadcastReceiver
+        {
+            public override void OnReceive(Context context, Android.Content.Intent intent)
+            {
+                // Get Character sheets
+                ((DmScreenBase)context).RunOnUiThread(() =>
+                {
+                    ((DmScreenBase)context).StopDmServerService();
+                });
+
+                InvokeAbortBroadcast();
+            }
+        }
+        */
+
+        class DmServerStateChangedReceiver : BroadcastReceiver
+        {
+            public override void OnReceive(Context context, Android.Content.Intent intent)
+            {
+                // Get Character sheets
+                ((DmScreenBase)context).UpdateButton();
+
+                InvokeAbortBroadcast();
+            }
+        }
+
+    }
+
+    public class DmServerServiceConnection : Java.Lang.Object, IServiceConnection
+    {
+        DmScreenBase activity;
+
+        public DmServerBinder Binder { get; set; }
+
+        public DmServerServiceConnection(DmScreenBase activity)
+        {
+            this.activity = activity;
+        }
+
+        public void OnServiceConnected(ComponentName name, IBinder service)
+        {
+            var demoServiceBinder = service as DmServerBinder;
+            if (demoServiceBinder != null)
+            {
+                var binder = (DmServerBinder)service;
+                activity.Binder = binder;
+                activity.IsBound = true;
+                activity.UpdateButton();
+
+                // keep instance for preservation across configuration changes
+                this.Binder = (DmServerBinder)service;
+            }
+        }
+
+        public void OnServiceDisconnected(ComponentName name)
+        {
+            activity.IsBound = false;
+        }
     }
 }
