@@ -19,12 +19,16 @@ namespace GoSteve.Screens
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+            var gsMsg = new GSActivityMessage();
+            gsMsg.Message = (byte[])Intent.Extras.Get(gsMsg.CharacterMessage);
 
-            byte[] bytes = (byte[])Intent.Extras.Get("charSheet");
-            var formatter = new BinaryFormatter();
-            var ms = new System.IO.MemoryStream(bytes);
-            var cs = (CharacterSheet)formatter.Deserialize(ms);
-            ms.Close();
+            var cs = CharacterSheet.GetCharacterSheet(gsMsg.Message);
+
+            //byte[] bytes = (byte[])Intent.Extras.Get("charSheet");
+            //var formatter = new BinaryFormatter();
+            //var ms = new System.IO.MemoryStream(bytes);
+            //var cs = (CharacterSheet)formatter.Deserialize(ms);
+            //ms.Close();
 
             var layout = new LinearLayout(this);
             layout.Orientation = Orientation.Vertical;

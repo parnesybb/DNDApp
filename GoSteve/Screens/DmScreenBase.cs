@@ -69,20 +69,25 @@ namespace GoSteve.Screens
                 {
                     // Screen to call. This will be an instance of Mike's character screen.
                     var charScreen = new Intent(this, typeof(TestScreen));
+                    var gsMsg = new GSActivityMessage();
 
-                    // For serialzation.
-                    byte[] csBytes = null;
-                    var ms = new System.IO.MemoryStream();
-                    var formatter = new BinaryFormatter();
-
-                    // Serialize the character sheet.
-                    formatter.Serialize(ms, _charSheets[b.CharacterID]);
-                    csBytes = ms.ToArray();
-                    ms.Close();
-
-                    // Send data to new character sheet screen.
-                    charScreen.PutExtra("charSheet", csBytes);
+                    gsMsg.Message = CharacterSheet.GetBytes(_charSheets[b.CharacterID]);
+                    charScreen.PutExtra(gsMsg.CharacterMessage, gsMsg.Message);
                     StartActivity(charScreen);
+
+                    //// For serialzation.
+                    //byte[] csBytes = null;
+                    //var ms = new System.IO.MemoryStream();
+                    //var formatter = new BinaryFormatter();
+
+                    //// Serialize the character sheet.
+                    //formatter.Serialize(ms, _charSheets[b.CharacterID]);
+                    //csBytes = ms.ToArray();
+                    //ms.Close();
+
+                    //// Send data to new character sheet screen.
+                    //charScreen.PutExtra("charSheet", csBytes);
+                    //StartActivity(charScreen);
                 };
 
                 this._layout.AddView(b);
@@ -117,6 +122,17 @@ namespace GoSteve.Screens
             UpdateButton();
 
             _layout.AddView(_broadcastBtn);
+
+            //TEST
+            //var cs = new CharacterSheet();
+            //cs.CharacterName = "TEST";
+            //cs.SetRace(KnownValues.Race.DRAGONBORN, true);
+            //cs.Background = KnownValues.Background.ACOLYTE;
+            //cs.SetClass(KnownValues.ClassType.BARBARIAN, true);
+            //cs.ID = new Guid().ToString();
+            //CharacterSheet.WriteToFile(cs);
+            //var csFromFile = CharacterSheet.ReadFromFile(cs.CharacterName);
+            //this.Update(csFromFile);
         }
 
         protected override void OnStart()

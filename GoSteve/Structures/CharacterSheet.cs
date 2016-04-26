@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Runtime.Serialization.Formatters.Binary;
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -14,12 +14,16 @@ using GoSteve.Structures.Spells;
 using GoSteve.Structures.Classes;
 using GoSteve.Structures.Races;
 using GoSteve.Structures;
+using System.IO;
 
 namespace GoSteve
 {
     [Serializable]
     public class CharacterSheet
     {
+        public static readonly string FILE_EXT = ".gs";
+        private static readonly BinaryFormatter _formatter = new BinaryFormatter();
+
         private string _gender;
         private string _id;
         private string _charName;
@@ -626,7 +630,16 @@ namespace GoSteve
         /// <returns>The character sheet as a byte array.</returns>
         public static byte[] GetBytes(CharacterSheet cs)
         {
-            throw new NotImplementedException();
+            // For serialzation.
+            byte[] csBytes = null;
+            var ms = new System.IO.MemoryStream();
+
+            // Serialize the character sheet.
+            CharacterSheet._formatter.Serialize(ms, cs);
+            csBytes = ms.ToArray();
+            ms.Close();
+
+            return csBytes;
         } 
 
         /// <summary>
@@ -636,27 +649,46 @@ namespace GoSteve
         /// <returns>A new instance of a character sheet repesented by the byte array.</returns>
         public static CharacterSheet GetCharacterSheet(byte[] csBytes)
         {
-            throw new NotImplementedException();
+            var ms = new System.IO.MemoryStream(csBytes);
+            var cs = CharacterSheet._formatter.Deserialize(ms) as CharacterSheet;
+            ms.Close();
+
+            return cs;
         }
 
         /// <summary>
         /// Reads a character sheet in from file.
         /// </summary>
-        /// <param name="loc">Location of the character sheet.</param>
+        /// <param name="fileName">Location of the character sheet.</param>
         /// <returns>An instance of CharacterSheet.</returns>
-        public static CharacterSheet ReadFromFile(string loc)
+        public static CharacterSheet ReadFromFile(string fileName)
         {
-            throw new NotImplementedException();
+            if (String.IsNullOrWhiteSpace(fileName)) { return null; }
+
+            if (!fileName.Contains(FILE_EXT))
+            {
+                fileName += FILE_EXT;
+            }
+
+            var locPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+            var filePath = Path.Combine(locPath, fileName);
+            var cs = File.ReadAllBytes(filePath);
+
+            return CharacterSheet.GetCharacterSheet(cs);
         }
 
         /// <summary>
         /// Writes a CharacterSheet out to a file in serialized form.
         /// </summary>
-        /// <param name="loc">The name of the file.</param>
+        /// <param name="fileName">The name of the file.</param>
         /// <param name="cs">The character sheet to write out.</param>
-        public static void WriteToFile(string loc, CharacterSheet cs)
+        public static void WriteToFile(CharacterSheet cs)
         {
-            throw new NotImplementedException();
+            if (cs == null) { return; }
+
+            var locPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+            var filePath = Path.Combine(locPath, cs.CharacterName + FILE_EXT);
+            File.WriteAllBytes(filePath, CharacterSheet.GetBytes(cs));
         }
     }
 }
