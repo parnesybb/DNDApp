@@ -618,5 +618,45 @@ namespace GoSteve
         {
             this._featuresTraits.Add(val);
         }
+
+        /// <summary>
+        /// Converts a character sheet into a byte array.
+        /// </summary>
+        /// <param name="cs">The character sheet to convert.</param>
+        /// <returns>The character sheet as a byte array.</returns>
+        public static byte[] GetBytes(CharacterSheet cs)
+        {
+            throw new NotImplementedException();
+        } 
+
+        /// <summary>
+        /// Converts a byte array into a character sheet.
+        /// </summary>
+        /// <param name="csBytes">The byte array to convert.</param>
+        /// <returns>A new instance of a character sheet repesented by the byte array.</returns>
+        public static CharacterSheet GetCharacterSheet(byte[] csBytes)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Reads a character sheet in from file.
+        /// </summary>
+        /// <param name="loc">Location of the character sheet.</param>
+        /// <returns>An instance of CharacterSheet.</returns>
+        public static CharacterSheet ReadFromFile(string loc)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Writes a CharacterSheet out to a file in serialized form.
+        /// </summary>
+        /// <param name="loc">The name of the file.</param>
+        /// <param name="cs">The character sheet to write out.</param>
+        public static void WriteToFile(string loc, CharacterSheet cs)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
