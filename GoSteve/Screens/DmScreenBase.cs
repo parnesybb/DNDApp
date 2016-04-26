@@ -22,7 +22,7 @@ using GoSteve.Services;
 
 namespace GoSteve.Screens
 {
-    [Activity(Label = "DmScreenBase", LaunchMode = Android.Content.PM.LaunchMode.SingleTask)]
+    [Activity(Label = "DM Mode", LaunchMode = Android.Content.PM.LaunchMode.SingleTask)]
     public class DmScreenBase : Activity
     {
         private Dictionary<string, CharacterSheet> _charSheets;
