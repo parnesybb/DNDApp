@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:p1="http://schemas.android.com/apk/res/android"
-    p1:orientation="vertical"
+<RelativeLayout xmlns:p1="http://schemas.android.com/apk/res/android"
+    p1:minWidth="25px"
+    p1:minHeight="25px"
     p1:layout_width="match_parent"
     p1:layout_height="match_parent"
-    p1:id="@+id/linearLayout1">
+    p1:id="@+id/relativeLayout1">
     <TextView
         p1:text="Lets Generate Ability Scores!"
         p1:textAppearance="?android:attr/textAppearanceMedium"
@@ -12,15 +13,17 @@
         p1:id="@+id/instructionAb1"
         p1:textAlignment="center" />
     <TextView
-        p1:text="You will have 27 points to spend to generate six scores for your character.  The scores are as follows: Strength, Dexterity, Constitution, Intelligence, Wisdom, and Charisma"
+        p1:text="You will have 27 points to spend to generate six scores for your character.  The scores are as follows: Strength, Dexterity, Constitution, Intelligence, Wisdom, and Charisma.  Keep in mind, the scores you choose will be modified by the race you have chosen."
         p1:textAppearance="?android:attr/textAppearanceSmall"
         p1:layout_width="match_parent"
         p1:layout_height="wrap_content"
+        p1:layout_below="@id/instructionAb1"
         p1:id="@+id/instructionAb2" />
     <TextView
         p1:textAppearance="?android:attr/textAppearanceLarge"
         p1:layout_width="match_parent"
-        p1:layout_height="12.5dp"
+        p1:layout_height="13.0dp"
+        p1:layout_below="@+id/instructionAb2"
         p1:id="@+id/blank1"
         p1:visibility="invisible" />
     <TextView
@@ -28,11 +31,36 @@
         p1:textAppearance="?android:attr/textAppearanceLarge"
         p1:layout_width="49.0dp"
         p1:layout_height="wrap_content"
+        p1:layout_below="@+id/blank1"
         p1:id="@+id/strScore" />
+    <Button
+        p1:text="-"
+        p1:layout_width="49.0dp"
+        p1:layout_height="31.5dp"
+        p1:layout_below="@+id/blank1"
+        p1:layout_toRightOf="@+id/strScore"
+        p1:id="@+id/strMinus" />
+    <TextView
+        p1:text="8"
+        p1:textAppearance="?android:attr/textAppearanceLarge"
+        p1:layout_width="28.0dp"
+        p1:layout_height="wrap_content"
+        p1:gravity="center"
+        p1:layout_toRightOf="@+id/strMinus"
+        p1:layout_below="@+id/blank1"
+        p1:id="@+id/strScoreNum" />
+    <Button
+        p1:text="+"
+        p1:layout_width="49.0dp"
+        p1:layout_height="31.5dp"
+        p1:layout_below="@+id/blank1"
+        p1:layout_toRightOf="@+id/strScoreNum"
+        p1:id="@+id/strPlus" />
     <TextView
         p1:textAppearance="?android:attr/textAppearanceLarge"
         p1:layout_width="match_parent"
         p1:layout_height="wrap_content"
+        p1:layout_below="@+id/strScore"
         p1:id="@+id/blank2"
         p1:visibility="invisible" />
     <TextView
@@ -40,11 +68,36 @@
         p1:textAppearance="?android:attr/textAppearanceLarge"
         p1:layout_width="49.0dp"
         p1:layout_height="wrap_content"
+        p1:layout_below="@+id/blank2"
         p1:id="@+id/dexScore" />
+    <Button
+        p1:text="-"
+        p1:layout_width="49.0dp"
+        p1:layout_height="31.5dp"
+        p1:layout_below="@+id/blank2"
+        p1:layout_toRightOf="@+id/dexScore"
+        p1:id="@+id/dexMinus" />
+    <TextView
+        p1:text="8"
+        p1:textAppearance="?android:attr/textAppearanceLarge"
+        p1:layout_width="28.0dp"
+        p1:layout_height="wrap_content"
+        p1:gravity="center"
+        p1:layout_toRightOf="@+id/dexMinus"
+        p1:layout_below="@+id/blank2"
+        p1:id="@+id/dexScoreNum" />
+    <Button
+        p1:text="+"
+        p1:layout_width="49.0dp"
+        p1:layout_height="31.5dp"
+        p1:layout_below="@+id/blank2"
+        p1:layout_toRightOf="@+id/dexScoreNum"
+        p1:id="@+id/dexPlus" />
     <TextView
         p1:textAppearance="?android:attr/textAppearanceLarge"
         p1:layout_width="match_parent"
         p1:layout_height="wrap_content"
+        p1:layout_below="@+id/dexScore"
         p1:id="@+id/blank3"
         p1:visibility="invisible" />
     <TextView
@@ -52,11 +105,36 @@
         p1:textAppearance="?android:attr/textAppearanceLarge"
         p1:layout_width="49.0dp"
         p1:layout_height="wrap_content"
+        p1:layout_below="@+id/blank3"
         p1:id="@+id/conScore" />
+    <Button
+        p1:text="-"
+        p1:layout_width="49.0dp"
+        p1:layout_height="31.5dp"
+        p1:layout_below="@+id/blank3"
+        p1:layout_toRightOf="@+id/conScore"
+        p1:id="@+id/conMinus" />
+    <TextView
+        p1:text="8"
+        p1:textAppearance="?android:attr/textAppearanceLarge"
+        p1:layout_width="28.0dp"
+        p1:layout_height="wrap_content"
+        p1:gravity="center"
+        p1:layout_toRightOf="@+id/conMinus"
+        p1:layout_below="@+id/blank3"
+        p1:id="@+id/conScoreNum" />
+    <Button
+        p1:text="+"
+        p1:layout_width="49.0dp"
+        p1:layout_height="31.5dp"
+        p1:layout_below="@+id/blank3"
+        p1:layout_toRightOf="@+id/conScoreNum"
+        p1:id="@+id/conPlus" />
     <TextView
         p1:textAppearance="?android:attr/textAppearanceLarge"
         p1:layout_width="match_parent"
         p1:layout_height="wrap_content"
+        p1:layout_below="@+id/conScore"
         p1:id="@+id/blank4"
         p1:visibility="invisible" />
     <TextView
@@ -64,11 +142,36 @@
         p1:textAppearance="?android:attr/textAppearanceLarge"
         p1:layout_width="49.0dp"
         p1:layout_height="wrap_content"
+        p1:layout_below="@+id/blank4"
         p1:id="@+id/intScore" />
+    <Button
+        p1:text="-"
+        p1:layout_width="49.0dp"
+        p1:layout_height="31.5dp"
+        p1:layout_below="@+id/blank4"
+        p1:layout_toRightOf="@+id/intScore"
+        p1:id="@+id/intMinus" />
+    <TextView
+        p1:text="8"
+        p1:textAppearance="?android:attr/textAppearanceLarge"
+        p1:layout_width="28.0dp"
+        p1:layout_height="wrap_content"
+        p1:gravity="center"
+        p1:layout_toRightOf="@+id/intMinus"
+        p1:layout_below="@+id/blank4"
+        p1:id="@+id/intScoreNum" />
+    <Button
+        p1:text="+"
+        p1:layout_width="49.0dp"
+        p1:layout_height="31.5dp"
+        p1:layout_below="@+id/blank4"
+        p1:layout_toRightOf="@+id/intScoreNum"
+        p1:id="@+id/intPlus" />
     <TextView
         p1:textAppearance="?android:attr/textAppearanceLarge"
         p1:layout_width="match_parent"
         p1:layout_height="wrap_content"
+        p1:layout_below="@+id/intScore"
         p1:id="@+id/blank5"
         p1:visibility="invisible" />
     <TextView
@@ -76,11 +179,36 @@
         p1:textAppearance="?android:attr/textAppearanceLarge"
         p1:layout_width="49.0dp"
         p1:layout_height="wrap_content"
+        p1:layout_below="@+id/blank5"
         p1:id="@+id/wisScore" />
+    <Button
+        p1:text="-"
+        p1:layout_width="49.0dp"
+        p1:layout_height="31.5dp"
+        p1:layout_below="@+id/blank5"
+        p1:layout_toRightOf="@+id/wisScore"
+        p1:id="@+id/wisMinus" />
+    <TextView
+        p1:text="8"
+        p1:textAppearance="?android:attr/textAppearanceLarge"
+        p1:layout_width="28.0dp"
+        p1:layout_height="wrap_content"
+        p1:gravity="center"
+        p1:layout_toRightOf="@+id/wisMinus"
+        p1:layout_below="@+id/blank5"
+        p1:id="@+id/wisScoreNum" />
+    <Button
+        p1:text="+"
+        p1:layout_width="49.0dp"
+        p1:layout_height="31.5dp"
+        p1:layout_below="@+id/blank5"
+        p1:layout_toRightOf="@+id/wisScoreNum"
+        p1:id="@+id/wisPlus" />
     <TextView
         p1:textAppearance="?android:attr/textAppearanceLarge"
         p1:layout_width="match_parent"
         p1:layout_height="wrap_content"
+        p1:layout_below="@+id/wisScore"
         p1:id="@+id/blank6"
         p1:visibility="invisible" />
     <TextView
@@ -88,18 +216,51 @@
         p1:textAppearance="?android:attr/textAppearanceLarge"
         p1:layout_width="49.0dp"
         p1:layout_height="wrap_content"
+        p1:layout_below="@+id/blank6"
         p1:id="@+id/chaScore" />
+    <Button
+        p1:text="-"
+        p1:layout_width="49.0dp"
+        p1:layout_height="31.5dp"
+        p1:layout_below="@+id/blank6"
+        p1:layout_toRightOf="@+id/chaScore"
+        p1:id="@+id/chaMinus" />
+    <TextView
+        p1:text="8"
+        p1:textAppearance="?android:attr/textAppearanceLarge"
+        p1:layout_width="28.0dp"
+        p1:layout_height="wrap_content"
+        p1:gravity="center"
+        p1:layout_toRightOf="@+id/chaMinus"
+        p1:layout_below="@+id/blank6"
+        p1:id="@+id/chaScoreNum" />
+    <Button
+        p1:text="+"
+        p1:layout_width="49.0dp"
+        p1:layout_height="31.5dp"
+        p1:layout_below="@+id/blank6"
+        p1:layout_toRightOf="@+id/chaScoreNum"
+        p1:id="@+id/chaPlus" />
+    <TextView
+        p1:textAppearance="?android:attr/textAppearanceLarge"
+        p1:layout_height="wrap_content"
+        p1:layout_width="match_parent"
+        p1:gravity="center"
+        p1:layout_below="@+id/chaScore"
+        p1:id="@+id/raceLabel" />
     <TextView
         p1:text="Remaining Points: 27"
         p1:textAppearance="?android:attr/textAppearanceLarge"
         p1:layout_width="match_parent"
         p1:layout_height="wrap_content"
+        p1:layout_below="@+id/raceLabel"
         p1:id="@+id/remPoints"
         p1:textColor="@android:color/holo_blue_light" />
     <TextView
         p1:textAppearance="?android:attr/textAppearanceLarge"
         p1:layout_width="match_parent"
         p1:layout_height="29.0dp"
+        p1:layout_below="@+id/remPoints"
         p1:id="@+id/errMsg"
         p1:visibility="invisible"
         p1:textColor="@android:color/holo_red_dark" />
@@ -107,5 +268,6 @@
         p1:text="Continue"
         p1:layout_width="match_parent"
         p1:layout_height="wrap_content"
+        p1:layout_below="@+id/errMsg"
         p1:id="@+id/continueBtn" />
-</LinearLayout>
+</RelativeLayout>

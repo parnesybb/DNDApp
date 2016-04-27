@@ -52,6 +52,7 @@ namespace GoSteve
             GUILD_ARTISAN,
             HERMIT,
             NOBLE,
+            NONE,
             OUTLANDER,
             SAGE,
             SAILOR,

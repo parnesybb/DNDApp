@@ -34,27 +34,33 @@ namespace GoSteve
             Button pickAlign = FindViewById<Button>(Resource.Id.pickAlign);
             Button continueButton = FindViewById<Button>(Resource.Id.continueButton);
 
-            String race = pickRace.Text;
-            String sub;
-            String background;
-            String align;
-            String gender;
-            //String name;
-
             CharacterSheet c = new CharacterSheet();
+
+            c.Gender = "Male";
+            c.Alignment = null;
+            c.CharacterName = null;
+            c.Background = KnownValues.Background.NONE;
+
+            newCharName.AfterTextChanged += (s, arg) =>
+            {
+                if(String.IsNullOrEmpty(arg.ToString()))
+                {}
+                else
+                {
+                    c.CharacterName = newCharName.Text;
+                }
+            };
 
             radioGender.Click += (s, arg) =>
             {
                 if(radioGender.CheckedRadioButtonId == radioMale.Id)
                 {
-                    gender = "male";
+                    c.Gender = "Male";
                 }
                 else
                 {
-                    gender = "female";
+                    c.Gender = "Female";
                 }
-
-                c.Gender = gender;
             };
 
             pickRace.Click += (s, arg) =>
@@ -65,69 +71,65 @@ namespace GoSteve
 
                 m.MenuItemClick += (s1, arg1) =>
                 {
-                    race = pickRace.Text;
+                    var race = pickRace.Text;
                     pickRace.Text = arg1.Item.TitleFormatted.ToString();
 
-                    switch (race)
+                    if(race != pickRace.Text)
+                    {
+                        pickSub.Text = "Pick A Sub Race";
+                    }
+
+                    switch (pickRace.Text)
                     {
                         case "Dragonborn":
                             instructionSubRace.Visibility = ViewStates.Invisible;
                             pickSub.Visibility = ViewStates.Invisible;
                             c.SetRace(KnownValues.Race.DRAGONBORN, true);
                             c.setSubRace(KnownValues.SubRace.NONE);
-                            pickRace.Text = arg1.Item.TitleFormatted.ToString();
                             break;
                         case "Dwarf":
                             instructionSubRace.Visibility = ViewStates.Visible;
                             pickSub.Visibility = ViewStates.Visible;
                             c.SetRace(KnownValues.Race.DWARF, true);
-                            pickRace.Text = arg1.Item.TitleFormatted.ToString();
                             break;
                         case "Elf":
                             instructionSubRace.Visibility = ViewStates.Visible;
                             pickSub.Visibility = ViewStates.Visible;
                             c.SetRace(KnownValues.Race.ELF, true);
-                            pickRace.Text = arg1.Item.TitleFormatted.ToString();
                             break;
                         case "Gnome":
                             instructionSubRace.Visibility = ViewStates.Visible;
                             pickSub.Visibility = ViewStates.Visible;
                             c.SetRace(KnownValues.Race.GNOME, true);
-                            pickRace.Text = arg1.Item.TitleFormatted.ToString();
                             break;
                         case "Half-Elf":
                             instructionSubRace.Visibility = ViewStates.Invisible;
                             pickSub.Visibility = ViewStates.Invisible;
                             c.SetRace(KnownValues.Race.HALF_ELF, true);
                             c.setSubRace(KnownValues.SubRace.NONE);
-                            pickRace.Text = arg1.Item.TitleFormatted.ToString();
                             break;
                         case "Halfling":
                             instructionSubRace.Visibility = ViewStates.Visible;
                             pickSub.Visibility = ViewStates.Visible;
                             c.SetRace(KnownValues.Race.HALFLING, true);
-                            pickRace.Text = arg1.Item.TitleFormatted.ToString();
                             break;
                         case "HalfOrc":
                             instructionSubRace.Visibility = ViewStates.Invisible;
                             pickSub.Visibility = ViewStates.Invisible;
                             c.SetRace(KnownValues.Race.HALF_ORC, true);
                             c.setSubRace(KnownValues.SubRace.NONE);
-                            pickRace.Text = arg1.Item.TitleFormatted.ToString();
                             break;
                         case "Human":
                             instructionSubRace.Visibility = ViewStates.Invisible;
                             pickSub.Visibility = ViewStates.Invisible;
                             c.SetRace(KnownValues.Race.HUMAN, true);
                             c.setSubRace(KnownValues.SubRace.NONE);
-                            pickRace.Text = arg1.Item.TitleFormatted.ToString();
                             break;
                         case "Tiefling":
                             instructionSubRace.Visibility = ViewStates.Invisible;
                             pickSub.Visibility = ViewStates.Invisible;
                             c.SetRace(KnownValues.Race.TIEFLING, true);
                             c.setSubRace(KnownValues.SubRace.NONE);
-                            pickRace.Text = arg1.Item.TitleFormatted.ToString();
                             break;
                         default:
                             instructionSubRace.Visibility = ViewStates.Invisible;
@@ -141,26 +143,26 @@ namespace GoSteve
             {
                 PopupMenu m = new PopupMenu(this, pickSub);
 
-                switch(race)
+                switch(pickRace.Text)
                 {
                     case "Dwarf":
+                        //pickSub.Text = "Pick a Sub Race";
                         m.Inflate(Resource.Xml.dwarfSub);
-                        pickSub.Text = "Pick a Sub Race";
                         c.setSubRace(KnownValues.SubRace.NONE);
                         break;
                     case "Elf":
+                        //pickSub.Text = "Pick a Sub Race";
                         m.Inflate(Resource.Xml.elfSub);
-                        pickSub.Text = "Pick a Sub Race";
                         c.setSubRace(KnownValues.SubRace.NONE);
                         break;
                     case "Gnome":
+                        //pickSub.Text = "Pick a Sub Race";
                         m.Inflate(Resource.Xml.gnomeSub);
-                        pickSub.Text = "Pick a Sub Race";
                         c.setSubRace(KnownValues.SubRace.NONE);
                         break;
                     case "Halfling":
+                        //pickSub.Text = "Pick a Sub Race";
                         m.Inflate(Resource.Xml.halflingSub);
-                        pickSub.Text = "Pick a Sub Race";
                         c.setSubRace(KnownValues.SubRace.NONE);
                         break;
                 }
@@ -169,10 +171,9 @@ namespace GoSteve
 
                 m.MenuItemClick += (s1, arg1) =>
                 {
-                    sub = pickSub.Text;
                     pickSub.Text = arg1.Item.TitleFormatted.ToString();
 
-                    switch(sub)
+                    switch(pickSub.Text)
                     {
                         case "Hill":
                             c.setSubRace(KnownValues.SubRace.HILL_DWARF);
@@ -217,10 +218,10 @@ namespace GoSteve
 
                 m.MenuItemClick += (s2, arg2) =>
                 {
-                    background = pickBack.Text;
+                    var background = pickBack.Text;
                     pickBack.Text = arg2.Item.TitleFormatted.ToString();
 
-                    switch(background)
+                    switch(pickBack.Text)
                     {
                         case "Acolyte":
                             c.Background = KnownValues.Background.ACOLYTE;
@@ -273,23 +274,24 @@ namespace GoSteve
 
                 m.MenuItemClick += (s2, arg2) =>
                 {
-                    align = pickAlign.Text;
                     pickAlign.Text = arg2.Item.TitleFormatted.ToString();
 
-                    c.Alignment = align;
+                    c.Alignment = pickAlign.Text;
                 };
             };
 
             continueButton.Click += (s, arg) =>
             {
-                c.CharacterName = newCharName.Text;
-
-                if (c.CharacterName == "" ||  pickRace.Text == "Pick a race" || c.Alignment == "Pick an alignment" || pickSub.Text == "Pick a sub race")
+                if (String.IsNullOrEmpty(c.CharacterName) ||  c.RaceInstance == null || c.Alignment == null || c.Background == KnownValues.Background.NONE || (pickSub.Visibility == ViewStates.Visible && c.getSubRace() == KnownValues.SubRace.NONE))
                 {
                     missing1.Visibility = ViewStates.Visible;
                 }
                 else
                 {
+                    var charScreen = new Intent(this, typeof(TestScreen));
+                    var gsMsg = new GSActivityMessage();
+                    gsMsg.Message = CharacterSheet.GetBytes(_charSheets[b.CharacterID]);
+                    charScreen.PutExtra(gsMsg.CharacterMessage, gsMsg.Message); StartActivity(charScreen);
                     StartActivity(typeof(NewChar2Screen));
                 }
             };
