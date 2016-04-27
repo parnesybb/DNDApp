@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Screens\CharacterSelectScreen.cs" />
+    <Compile Include="Screens\GSActivityMessage.cs" />
     <Compile Include="Screens\NewChar1Screen.cs" />
     <Compile Include="Screens\DNDMainMenuScreen.cs" />
     <Compile Include="GSNetwork\GSDiscoveryListener.cs" />
@@ -73,6 +74,8 @@
     <Compile Include="Screens\NewChar2Screen.cs" />
     <Compile Include="Screens\NewChar3Screen.cs" />
     <Compile Include="Screens\TestScreen.cs" />
+    <Compile Include="Services\DmServerService.cs" />
+    <Compile Include="Services\ShutdownDmServerService.cs" />
     <Compile Include="Structures\CharacterSheet.cs" />
     <Compile Include="Structures\CharacterButton.cs" />
     <Compile Include="Structures\HitDice.cs" />
@@ -148,7 +151,7 @@
     <AndroidResource Include="Resources\xml\RaceList.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\icon.png" />
+    <AndroidResource Include="Resources\drawable\Icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
