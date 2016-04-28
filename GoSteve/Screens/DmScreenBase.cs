@@ -25,10 +25,11 @@ namespace GoSteve.Screens
     [Activity(Label = "DM Mode", LaunchMode = Android.Content.PM.LaunchMode.SingleTask)]
     public class DmScreenBase : Activity
     {
-        private Dictionary<string, CharacterSheet> _charSheets;
+        private Campaign _campaign;
         private int _buttonCount;
         private LinearLayout _layout;
         private Button _broadcastBtn;
+        private Button _genEncounterBtn;
         private DmServiceReceiver _characterReceiver;
         //private DmStopServiceReceiver _stopServiceReceiver;
         private DmServerStateChangedReceiver _serverStateReceiver;
@@ -41,13 +42,13 @@ namespace GoSteve.Screens
 
         public DmScreenBase()
         {
-            this._charSheets = new Dictionary<string, CharacterSheet>();
+            _campaign = new Campaign();
             this._buttonCount = 0;
         }
 
         public void Update(CharacterSheet cs)
         {
-            if (!_charSheets.Keys.Contains(cs.ID))
+            if(!_campaign.IsMember(cs.ID))
             {
                 // Need an ID.
                 if (String.IsNullOrWhiteSpace(cs.ID))
@@ -56,7 +57,7 @@ namespace GoSteve.Screens
                 }
 
                 // New player.
-                _charSheets.Add(cs.ID, cs);
+                _campaign.AddPlayer(cs.ID, cs);
 
                 var b = new CharacterButton(this)
                 {
@@ -65,29 +66,35 @@ namespace GoSteve.Screens
                     Text = cs.CharacterName
                 };
 
+                // Open the player.
                 b.Click += (sender, args) =>
                 {
                     // Screen to call. This will be an instance of Mike's character screen.
                     var charScreen = new Intent(this, typeof(TestScreen));
                     var gsMsg = new GSActivityMessage();
 
-                    gsMsg.Message = CharacterSheet.GetBytes(_charSheets[b.CharacterID]);
+                    gsMsg.Message = CharacterSheet.GetBytes(_campaign[b.CharacterID]);
                     charScreen.PutExtra(gsMsg.CharacterMessage, gsMsg.Message);
                     StartActivity(charScreen);
+                };
+              
+                // Remove the player.
+                b.LongClick += (sender, args) =>
+                {
+                    var alert = new AlertDialog.Builder(this);
+                    alert.SetTitle("Remove Player?");
+                    alert.SetMessage("Do you want to remove this player");
 
-                    //// For serialzation.
-                    //byte[] csBytes = null;
-                    //var ms = new System.IO.MemoryStream();
-                    //var formatter = new BinaryFormatter();
+                    alert.SetPositiveButton("Yes", (s, e) =>
+                    {
+                        b.Visibility = ViewStates.Invisible;
+                        _campaign.RemovePlayer(b.CharacterID);
+                        _layout.RemoveView(b);
+                    });
 
-                    //// Serialize the character sheet.
-                    //formatter.Serialize(ms, _charSheets[b.CharacterID]);
-                    //csBytes = ms.ToArray();
-                    //ms.Close();
+                    alert.SetNegativeButton("No", (s, e) =>{ });
 
-                    //// Send data to new character sheet screen.
-                    //charScreen.PutExtra("charSheet", csBytes);
-                    //StartActivity(charScreen);
+                    RunOnUiThread(() => { alert.Show(); });
                 };
 
                 this._layout.AddView(b);
@@ -95,7 +102,7 @@ namespace GoSteve.Screens
             else
             {
                 // Update the dictionary for existing player.
-                this._charSheets[cs.ID] = cs;
+                _campaign[cs.ID] = cs;
             }
         }
 
@@ -111,6 +118,7 @@ namespace GoSteve.Screens
             //_stopServiceReceiver = new DmStopServiceReceiver();
             _serverStateReceiver = new DmServerStateChangedReceiver();
 
+            // Broadcast button
             _broadcastBtn = new Button(this);
             _broadcastBtn.Id = Button.GenerateViewId();
             _broadcastBtn.Text = "Start Broadcast Session";
@@ -120,8 +128,48 @@ namespace GoSteve.Screens
             };
 
             UpdateButton();
-
             _layout.AddView(_broadcastBtn);
+
+            // Encounter button
+            _genEncounterBtn = new Button(this);
+            _genEncounterBtn.Id = Button.GenerateViewId();
+            _genEncounterBtn.Text = "Generate an Encounter";
+            _genEncounterBtn.Click += (s, e) =>
+            {
+                // popup menu
+                var menu = new PopupMenu(this, _genEncounterBtn);
+                menu.Menu.Add("1 Player per Monster");
+                menu.Menu.Add("2 Players per Monster");
+                menu.Menu.Add("1 Player per 2 Monsters");              
+                menu.MenuItemClick += (ss, ee) =>
+                {
+                    var alert = new AlertDialog.Builder(this);
+                    var userChoice = Campaign.DesiredDifficulty.M1P1;
+                    var encounter = String.Empty; alert.SetTitle("Created An Encounter");
+
+                    switch (ee.Item.ToString())
+                    {
+                        case "1 Player per Monster":
+                            userChoice = Campaign.DesiredDifficulty.M1P1;
+                            break;
+                        case "2 Players per Monster":
+                            userChoice = Campaign.DesiredDifficulty.M1P2;
+                            break;
+                        case "1 Player per 2 Monsters":
+                            userChoice = Campaign.DesiredDifficulty.M2P1;
+                            break;
+                    }
+
+                    // show result
+                    encounter = _campaign.GenerateEncounter(userChoice);
+                    alert.SetMessage(encounter);
+                    alert.SetPositiveButton("Okay", (sss, eee) => { });
+                    RunOnUiThread(() => { alert.Show(); });
+                };
+
+                menu.Show();          
+            };
+            _layout.AddView(_genEncounterBtn);
 
             //TEST
             //var cs = new CharacterSheet();
@@ -130,9 +178,11 @@ namespace GoSteve.Screens
             //cs.Background = KnownValues.Background.ACOLYTE;
             //cs.SetClass(KnownValues.ClassType.BARBARIAN, true);
             //cs.ID = new Guid().ToString();
+            //cs.Level = 5;
             //CharacterSheet.WriteToFile(cs);
             //var csFromFile = CharacterSheet.ReadFromFile(cs.CharacterName);
             //this.Update(csFromFile);
+            //this.Update(cs);
         }
 
         protected override void OnStart()
