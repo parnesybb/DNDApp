@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace GoSteve.Structures
 {
+    [Serializable]
     public class Campaign
     {
         private Dictionary<string, CharacterSheet> _players;
