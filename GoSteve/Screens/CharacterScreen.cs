@@ -20,6 +20,12 @@ namespace GoSteve.Screens
         private readonly string[] _tabNames = { "Stats/Skills", "Attributes",  "Prof/Langs", "Equip", "Info"};
         private Fragment[] _fragments;
         private CharacterSheet _cs;
+        private bool isDM;
+
+        //TODO
+        // TIMED SAVE
+        // BUTTON TO SEND TO DM
+        // NEED TO SEND A BOOLEAN OR SOMETHING HERE TO SET isDM. RECEIVEMESSAGE SHOULD HANDLE THIS.
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -29,17 +35,21 @@ namespace GoSteve.Screens
             ActionBar.NavigationMode = ActionBarNavigationMode.Tabs;
             ActionBar.SetHomeButtonEnabled(true);
 
-            RecieveMessage();
+            ReceiveMessage();
 
             _fragments = new Fragment[]
           {
-                new StatsSkillsFragment(_cs)
+                new StatsSkillsFragment(_cs),
+                new AbilitiesFragment(_cs),
+                new ProfsLangsFragment(_cs),
+                new EquipFragment(_cs),
+                new InfoFragment(_cs)
           };
 
             CreateTabs();
         }
 
-        private void RecieveMessage()
+        private void ReceiveMessage()
         {
             var gsMsg = new GSActivityMessage();
             gsMsg.Message = (byte[])Intent.Extras.Get(gsMsg.CharacterMessage);
@@ -57,18 +67,17 @@ namespace GoSteve.Screens
             }
         }
 
-        private void ClearView()
-        {
-            var viewer = FindViewById<FrameLayout>(Resource.Id.characterScreenDisplay);
-            viewer.RemoveAllViews();
-        }
-
         private void TabClick(object sender, ActionBar.TabEventArgs e)
         {
             var tab = sender as ActionBar.Tab;
             Log.Debug(TAG, "TabClick -> {0}", tab.Text);
 
-           //ClearView();
+            //try
+            //{
+            //    e.FragmentTransaction.Replace(Resource.Id.characterScreenDisplay, _fragments[tab.Position]);
+            //}
+            //catch (Exception)
+            //{/*Supress for now*/}
 
             switch (tab.Position)
             {

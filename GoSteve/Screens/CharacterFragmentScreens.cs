@@ -156,4 +156,64 @@ namespace GoSteve.Screens
             { }   
         }
     }
+
+    public class AbilitiesFragment : Fragment
+    {
+        private CharacterSheet _cs;
+
+        public AbilitiesFragment(CharacterSheet cs)
+        {
+            _cs = cs;
+        }
+
+        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class ProfsLangsFragment : Fragment
+    {
+        private CharacterSheet _cs;
+
+        public ProfsLangsFragment(CharacterSheet cs)
+        {
+            _cs = cs;
+        }
+
+        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class EquipFragment : Fragment
+    {
+        private CharacterSheet _cs;
+
+        public EquipFragment(CharacterSheet cs)
+        {
+            _cs = cs;
+        }
+
+        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class InfoFragment : Fragment
+    {
+        private CharacterSheet _cs;
+
+        public InfoFragment(CharacterSheet cs)
+        {
+            _cs = cs;
+        }
+
+        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
