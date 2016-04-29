@@ -27,10 +27,10 @@ namespace GoSteve.Services
     {
         DmServerBinder binder;
 
-        private static bool _isServiceUp = false;
+        private bool _isServiceUp = false;
         private static DmServerService _service=null;
 
-        public static bool IsServiceRunning { get { return _isServiceUp; } }
+        public bool IsServiceRunning { get { return _isServiceUp; } }
         public static DmServerService Service { get { return _service; } }
 
         private DmStopServiceReceiver _stopServiceReceiver;
@@ -43,32 +43,44 @@ namespace GoSteve.Services
 
         private CharacterSheet cs = null;
 
-        public const string IntentFilter = "com.xamarin.DmServerService";
+        public const string IntentFilter = "com.GoSteve.DmServerService";
         public const string CharSheetUpdatedAction = "CharacterSheetUpdated";
         public const string ServerStateChangedAction = "ServerStateChanged";
+        private const string TAG = "DmServerService";
 
         public const int notifyNewCharID = 0;
 
+        public override void OnCreate()
+        {
+            base.OnCreate();
+            Log.Debug(TAG, "OnCreate called");
+            _service = this;
+        }
+
         public override StartCommandResult OnStartCommand(Android.Content.Intent intent, StartCommandFlags flags, int startId)
         {
-
-            if(_isServiceUp)
+            if(intent.GetBooleanExtra("shutdownService", false))
+            {
+                StopService();
+            }
+            if (_isServiceUp)
             {
                 StopSelf();
                 return StartCommandResult.Sticky;
             }
 
-            setServerRunning(true);
-
             _stopServiceReceiver = new DmStopServiceReceiver();
             var stopServIntentFilter = new IntentFilter(ShutdownDmServerService.StopServerServiceAction) { Priority = (int)IntentFilterPriority.HighPriority };
             RegisterReceiver(_stopServiceReceiver, stopServIntentFilter);
 
-            Log.Debug("DmServerService", "DemoService started");
+            Log.Debug(TAG, "DemoService started");
 
             StartServiceInForeground();
 
             DoWork();
+
+            setServerRunningVarOnly(true);
+            OnStateChanged();
 
             return StartCommandResult.Sticky;
         }
@@ -82,6 +94,12 @@ namespace GoSteve.Services
             */
 
             //var pendingIntent = PendingIntent.GetActivity(this, 0, new Intent(this, typeof(DmScreenBase)), 0);
+            
+            
+            //var curIntent = new Intent(this, typeof(DmServerService));
+            //curIntent.PutExtra("shutdownService", true);
+            //var pendingIntent = PendingIntent.GetService(this, 0, curIntent, 0);
+
 
             var pendingIntent = PendingIntent.GetService(this, 0, new Intent(ShutdownDmServerService.IntentFilter), 0);
 
@@ -109,10 +127,11 @@ namespace GoSteve.Services
 
         public override void OnDestroy()
         {
-            Log.Debug("DmServerService", "DmServerService stopped");
+            Log.Debug(TAG, "DmServerService stopped");
             base.OnDestroy();
 
             StopService();
+            Toast.MakeText(this, "The dm service has stopped", ToastLength.Long).Show();
         }
 
         void SendNotification()
@@ -162,7 +181,7 @@ namespace GoSteve.Services
             SendOrderedBroadcast(stateIntent, null);
         }
 
-        private void setServerRunning(bool state)
+        private void setServerRunningVarOnly(bool state)
         {
             if(state)
             {
@@ -174,6 +193,11 @@ namespace GoSteve.Services
                 _isServiceUp = false;
                 _service = null;
             }
+        }
+
+        private void setServerRunning(bool state)
+        {
+            setServerRunningVarOnly(state);
             OnStateChanged();
         }
 
@@ -198,17 +222,17 @@ namespace GoSteve.Services
         private void StartServerThread(int port)
         {
             _server = null;
-            Log.Info("DmScreenBase", "server TCPListener startup");
+            Log.Info(TAG, "server TCPListener startup");
             try
             {
                 var format = new BinaryFormatter();
                 _server = new TcpListener(System.Net.IPAddress.Any, port);
 
-                Log.Info("DmScreenBase", "PORT: " + port);
+                Log.Info(TAG, "PORT: " + port);
 
                 foreach (IPAddress ip in Dns.GetHostEntry(Dns.GetHostName()).AddressList)
                 {
-                    Log.Info("DmScreenBase", "IP: " + ip);
+                    Log.Info(TAG, "IP: " + ip);
                 }
 
                 MemoryStream ms = null;
@@ -259,11 +283,11 @@ namespace GoSteve.Services
                         retToClient = ASCIIEncoding.ASCII.GetBytes(cs.ID);
                         stream.Write(retToClient, 0, retToClient.Length);
 
-                        Log.Info("DMScreenBase", "Receive character ID:" + cs.ID);
+                        Log.Info(TAG, "Receive character ID:" + cs.ID);
 
                         stream.Close();
                         SendNotification();
-                        Log.Info("DMScreenBase", "Is character null:" + (cs == null));
+                        Log.Info(TAG, "Is character null:" + (cs == null));
                         BroadcastNewCharacterToActivity();
 
                     }
@@ -287,7 +311,7 @@ namespace GoSteve.Services
             finally
             {
                 _server.Stop();
-                Log.Info("DmScreenBase", "server TCPListener shutdown");
+                Log.Info(TAG, "server TCPListener shutdown");
                 _server = null;
 
                 StopForeground(true);
@@ -296,7 +320,7 @@ namespace GoSteve.Services
             }
         }
 
-        private void StopServer()
+        public void StopServer()
         {
             _isServerUp = false;
             StopNSD();
@@ -308,6 +332,8 @@ namespace GoSteve.Services
                 _server = null;
                 cs = null;
             }
+
+            setServerRunning(false);
         }
 
         private void StopNSD()
@@ -320,16 +346,14 @@ namespace GoSteve.Services
             }
         }
 
-        private void StopService()
+        public void StopService()
         {
-            UnregisterReceiver(_stopServiceReceiver);
-            StopServer();
-
-            setServerRunning(false);
-
             NotificationManager nManager =
                GetSystemService(Context.NotificationService) as NotificationManager;
             nManager.CancelAll();
+
+            UnregisterReceiver(_stopServiceReceiver);
+            StopServer();
         }
 
         private void StartServer()
@@ -399,7 +423,7 @@ namespace GoSteve.Services
 
         public bool IsServiceRunning()
         {
-            return DmServerService.IsServiceRunning;
+            return service.IsServiceRunning;
         }
     }
 }

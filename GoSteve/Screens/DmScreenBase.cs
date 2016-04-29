@@ -30,6 +30,7 @@ namespace GoSteve.Screens
         private LinearLayout _layout;
         private Button _genEncounterBtn;
         private Button _broadcastBtn;
+        public DmServerService ServerService { get; set; }
         private DmServiceReceiver _characterReceiver;
         //private DmStopServiceReceiver _stopServiceReceiver;
         private DmServerStateChangedReceiver _serverStateReceiver;
@@ -41,6 +42,7 @@ namespace GoSteve.Screens
         public DmServerBinder Binder { get; set; }
 
         public const string CharacterDictionaryMessage = "CharacterDictionaryMessage";
+        private const string TAG = "DmScreenBase";
 
         public DmScreenBase()
         {
@@ -119,6 +121,9 @@ namespace GoSteve.Screens
             //_stopServiceReceiver = new DmStopServiceReceiver();
             _serverStateReceiver = new DmServerStateChangedReceiver();
 
+            _dmServerServiceIntent = new Intent(this, typeof(DmServerService));
+            ServiceConnection = new DmServerServiceConnection(this);
+
             _broadcastBtn = new Button(this);
             _broadcastBtn.Id = Button.GenerateViewId();
             _broadcastBtn.Text = "Start Broadcast Session";
@@ -127,7 +132,6 @@ namespace GoSteve.Screens
                 ToggleServerButtonState();
             };
 
-            UpdateButton();
             _layout.AddView(_broadcastBtn);
 
             // Encounter button
@@ -198,9 +202,11 @@ namespace GoSteve.Screens
                 charScreen.PutExtra(gsMsg.CharacterMessage, gsMsg.Message);
 
                 _counter = savedInstanceState.GetExtra("click_count", 0);
-                Log.Debug(GetType().FullName, "Activity A - Recovered instance state");
+                Log.Debug(TAG, "Activity A - Recovered instance state");
                 */
             }
+
+            UpdateButton();
         }
 
         protected override void OnStart()
@@ -216,9 +222,8 @@ namespace GoSteve.Screens
             var serverStateIntentFilter = new IntentFilter(DmServerService.ServerStateChangedAction) { Priority = (int)IntentFilterPriority.HighPriority };
             RegisterReceiver(_serverStateReceiver, serverStateIntentFilter);
 
-            _dmServerServiceIntent = new Intent(this, typeof(DmServerService));
-            ServiceConnection = new DmServerServiceConnection(this);
             ApplicationContext.BindService(_dmServerServiceIntent, ServiceConnection, Bind.AutoCreate);
+            BindDmServerService();
         }
 
         protected override void OnSaveInstanceState(Bundle outState)
@@ -233,7 +238,7 @@ namespace GoSteve.Screens
             outState.PutByteArray(CharacterDictionaryMessage, csBytes);
             ms.Close();
 
-            Log.Debug(GetType().FullName, "Activity A - Saving instance state");
+            Log.Debug(TAG, "Activity A - Saving instance state");
 
             // always call the base implementation!
             base.OnSaveInstanceState(outState);
@@ -243,7 +248,7 @@ namespace GoSteve.Screens
         {
             base.OnDestroy();
 
-            Log.Info("DmScreenBase", "OnDestroy called!");
+            Log.Info(TAG, "OnDestroy called!");
 
             UnregisterReceiver(_characterReceiver);
             //UnregisterReceiver(_stopServiceReceiver);
@@ -255,7 +260,7 @@ namespace GoSteve.Screens
 
         private void ToggleServerButtonState()
         {
-            if (IsServiceUp)
+            if (IsBound && ServerService.IsServiceRunning)
             {
                 //stop service
                 StopDmServerService();
@@ -272,8 +277,7 @@ namespace GoSteve.Screens
         {
             RunOnUiThread(() =>
             {
-                IsServiceUp = DmServerService.IsServiceRunning;
-                if (IsServiceUp)
+                if (IsBound && ServerService.IsServiceRunning)
                 {
                     //stop service
                     _broadcastBtn.Text = "Stop Broadcast Session";
@@ -290,7 +294,7 @@ namespace GoSteve.Screens
         {
             if (!IsBound)
             {
-                ApplicationContext.BindService(_dmServerServiceIntent, ServiceConnection, Bind.AutoCreate);
+                ApplicationContext.BindService(_dmServerServiceIntent, ServiceConnection, 0);
                 IsBound = true;
             }
         }
@@ -309,19 +313,22 @@ namespace GoSteve.Screens
             _broadcastBtn.Text = "Start Broadcast Session";
             UnbindDmServerService();
             //StopService(new Intent(DmServerService.IntentFilter));
-            ApplicationContext.StopService(new Intent(this, typeof(DmServerService)));
+            Log.Debug(TAG, "User tried Stopping The DMServerService!");
+            StopService(new Intent(this, typeof(DmServerService)));
+            //ApplicationContext.StopService(new Intent(DmServerService.IntentFilter));
         }
 
         private void StartDmServerService()
         {
             _broadcastBtn.Text = "Stop Broadcast Session";
-            BindDmServerService();
             ApplicationContext.StartService(new Intent(this, typeof(DmServerService)));
+            //ApplicationContext.StartService(new Intent(DmServerService.IntentFilter));
+            BindDmServerService();
         }
 
         void UpdateCharacterSheets()
         {
-            if (IsBound)
+            if (IsBound && ServerService.IsServiceRunning)
             {
                 RunOnUiThread(() => {
                     var locCs = DmServerService.Service.GetCharacterSheets();
@@ -332,7 +339,7 @@ namespace GoSteve.Screens
                     }
                     else
                     {
-                        Log.Debug("DmScreenBase", "charactersheet is null");
+                        Log.Debug(TAG, "charactersheet is null");
                     }
                 }
                 );
@@ -398,6 +405,7 @@ namespace GoSteve.Screens
                 var binder = (DmServerBinder)service;
                 activity.Binder = binder;
                 activity.IsBound = true;
+                activity.ServerService = activity.Binder.GetDmServerService();
                 activity.UpdateButton();
 
                 // keep instance for preservation across configuration changes
