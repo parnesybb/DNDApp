@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minHeight="25px">
+    <FrameLayout
+        android:minWidth="25px"
+        android:minHeight="125px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/characterScreenGenDetails">
+        <TableLayout
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/characterScreentableLayout">
+            <TableRow>
+                <TableLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dip">
+                    <TableRow>
+                        <TextView
+                            android:background="@drawable/characterSheetCellShape"
+                            android:text=""
+                            android:id="@+id/characterScreenName" />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:text="@string/PlayerName" />
+                    </TableRow>
+                </TableLayout>
+                <TableLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dip">
+                    <TableRow>
+                        <TextView
+                            android:text="5"
+                            android:background="@drawable/characterSheetCellShape"
+                            android:id="@+id/characterScreenClassLevel" />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:text="@string/ClassLevel" />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:text="Dwarf"
+                            android:background="@drawable/characterSheetCellShape"
+                            android:id="@+id/characterScreenRace" />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:text="@string/Race" />
+                    </TableRow>
+                </TableLayout>
+                <TableLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dip">
+                    <TableRow>
+                        <TextView
+                            android:text="Soldier"
+                            android:background="@drawable/characterSheetCellShape"
+                            android:id="@+id/characterScreenBackground" />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:text="@string/Background" />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:text="Lawful Good"
+                            android:background="@drawable/characterSheetCellShape"
+                            android:id="@+id/characterScreenAlignment" />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:text="@string/Alignment" />
+                    </TableRow>
+                </TableLayout>
+                <TableLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dip">
+                    <TableRow>
+                        <TextView
+                            android:text="Justin"
+                            android:background="@drawable/characterSheetCellShape"
+                            android:id="@+id/characterScreenPlayerName" />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:text="@string/PlayerName" />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:text="1599"
+                            android:background="@drawable/characterSheetCellShape"
+                            android:id="@+id/characterScreenXP" />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:text="@string/XP" />
+                    </TableRow>
+                </TableLayout>
+            </TableRow>
+        </TableLayout>
+    </FrameLayout>
+    <FrameLayout
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/characterScreenDisplay" />
+</LinearLayout>
