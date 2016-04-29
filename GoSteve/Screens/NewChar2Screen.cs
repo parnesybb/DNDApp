@@ -76,47 +76,47 @@ namespace GoSteve
 
             strMinus.Click += (s, arg) =>
             {
-                switch(str)
+                switch (str)
                 {
                     case 8:
                         break;
                     case 9:
-                        if(numPoints < 27)
+                        if (numPoints < 27)
                         {
                             str = 8;
                             numPoints++;
                         }
                         break;
                     case 10:
-                        if(numPoints < 27)
+                        if (numPoints < 27)
                         {
                             str = 9;
                             numPoints++;
                         }
                         break;
                     case 11:
-                        if(numPoints < 27)
+                        if (numPoints < 27)
                         {
                             str = 10;
                             numPoints++;
                         }
                         break;
                     case 12:
-                        if(numPoints < 27)
+                        if (numPoints < 27)
                         {
                             str = 11;
                             numPoints++;
                         }
                         break;
                     case 13:
-                        if(numPoints < 27)
+                        if (numPoints < 27)
                         {
                             str = 12;
                             numPoints++;
                         }
                         break;
                     case 14:
-                        if(numPoints < 27)
+                        if (numPoints < 27)
                         {
                             str = 13;
                             numPoints += 2;
@@ -142,7 +142,7 @@ namespace GoSteve
                 switch (str)
                 {
                     case 8:
-                        if(numPoints > 0)
+                        if (numPoints > 0)
                         {
                             str = 9;
                             numPoints--;
@@ -833,7 +833,7 @@ namespace GoSteve
 
             continueBtn.Click += (s, arg) =>
             {
-                if(numPoints != 0)
+                if (numPoints != 0)
                 {
                     errMsg.Text = "You must spend all 27 points!";
                     errMsg.Visibility = ViewStates.Visible;

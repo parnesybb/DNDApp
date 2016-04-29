@@ -131,7 +131,7 @@ namespace GoSteve
 
             continueBtn.Click += (s, arg) =>
             {
-                if(desc == "")
+                if (desc == "")
                 {
                     errMsg.Text = "You Must Pick A Hero Type!";
                 }
