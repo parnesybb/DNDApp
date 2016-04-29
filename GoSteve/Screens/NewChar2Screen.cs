@@ -28,6 +28,8 @@ namespace GoSteve
             gsMsg.Message = (byte[])Intent.Extras.Get(gsMsg.CharacterMessage);
             var cs = CharacterSheet.GetCharacterSheet(gsMsg.Message);
 
+            CharacterSheet c = cs;
+
             base.OnCreate(bundle);
 
             // Set our view from the "main" layout resource
@@ -55,6 +57,7 @@ namespace GoSteve
             TextView wisScoreNum = FindViewById<TextView>(Resource.Id.wisScoreNum);
             TextView chaScoreNum = FindViewById<TextView>(Resource.Id.chaScoreNum);
             TextView remPoints = FindViewById<TextView>(Resource.Id.remPoints);
+            TextView raceLabel = FindViewById<TextView>(Resource.Id.raceLabel);
             Button continueBtn = FindViewById<Button>(Resource.Id.continueBtn);
             Button strMinus = FindViewById<Button>(Resource.Id.strMinus);
             Button strPlus = FindViewById<Button>(Resource.Id.strPlus);
@@ -69,49 +72,51 @@ namespace GoSteve
             Button chaMinus = FindViewById<Button>(Resource.Id.chaMinus);
             Button chaPlus = FindViewById<Button>(Resource.Id.chaPlus);
 
+            raceLabel.Text = c.RaceInstance.ToString().Substring(25);
+
             strMinus.Click += (s, arg) =>
             {
-                switch(str)
+                switch (str)
                 {
                     case 8:
                         break;
                     case 9:
-                        if(numPoints < 27)
+                        if (numPoints < 27)
                         {
                             str = 8;
                             numPoints++;
                         }
                         break;
                     case 10:
-                        if(numPoints < 27)
+                        if (numPoints < 27)
                         {
                             str = 9;
                             numPoints++;
                         }
                         break;
                     case 11:
-                        if(numPoints < 27)
+                        if (numPoints < 27)
                         {
                             str = 10;
                             numPoints++;
                         }
                         break;
                     case 12:
-                        if(numPoints < 27)
+                        if (numPoints < 27)
                         {
                             str = 11;
                             numPoints++;
                         }
                         break;
                     case 13:
-                        if(numPoints < 27)
+                        if (numPoints < 27)
                         {
                             str = 12;
                             numPoints++;
                         }
                         break;
                     case 14:
-                        if(numPoints < 27)
+                        if (numPoints < 27)
                         {
                             str = 13;
                             numPoints += 2;
@@ -137,7 +142,7 @@ namespace GoSteve
                 switch (str)
                 {
                     case 8:
-                        if(numPoints > 0)
+                        if (numPoints > 0)
                         {
                             str = 9;
                             numPoints--;
@@ -828,14 +833,25 @@ namespace GoSteve
 
             continueBtn.Click += (s, arg) =>
             {
-                if(numPoints != 0)
+                if (numPoints != 0)
                 {
                     errMsg.Text = "You must spend all 27 points!";
                     errMsg.Visibility = ViewStates.Visible;
                 }
                 else
                 {
-                    StartActivity(typeof(NewChar3Screen));
+                    c.AbilitiesAndStats.Strength = str;
+                    c.AbilitiesAndStats.Dex = dex;
+                    c.AbilitiesAndStats.Con = con;
+                    c.AbilitiesAndStats.Wisdom = wis;
+                    c.AbilitiesAndStats.Intel = intel;
+                    c.AbilitiesAndStats.Charisma = cha;
+
+                    var charScreen = new Intent(this, typeof(NewChar4Screen));
+                    var gsMsg1 = new GSActivityMessage();
+                    gsMsg1.Message = CharacterSheet.GetBytes(c);
+                    charScreen.PutExtra(gsMsg1.CharacterMessage, gsMsg1.Message);
+                    StartActivity(charScreen);
                 }
             };
         }
