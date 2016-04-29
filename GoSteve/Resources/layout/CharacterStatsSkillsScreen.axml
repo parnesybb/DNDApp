@@ -29,7 +29,7 @@
                         android:gravity="center"
                         android:padding="5dip"
                         android:numeric="integer" />
-                    <EditText
+                    <TextView
                         android:background="@drawable/characterSheetCellShape"
                         android:text="3"
                         android:id="@+id/StatsSkillsStrengthMod"
@@ -51,7 +51,7 @@
                         android:gravity="center"
                         android:padding="5dip"
                         android:numeric="integer" />
-                    <EditText
+                    <TextView
                         android:background="@drawable/characterSheetCellShape"
                         android:text=""
                         android:id="@+id/StatsSkillsDexterityMod"
@@ -73,7 +73,7 @@
                         android:gravity="center"
                         android:padding="5dip"
                         android:numeric="integer" />
-                    <EditText
+                    <TextView
                         android:background="@drawable/characterSheetCellShape"
                         android:text=""
                         android:id="@+id/StatsSkillsConMod"
@@ -95,7 +95,7 @@
                         android:gravity="center"
                         android:padding="5dip"
                         android:numeric="integer" />
-                    <EditText
+                    <TextView
                         android:background="@drawable/characterSheetCellShape"
                         android:text=""
                         android:id="@+id/StatsSkillsIntMod"
@@ -117,7 +117,7 @@
                         android:gravity="center"
                         android:padding="5dip"
                         android:numeric="integer" />
-                    <EditText
+                    <TextView
                         android:background="@drawable/characterSheetCellShape"
                         android:text=""
                         android:id="@+id/StatsSkillsWisMod"
@@ -139,7 +139,7 @@
                         android:gravity="center"
                         android:padding="5dip"
                         android:numeric="integer" />
-                    <EditText
+                    <TextView
                         android:background="@drawable/characterSheetCellShape"
                         android:text=""
                         android:id="@+id/StatsSkillsCharMod"

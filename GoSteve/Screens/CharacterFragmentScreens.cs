@@ -16,6 +16,7 @@ namespace GoSteve.Screens
     public class StatsSkillsFragment : Fragment
     {
         private CharacterSheet _cs;
+        private View _view;
 
         public StatsSkillsFragment(CharacterSheet cs)
         {
@@ -24,27 +25,81 @@ namespace GoSteve.Screens
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            View view = inflater.Inflate(Resource.Layout.CharacterStatsSkillsScreen, null);
+            _view = inflater.Inflate(Resource.Layout.CharacterStatsSkillsScreen, null);
 
-            view.FindViewById<EditText>(Resource.Id.StatsSkillsStrength).Text = _cs.AbilitiesAndStats.Strength.ToString();
-            view.FindViewById<EditText>(Resource.Id.StatsSkillsStrengthMod).Text = _cs.AbilitiesAndStats.StrengthMod.ToString();
+            var input = _view.FindViewById<EditText>(Resource.Id.StatsSkillsStrength);
+            input.Text = _cs.AbilitiesAndStats.Strength.ToString();
+            input.TextChanged += Input_TextChanged;
 
-            view.FindViewById<EditText>(Resource.Id.StatsSkillsDexterity).Text = _cs.AbilitiesAndStats.Dex.ToString();
-            view.FindViewById<EditText>(Resource.Id.StatsSkillsDexterityMod).Text = _cs.AbilitiesAndStats.DexMod.ToString();
+            input = _view.FindViewById<EditText>(Resource.Id.StatsSkillsDexterity);
+            input.Text = _cs.AbilitiesAndStats.Dex.ToString();
+            input.TextChanged += Input_TextChanged;
 
-            view.FindViewById<EditText>(Resource.Id.StatsSkillsCon).Text = _cs.AbilitiesAndStats.Con.ToString();
-            view.FindViewById<EditText>(Resource.Id.StatsSkillsConMod).Text = _cs.AbilitiesAndStats.ConstMod.ToString();
+            input = _view.FindViewById<EditText>(Resource.Id.StatsSkillsCon);
+            input.Text = _cs.AbilitiesAndStats.Con.ToString();
+            input.TextChanged += Input_TextChanged;
 
-            view.FindViewById<EditText>(Resource.Id.StatsSkillsInt).Text = _cs.AbilitiesAndStats.Intel.ToString();
-            view.FindViewById<EditText>(Resource.Id.StatsSkillsIntMod).Text = _cs.AbilitiesAndStats.IntelMod.ToString();
+            input = _view.FindViewById<EditText>(Resource.Id.StatsSkillsInt);
+            input.Text = _cs.AbilitiesAndStats.Intel.ToString();
+            input.TextChanged += Input_TextChanged;
 
-            view.FindViewById<EditText>(Resource.Id.StatsSkillsWis).Text = _cs.AbilitiesAndStats.Wisdom.ToString();
-            view.FindViewById<EditText>(Resource.Id.StatsSkillsWisMod).Text = _cs.AbilitiesAndStats.WisdomMod.ToString();
+            input = _view.FindViewById<EditText>(Resource.Id.StatsSkillsWis);
+            input.Text = _cs.AbilitiesAndStats.Wisdom.ToString();
+            input.TextChanged += Input_TextChanged;
 
-            view.FindViewById<EditText>(Resource.Id.StatsSkillsChar).Text = _cs.AbilitiesAndStats.Charisma.ToString();
-            view.FindViewById<EditText>(Resource.Id.StatsSkillsCharMod).Text = _cs.AbilitiesAndStats.CharismaMod.ToString();
+            input = _view.FindViewById<EditText>(Resource.Id.StatsSkillsChar);
+            input.Text = _cs.AbilitiesAndStats.Charisma.ToString();
+            input.TextChanged += Input_TextChanged;
 
-            return view;
+            _view.FindViewById<TextView>(Resource.Id.StatsSkillsStrengthMod).Text = _cs.AbilitiesAndStats.StrengthMod.ToString();
+            _view.FindViewById<TextView>(Resource.Id.StatsSkillsDexterityMod).Text = _cs.AbilitiesAndStats.DexMod.ToString();
+            _view.FindViewById<TextView>(Resource.Id.StatsSkillsConMod).Text = _cs.AbilitiesAndStats.ConstMod.ToString();
+            _view.FindViewById<TextView>(Resource.Id.StatsSkillsIntMod).Text = _cs.AbilitiesAndStats.IntelMod.ToString();
+            _view.FindViewById<TextView>(Resource.Id.StatsSkillsWisMod).Text = _cs.AbilitiesAndStats.WisdomMod.ToString();
+            _view.FindViewById<TextView>(Resource.Id.StatsSkillsCharMod).Text = _cs.AbilitiesAndStats.CharismaMod.ToString();
+
+            return _view;
+        }
+
+        private void Input_TextChanged(object sender, Android.Text.TextChangedEventArgs e)
+        {
+            var s = sender as EditText;
+
+            try
+            {
+                switch (s.Id)
+                {
+                    case Resource.Id.StatsSkillsStrength:
+                        _cs.AbilitiesAndStats.Strength = Int32.Parse(s.Text);
+                        _view.FindViewById<TextView>(Resource.Id.StatsSkillsStrengthMod).Text = _cs.AbilitiesAndStats.StrengthMod.ToString();
+                        break;
+                    case Resource.Id.StatsSkillsDexterity:
+                        _cs.AbilitiesAndStats.Dex = Int32.Parse(s.Text);
+                        _view.FindViewById<TextView>(Resource.Id.StatsSkillsDexterityMod).Text = _cs.AbilitiesAndStats.DexMod.ToString();
+                        break;
+                    case Resource.Id.StatsSkillsCon:
+                        _cs.AbilitiesAndStats.Con = Int32.Parse(s.Text);
+                        _view.FindViewById<TextView>(Resource.Id.StatsSkillsConMod).Text = _cs.AbilitiesAndStats.ConstMod.ToString();
+                        break;
+                    case Resource.Id.StatsSkillsInt:
+                        _cs.AbilitiesAndStats.Intel = Int32.Parse(s.Text);
+                        _view.FindViewById<TextView>(Resource.Id.StatsSkillsIntMod).Text = _cs.AbilitiesAndStats.IntelMod.ToString();
+                        break;
+                    case Resource.Id.StatsSkillsWis:
+                        _cs.AbilitiesAndStats.Strength = Int32.Parse(s.Text);
+                        _view.FindViewById<TextView>(Resource.Id.StatsSkillsWisMod).Text = _cs.AbilitiesAndStats.WisdomMod.ToString();
+                        break;
+                    case Resource.Id.StatsSkillsChar:
+                        _cs.AbilitiesAndStats.Strength = Int32.Parse(s.Text);
+                        _view.FindViewById<TextView>(Resource.Id.StatsSkillsCharMod).Text = _cs.AbilitiesAndStats.CharismaMod.ToString();
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+            catch (Exception)
+            { }   
         }
     }
 }
