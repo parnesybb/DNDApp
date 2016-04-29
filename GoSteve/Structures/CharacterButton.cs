@@ -14,13 +14,7 @@ namespace GoSteve.Structures
 {
     class CharacterButton : Button
     {
-        public CharacterButton(Context context) : base (context)
-        {
-        }
-
-        public string CharacterID
-        {
-            get; set;
-        }
+        public CharacterButton(Context context) : base (context){ }
+        public string CharacterID { get; set; }
     }
 }
