@@ -22,6 +22,8 @@ namespace GoSteve
 
             CharacterSheet c = cs;
 
+            var bg = "";
+
             base.OnCreate(bundle);
 
             // Set our view from the "main" layout resource
@@ -29,7 +31,54 @@ namespace GoSteve
 
             TextView yourClass = FindViewById<TextView>(Resource.Id.yourClass);
 
-            yourClass.Text = "Race: " + c.RaceInstance.ToString().Substring(25) + "\nClass: " + c.ClassInstance.ToString().Substring(27) +"\nBackground: " + c.Background.ToString();
+            switch (c.Background.ToString())
+            {
+                case "ACOLYTE":
+                    bg = "Acolyte";
+                    break;
+                case "CHARLATAN":
+                    bg = "Charlatan";
+                    break;
+                case "CRIMINAL":
+                    bg = "Criminal";
+                    break;
+                case "ENTERTAINER":
+                    bg = "Entertainer";
+                    break;
+                case "FOLK_HERO":
+                    bg = "Folk Hero";
+                    break;
+                case "GUILD_ARTISAN":
+                    bg = "Guild Artisan";
+                    break;
+                case "HERMIT":
+                    bg = "Hermit";
+                    break;
+                case "NOBLE":
+                    bg = "Noble";
+                    break;
+                case "OUTLANDER":
+                    bg = "Outlander";
+                    break;
+                case "SAGE":
+                    bg = "Sage";
+                    break;
+                case "SAILOR":
+                    bg = "Sailor";
+                    break;
+                case "SOLDIER":
+                    bg = "Soldier";
+                    break;
+                case "URCHIN":
+                    bg = "Urchin";
+                    break;
+                default:
+                    break;
+            }
+
+
+
+            yourClass.Text = "Race: " + c.RaceInstance.ToString().Substring(25) + "\nClass: " + c.ClassInstance.ToString().Substring(27) +"\nBackground: " + bg;
 
             switch(c.ClassInstance.ToString())
             {

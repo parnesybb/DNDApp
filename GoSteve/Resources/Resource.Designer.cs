@@ -189,6 +189,9 @@ namespace GoSteve
 			// aapt resource value: 0x7f060017
 			public const int instructionRace = 2131099671;
 			
+			// aapt resource value: 0x7f060053
+			public const int instructionSkills = 2131099731;
+			
 			// aapt resource value: 0x7f060019
 			public const int instructionSubRace = 2131099673;
 			
@@ -204,44 +207,44 @@ namespace GoSteve
 			// aapt resource value: 0x7f060035
 			public const int intScoreNum = 2131099701;
 			
-			// aapt resource value: 0x7f060053
-			public const int item0 = 2131099731;
-			
-			// aapt resource value: 0x7f060054
-			public const int item1 = 2131099732;
-			
-			// aapt resource value: 0x7f06005d
-			public const int item10 = 2131099741;
-			
-			// aapt resource value: 0x7f06005e
-			public const int item11 = 2131099742;
-			
-			// aapt resource value: 0x7f06005f
-			public const int item12 = 2131099743;
-			
 			// aapt resource value: 0x7f060055
-			public const int item2 = 2131099733;
+			public const int item0 = 2131099733;
 			
 			// aapt resource value: 0x7f060056
-			public const int item3 = 2131099734;
+			public const int item1 = 2131099734;
+			
+			// aapt resource value: 0x7f06005f
+			public const int item10 = 2131099743;
+			
+			// aapt resource value: 0x7f060060
+			public const int item11 = 2131099744;
+			
+			// aapt resource value: 0x7f060061
+			public const int item12 = 2131099745;
 			
 			// aapt resource value: 0x7f060057
-			public const int item4 = 2131099735;
+			public const int item2 = 2131099735;
 			
 			// aapt resource value: 0x7f060058
-			public const int item5 = 2131099736;
+			public const int item3 = 2131099736;
 			
 			// aapt resource value: 0x7f060059
-			public const int item6 = 2131099737;
+			public const int item4 = 2131099737;
 			
 			// aapt resource value: 0x7f06005a
-			public const int item7 = 2131099738;
+			public const int item5 = 2131099738;
 			
 			// aapt resource value: 0x7f06005b
-			public const int item8 = 2131099739;
+			public const int item6 = 2131099739;
 			
 			// aapt resource value: 0x7f06005c
-			public const int item9 = 2131099740;
+			public const int item7 = 2131099740;
+			
+			// aapt resource value: 0x7f06005d
+			public const int item8 = 2131099741;
+			
+			// aapt resource value: 0x7f06005e
+			public const int item9 = 2131099742;
 			
 			// aapt resource value: 0x7f060005
 			public const int level = 2131099653;
@@ -348,6 +351,9 @@ namespace GoSteve
 			// aapt resource value: 0x7f06000b
 			public const int xp = 2131099659;
 			
+			// aapt resource value: 0x7f060054
+			public const int yourClass = 2131099732;
+			
 			static Id()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -381,6 +387,9 @@ namespace GoSteve
 			
 			// aapt resource value: 0x7f030006
 			public const int newChar3 = 2130903046;
+			
+			// aapt resource value: 0x7f030007
+			public const int newChar4 = 2130903047;
 			
 			static Layout()
 			{
