@@ -18,8 +18,8 @@ namespace GoSteve.Screens
     {
         private static readonly string TAG = "CharacterScreen";
         private readonly string[] _tabNames = { "Stats/Skills", "Attributes",  "Prof/Langs", "Equip", "Info"};
+        private Fragment[] _fragments;
         private CharacterSheet _cs;
-        private int _prevTabPos;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -29,8 +29,14 @@ namespace GoSteve.Screens
             ActionBar.NavigationMode = ActionBarNavigationMode.Tabs;
             ActionBar.SetHomeButtonEnabled(true);
 
-            CreateTabs();
             RecieveMessage();
+
+            _fragments = new Fragment[]
+          {
+                new StatsSkillsFragment(_cs)
+          };
+
+            CreateTabs();
         }
 
         private void RecieveMessage()
@@ -62,11 +68,12 @@ namespace GoSteve.Screens
             var tab = sender as ActionBar.Tab;
             Log.Debug(TAG, "TabClick -> {0}", tab.Text);
 
-            ClearView();
+           //ClearView();
 
             switch (tab.Position)
             {
                 case 0:
+                    e.FragmentTransaction.Replace(Resource.Id.characterScreenDisplay, _fragments[0]);
                     break;
                 case 1:
                     break;

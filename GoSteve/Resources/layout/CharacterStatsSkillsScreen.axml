@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="25px"
+    android:minHeight="25px">
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:minWidth="25px"
+        android:minHeight="25px">
+        <TableRow>
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dip">
+                <TableRow
+                    android:padding="5dip">
+                    <TextView
+                        android:background="@drawable/characterSheetCellShape"
+                        android:text="Strength"
+                        android:gravity="center"
+                        android:padding="5dip" />
+                    <EditText
+                        android:background="@drawable/characterSheetCellShape"
+                        android:text="17"
+                        android:id="@+id/StatsSkillsStrength"
+                        android:gravity="center"
+                        android:padding="5dip"
+                        android:numeric="integer" />
+                    <EditText
+                        android:background="@drawable/characterSheetCellShape"
+                        android:text="3"
+                        android:id="@+id/StatsSkillsStrengthMod"
+                        android:gravity="center"
+                        android:padding="5dip"
+                        android:numeric="integer" />
+                </TableRow>
+                <TableRow
+                    android:padding="5dip">
+                    <TextView
+                        android:background="@drawable/characterSheetCellShape"
+                        android:text="Dexterity"
+                        android:gravity="center"
+                        android:padding="5dip" />
+                    <EditText
+                        android:background="@drawable/characterSheetCellShape"
+                        android:text=""
+                        android:id="@+id/StatsSkillsDexterity"
+                        android:gravity="center"
+                        android:padding="5dip"
+                        android:numeric="integer" />
+                    <EditText
+                        android:background="@drawable/characterSheetCellShape"
+                        android:text=""
+                        android:id="@+id/StatsSkillsDexterityMod"
+                        android:gravity="center"
+                        android:padding="5dip"
+                        android:numeric="integer" />
+                </TableRow>
+                <TableRow
+                    android:padding="5dip">
+                    <TextView
+                        android:background="@drawable/characterSheetCellShape"
+                        android:text="Constitution"
+                        android:gravity="center"
+                        android:padding="5dip" />
+                    <EditText
+                        android:background="@drawable/characterSheetCellShape"
+                        android:text=""
+                        android:id="@+id/StatsSkillsCon"
+                        android:gravity="center"
+                        android:padding="5dip"
+                        android:numeric="integer" />
+                    <EditText
+                        android:background="@drawable/characterSheetCellShape"
+                        android:text=""
+                        android:id="@+id/StatsSkillsConMod"
+                        android:gravity="center"
+                        android:padding="5dip"
+                        android:numeric="integer" />
+                </TableRow>
+                <TableRow
+                    android:padding="5dip">
+                    <TextView
+                        android:background="@drawable/characterSheetCellShape"
+                        android:text="Intelligence"
+                        android:gravity="center"
+                        android:padding="5dip" />
+                    <EditText
+                        android:background="@drawable/characterSheetCellShape"
+                        android:text=""
+                        android:id="@+id/StatsSkillsInt"
+                        android:gravity="center"
+                        android:padding="5dip"
+                        android:numeric="integer" />
+                    <EditText
+                        android:background="@drawable/characterSheetCellShape"
+                        android:text=""
+                        android:id="@+id/StatsSkillsIntMod"
+                        android:gravity="center"
+                        android:padding="5dip"
+                        android:numeric="integer" />
+                </TableRow>
+                <TableRow
+                    android:padding="5dip">
+                    <TextView
+                        android:background="@drawable/characterSheetCellShape"
+                        android:text="Wisdom"
+                        android:gravity="center"
+                        android:padding="5dip" />
+                    <EditText
+                        android:background="@drawable/characterSheetCellShape"
+                        android:text=""
+                        android:id="@+id/StatsSkillsWis"
+                        android:gravity="center"
+                        android:padding="5dip"
+                        android:numeric="integer" />
+                    <EditText
+                        android:background="@drawable/characterSheetCellShape"
+                        android:text=""
+                        android:id="@+id/StatsSkillsWisMod"
+                        android:gravity="center"
+                        android:padding="5dip"
+                        android:numeric="integer" />
+                </TableRow>
+                <TableRow
+                    android:padding="5dip">
+                    <TextView
+                        android:background="@drawable/characterSheetCellShape"
+                        android:text="Charisma"
+                        android:gravity="center"
+                        android:padding="5dip" />
+                    <EditText
+                        android:background="@drawable/characterSheetCellShape"
+                        android:text=""
+                        android:id="@+id/StatsSkillsChar"
+                        android:gravity="center"
+                        android:padding="5dip"
+                        android:numeric="integer" />
+                    <EditText
+                        android:background="@drawable/characterSheetCellShape"
+                        android:text=""
+                        android:id="@+id/StatsSkillsCharMod"
+                        android:gravity="center"
+                        android:padding="5dip"
+                        android:numeric="integer" />
+                </TableRow>
+            </TableLayout>
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dip" />
+        </TableRow>
+    </TableLayout>
+</LinearLayout>

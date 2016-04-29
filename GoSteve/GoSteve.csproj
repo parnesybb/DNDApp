@@ -64,6 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Screens\CharacterFragmentScreens.cs" />
     <Compile Include="Screens\CharacterScreen.cs" />
     <Compile Include="Screens\CharacterSelectScreen.cs" />
     <Compile Include="Screens\GSActivityMessage.cs" />
@@ -141,6 +142,9 @@
     </AndroidResource>
     <None Include="packages.config" />
     <AndroidResource Include="Resources\layout\CharacterBaseScreen.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\CharacterStatsSkillsScreen.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <None Include="Resources\xml\AboutResources.txt" />
