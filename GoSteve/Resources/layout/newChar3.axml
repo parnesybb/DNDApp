@@ -1,14 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:minWidth="25px"
-    android:minHeight="25px">
+<RelativeLayout xmlns:p1="http://schemas.android.com/apk/res/android"
+    p1:minWidth="25px"
+    p1:minHeight="25px"
+    p1:layout_width="match_parent"
+    p1:layout_height="match_parent"
+    p1:id="@+id/relativeLayout1">
     <TextView
-        android:text="HELLO!"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView1" />
-</LinearLayout>
+        p1:text="What type of Hero will you be?"
+        p1:textAppearance="?android:attr/textAppearanceLarge"
+        p1:layout_width="match_parent"
+        p1:layout_height="wrap_content"
+        p1:id="@+id/instructionClass"
+        p1:gravity="center" />
+    <TextView
+        p1:textAppearance="?android:attr/textAppearanceLarge"
+        p1:layout_width="match_parent"
+        p1:layout_height="44.5dp"
+        p1:layout_below="@+id/instructionClass"
+        p1:id="@+id/errMsg"
+        p1:textColor="@android:color/holo_red_dark"
+        p1:gravity="center" />
+    <Button
+        p1:text="Barbarian"
+        p1:layout_width="130.0dp"
+        p1:layout_height="47.0dp"
+        p1:layout_below="@+id/errMsg"
+        p1:id="@+id/barbarianBtn" />
+    <Button
+        p1:text="Bard"
+        p1:layout_width="130.0dp"
+        p1:layout_height="47.0dp"
+        p1:layout_below="@+id/errMsg"
+        p1:layout_toRightOf="@+id/barbarianBtn"
+        p1:id="@+id/bardBtn" />
+    <Button
+        p1:text="Cleric"
+        p1:layout_width="130.0dp"
+        p1:layout_height="47.0dp"
+        p1:layout_below="@+id/errMsg"
+        p1:layout_toRightOf="@+id/bardBtn"
+        p1:id="@+id/clericBtn" />
+    <Button
+        p1:text="Druid"
+        p1:layout_width="130.0dp"
+        p1:layout_height="47.0dp"
+        p1:layout_below="@+id/barbarianBtn"
+        p1:id="@+id/druidBtn" />
+    <Button
+        p1:text="Fighter"
+        p1:layout_width="130.0dp"
+        p1:layout_height="47.0dp"
+        p1:layout_below="@+id/bardBtn"
+        p1:layout_toRightOf="@+id/druidBtn"
+        p1:id="@+id/fighterBtn" />
+    <Button
+        p1:text="Monk"
+        p1:layout_width="130.0dp"
+        p1:layout_height="47.0dp"
+        p1:layout_below="@+id/clericBtn"
+        p1:layout_toRightOf="@+id/fighterBtn"
+        p1:id="@+id/monkBtn" />
+    <Button
+        p1:text="Paladin"
+        p1:layout_width="130.0dp"
+        p1:layout_height="47.0dp"
+        p1:layout_below="@+id/druidBtn"
+        p1:id="@+id/paladinBtn" />
+    <Button
+        p1:text="Ranger"
+        p1:layout_width="130.0dp"
+        p1:layout_height="47.0dp"
+        p1:layout_below="@+id/fighterBtn"
+        p1:layout_toRightOf="@+id/paladinBtn"
+        p1:id="@+id/rangerBtn" />
+    <Button
+        p1:text="Rogue"
+        p1:layout_width="130.0dp"
+        p1:layout_height="47.0dp"
+        p1:layout_below="@+id/monkBtn"
+        p1:layout_toRightOf="@+id/rangerBtn"
+        p1:id="@+id/rogueBtn" />
+    <Button
+        p1:text="Sorceror"
+        p1:layout_width="130.0dp"
+        p1:layout_height="47.0dp"
+        p1:layout_below="@+id/paladinBtn"
+        p1:id="@+id/sorcerorBtn" />
+    <Button
+        p1:text="Warlock"
+        p1:layout_width="130.0dp"
+        p1:layout_height="47.0dp"
+        p1:layout_below="@+id/rangerBtn"
+        p1:layout_toRightOf="@+id/sorcerorBtn"
+        p1:id="@+id/warlockBtn" />
+    <Button
+        p1:text="Wizard"
+        p1:layout_width="130.0dp"
+        p1:layout_height="47.0dp"
+        p1:layout_below="@+id/rogueBtn"
+        p1:layout_toRightOf="@+id/warlockBtn"
+        p1:id="@+id/wizardBtn" />
+    <TextView
+        p1:textAppearance="?android:attr/textAppearanceSmall"
+        p1:layout_width="match_parent"
+        p1:layout_height="227.0dp"
+        p1:layout_below="@+id/sorcerorBtn"
+        p1:id="@+id/classDesc"
+        p1:textColor="@android:color/holo_blue_bright" />
+    <Button
+        p1:text="Continue"
+        p1:layout_width="match_parent"
+        p1:layout_height="wrap_content"
+        p1:layout_below="@+id/classDesc"
+        p1:id="@+id/continueBtn" />
+</RelativeLayout>

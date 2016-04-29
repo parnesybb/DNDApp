@@ -113,7 +113,7 @@ namespace GoSteve
                             pickSub.Visibility = ViewStates.Visible;
                             c.SetRace(KnownValues.Race.HALFLING, true);
                             break;
-                        case "HalfOrc":
+                        case "Half-Orc":
                             instructionSubRace.Visibility = ViewStates.Invisible;
                             pickSub.Visibility = ViewStates.Invisible;
                             c.SetRace(KnownValues.Race.HALF_ORC, true);
@@ -288,11 +288,11 @@ namespace GoSteve
                 }
                 else
                 {
-                    var charScreen = new Intent(this, typeof(TestScreen));
+                    var charScreen = new Intent(this, typeof(NewChar3Screen));
                     var gsMsg = new GSActivityMessage();
-                    gsMsg.Message = CharacterSheet.GetBytes(_charSheets[b.CharacterID]);
-                    charScreen.PutExtra(gsMsg.CharacterMessage, gsMsg.Message); StartActivity(charScreen);
-                    StartActivity(typeof(NewChar2Screen));
+                    gsMsg.Message = CharacterSheet.GetBytes(c);
+                    charScreen.PutExtra(gsMsg.CharacterMessage, gsMsg.Message);
+                    StartActivity(charScreen);
                 }
             };
         }

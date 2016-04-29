@@ -63,6 +63,12 @@ namespace GoSteve
 			// aapt resource value: 0x7f06000a
 			public const int alignment = 2131099658;
 			
+			// aapt resource value: 0x7f060046
+			public const int barbarianBtn = 2131099718;
+			
+			// aapt resource value: 0x7f060047
+			public const int bardBtn = 2131099719;
+			
 			// aapt resource value: 0x7f060023
 			public const int blank1 = 2131099683;
 			
@@ -102,8 +108,14 @@ namespace GoSteve
 			// aapt resource value: 0x7f060003
 			public const int characterName = 2131099651;
 			
+			// aapt resource value: 0x7f060052
+			public const int classDesc = 2131099730;
+			
 			// aapt resource value: 0x7f060004
 			public const int classSelect = 2131099652;
+			
+			// aapt resource value: 0x7f060048
+			public const int clericBtn = 2131099720;
 			
 			// aapt resource value: 0x7f06002f
 			public const int conMinus = 2131099695;
@@ -138,11 +150,17 @@ namespace GoSteve
 			// aapt resource value: 0x7f06000d
 			public const int dmModeBtn = 2131099661;
 			
+			// aapt resource value: 0x7f060049
+			public const int druidBtn = 2131099721;
+			
 			// aapt resource value: 0x7f060043
 			public const int errMsg = 2131099715;
 			
 			// aapt resource value: 0x7f060001
 			public const int exCharButton = 2131099649;
+			
+			// aapt resource value: 0x7f06004a
+			public const int fighterBtn = 2131099722;
 			
 			// aapt resource value: 0x7f060010
 			public const int instruction1 = 2131099664;
@@ -159,6 +177,9 @@ namespace GoSteve
 			// aapt resource value: 0x7f06001d
 			public const int instructionBackground = 2131099677;
 			
+			// aapt resource value: 0x7f060045
+			public const int instructionClass = 2131099717;
+			
 			// aapt resource value: 0x7f060014
 			public const int instructionGender = 2131099668;
 			
@@ -167,6 +188,9 @@ namespace GoSteve
 			
 			// aapt resource value: 0x7f060017
 			public const int instructionRace = 2131099671;
+			
+			// aapt resource value: 0x7f060053
+			public const int instructionSkills = 2131099731;
 			
 			// aapt resource value: 0x7f060019
 			public const int instructionSubRace = 2131099673;
@@ -183,44 +207,44 @@ namespace GoSteve
 			// aapt resource value: 0x7f060035
 			public const int intScoreNum = 2131099701;
 			
-			// aapt resource value: 0x7f060046
-			public const int item0 = 2131099718;
+			// aapt resource value: 0x7f060055
+			public const int item0 = 2131099733;
 			
-			// aapt resource value: 0x7f060047
-			public const int item1 = 2131099719;
+			// aapt resource value: 0x7f060056
+			public const int item1 = 2131099734;
 			
-			// aapt resource value: 0x7f060050
-			public const int item10 = 2131099728;
+			// aapt resource value: 0x7f06005f
+			public const int item10 = 2131099743;
 			
-			// aapt resource value: 0x7f060051
-			public const int item11 = 2131099729;
+			// aapt resource value: 0x7f060060
+			public const int item11 = 2131099744;
 			
-			// aapt resource value: 0x7f060052
-			public const int item12 = 2131099730;
+			// aapt resource value: 0x7f060061
+			public const int item12 = 2131099745;
 			
-			// aapt resource value: 0x7f060048
-			public const int item2 = 2131099720;
+			// aapt resource value: 0x7f060057
+			public const int item2 = 2131099735;
 			
-			// aapt resource value: 0x7f060049
-			public const int item3 = 2131099721;
+			// aapt resource value: 0x7f060058
+			public const int item3 = 2131099736;
 			
-			// aapt resource value: 0x7f06004a
-			public const int item4 = 2131099722;
+			// aapt resource value: 0x7f060059
+			public const int item4 = 2131099737;
 			
-			// aapt resource value: 0x7f06004b
-			public const int item5 = 2131099723;
+			// aapt resource value: 0x7f06005a
+			public const int item5 = 2131099738;
 			
-			// aapt resource value: 0x7f06004c
-			public const int item6 = 2131099724;
+			// aapt resource value: 0x7f06005b
+			public const int item6 = 2131099739;
 			
-			// aapt resource value: 0x7f06004d
-			public const int item7 = 2131099725;
+			// aapt resource value: 0x7f06005c
+			public const int item7 = 2131099740;
 			
-			// aapt resource value: 0x7f06004e
-			public const int item8 = 2131099726;
+			// aapt resource value: 0x7f06005d
+			public const int item8 = 2131099741;
 			
-			// aapt resource value: 0x7f06004f
-			public const int item9 = 2131099727;
+			// aapt resource value: 0x7f06005e
+			public const int item9 = 2131099742;
 			
 			// aapt resource value: 0x7f060005
 			public const int level = 2131099653;
@@ -231,11 +255,17 @@ namespace GoSteve
 			// aapt resource value: 0x7f06001f
 			public const int missing1 = 2131099679;
 			
+			// aapt resource value: 0x7f06004b
+			public const int monkBtn = 2131099723;
+			
 			// aapt resource value: 0x7f060000
 			public const int newCharButton = 2131099648;
 			
 			// aapt resource value: 0x7f060013
 			public const int newCharName = 2131099667;
+			
+			// aapt resource value: 0x7f06004c
+			public const int paladinBtn = 2131099724;
 			
 			// aapt resource value: 0x7f06001c
 			public const int pickAlign = 2131099676;
@@ -270,11 +300,20 @@ namespace GoSteve
 			// aapt resource value: 0x7f060015
 			public const int radioMale = 2131099669;
 			
+			// aapt resource value: 0x7f06004d
+			public const int rangerBtn = 2131099725;
+			
 			// aapt resource value: 0x7f060002
 			public const int relativeLayout1 = 2131099650;
 			
 			// aapt resource value: 0x7f060042
 			public const int remPoints = 2131099714;
+			
+			// aapt resource value: 0x7f06004e
+			public const int rogueBtn = 2131099726;
+			
+			// aapt resource value: 0x7f06004f
+			public const int sorcerorBtn = 2131099727;
 			
 			// aapt resource value: 0x7f060025
 			public const int strMinus = 2131099685;
@@ -291,8 +330,8 @@ namespace GoSteve
 			// aapt resource value: 0x7f060009
 			public const int subRace = 2131099657;
 			
-			// aapt resource value: 0x7f060045
-			public const int textView1 = 2131099717;
+			// aapt resource value: 0x7f060050
+			public const int warlockBtn = 2131099728;
 			
 			// aapt resource value: 0x7f060039
 			public const int wisMinus = 2131099705;
@@ -306,8 +345,14 @@ namespace GoSteve
 			// aapt resource value: 0x7f06003a
 			public const int wisScoreNum = 2131099706;
 			
+			// aapt resource value: 0x7f060051
+			public const int wizardBtn = 2131099729;
+			
 			// aapt resource value: 0x7f06000b
 			public const int xp = 2131099659;
+			
+			// aapt resource value: 0x7f060054
+			public const int yourClass = 2131099732;
 			
 			static Id()
 			{
@@ -342,6 +387,9 @@ namespace GoSteve
 			
 			// aapt resource value: 0x7f030006
 			public const int newChar3 = 2130903046;
+			
+			// aapt resource value: 0x7f030007
+			public const int newChar4 = 2130903047;
 			
 			static Layout()
 			{
