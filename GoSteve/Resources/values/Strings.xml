@@ -2,11 +2,12 @@
 <resources>
     <string name="ApplicationName">GoSteve</string>
   
-    <string name="CharacterName">Character Name</string>
-    <string name="ClassLevel">Class - Level</string>
-    <string name ="Race">Race</string>
-    <string name="Background">Background</string>
+    <string name="CharacterName">Character</string>
+    <string name="Class">Class</string>
+    <string name="Level">Level</string>
+    <string name="Race">Race</string>
+    <string name="Background">BG</string>
     <string name="Alignment">Alignment</string>
-    <string name="PlayerName">Player Name</string>
-    <string name="XP">Experience</string>
+    <string name="PlayerName">Player</string>
+    <string name="XP">XP</string>
 </resources>

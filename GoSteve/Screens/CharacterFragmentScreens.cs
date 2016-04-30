@@ -18,14 +18,10 @@ namespace GoSteve.Screens
         private CharacterSheet _cs;
         private View _view;
 
-        public StatsSkillsFragment(CharacterSheet cs)
-        {
-            _cs = cs;
-        }
-
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             _view = inflater.Inflate(Resource.Layout.CharacterStatsSkillsScreen, null);
+            _cs = CharacterScreen.CharacterSheet;
 
             // BASE STATS
             var input = _view.FindViewById<EditText>(Resource.Id.StatsSkillsStrength);
@@ -160,26 +156,108 @@ namespace GoSteve.Screens
     public class AbilitiesFragment : Fragment
     {
         private CharacterSheet _cs;
-
-        public AbilitiesFragment(CharacterSheet cs)
-        {
-            _cs = cs;
-        }
+        private View _view;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            _view = inflater.Inflate(Resource.Layout.CharacterAbilitiesScreen, null);
+            _cs = CharacterScreen.CharacterSheet;
+
+            // AC INIT SPEED
+            var input = _view.FindViewById<EditText>(Resource.Id.CharacterAbilitiesArmorClass);
+            input.Text = _cs.ArmorClass.ToString();
+            input.TextChanged += Input_Changed;
+            input = _view.FindViewById<EditText>(Resource.Id.CharacterAbilitiesInitiative);
+            input.Text = _cs.Initiative.ToString();
+            input.TextChanged += Input_Changed;
+            _view.FindViewById<TextView>(Resource.Id.CharacterAbilitiesSpeed).Text = _cs.RaceInstance.Speed.ToString();
+
+            // HIT POINTS
+            input = _view.FindViewById<EditText>(Resource.Id.CharacterAbilitiesHitPntMax);
+            input.Text = _cs.HitPoints.Max.ToString();
+            input.TextChanged += Input_Changed;
+            input = _view.FindViewById<EditText>(Resource.Id.CharacterAbilitiesHitPntCrnt);
+            input.Text = _cs.HitPoints.Current.ToString();
+            input.TextChanged += Input_Changed;
+            input = _view.FindViewById<EditText>(Resource.Id.CharacterAbilitiesHitPntTmp);
+            input.Text = _cs.HitPoints.Temp.ToString();
+            input.TextChanged += Input_Changed;
+
+            // HIT DICE
+            input = _view.FindViewById<EditText>(Resource.Id.CharacterAbilitiesHitDiceMax);
+            input.Text = _cs.ClassInstance.HitDice.TotalAmount.ToString();
+            input.TextChanged += Input_Changed;
+            input = _view.FindViewById<EditText>(Resource.Id.CharacterAbilitiesHitDiceCurrent);
+            input.Text = _cs.ClassInstance.HitDice.AvailableAmount.ToString();
+            input.TextChanged += Input_Changed;
+            _view.FindViewById<TextView>(Resource.Id.CharacterAbilitiesHitDiceType).Text = "d" + _cs.ClassInstance.HitDice.NumberOfSides.ToString();
+
+            // ATTACKS & SPELLS
+            input = _view.FindViewById<EditText>(Resource.Id.CharacterAbilitiesAttkSpell);
+            foreach(var s in _cs.Weapons)
+            {
+                input.Text += s + "\n";
+            }
+
+            input.FocusChange += (e, s) =>
+            {
+                var sender = e as EditText;
+
+                if (!s.HasFocus)
+                {
+                    var text = sender.Text;
+                    string[] lines = text.Split('\n');
+
+                    foreach (var l in lines)
+                    {
+                        _cs.AddWeapon(l);
+                    }
+                }
+            };
+
+            return _view;
+        }
+
+        private void Input_Changed(object sender, Android.Text.TextChangedEventArgs e)
+        {
+            var s = sender as EditText;
+
+            switch (s.Id)
+            {
+                case Resource.Id.CharacterAbilitiesArmorClass:
+                    _cs.ArmorClass = Int32.Parse(s.Text);
+                    break;
+                case Resource.Id.CharacterAbilitiesAttkSpell:
+                    break;
+                case Resource.Id.CharacterAbilitiesHitDiceCurrent:
+                    _cs.ClassInstance.HitDice.AvailableAmount = Int32.Parse(s.Text);
+                    break;
+                case Resource.Id.CharacterAbilitiesHitDiceMax:
+                    _cs.ClassInstance.HitDice.TotalAmount = Int32.Parse(s.Text);
+                    break;
+                case Resource.Id.CharacterAbilitiesHitPntCrnt:
+                    _cs.HitPoints.Current = Int32.Parse(s.Text);
+                    break;
+                case Resource.Id.CharacterAbilitiesHitPntMax:
+                    _cs.HitPoints.Max = Int32.Parse(s.Text);
+                    break;
+                case Resource.Id.CharacterAbilitiesHitPntTmp:
+                    _cs.HitPoints.Temp = Int32.Parse(s.Text);
+                    break;
+                case Resource.Id.CharacterAbilitiesInitiative:
+                    _cs.Initiative = Int32.Parse(s.Text);
+                    break;
+
+                default:
+                    break;
+            }
         }
     }
 
     public class ProfsLangsFragment : Fragment
     {
         private CharacterSheet _cs;
-
-        public ProfsLangsFragment(CharacterSheet cs)
-        {
-            _cs = cs;
-        }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -191,11 +269,6 @@ namespace GoSteve.Screens
     {
         private CharacterSheet _cs;
 
-        public EquipFragment(CharacterSheet cs)
-        {
-            _cs = cs;
-        }
-
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             throw new NotImplementedException();
@@ -205,11 +278,6 @@ namespace GoSteve.Screens
     public class InfoFragment : Fragment
     {
         private CharacterSheet _cs;
-
-        public InfoFragment(CharacterSheet cs)
-        {
-            _cs = cs;
-        }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {

@@ -30,7 +30,7 @@ namespace GoSteve.Structures.Races
         {
             get
             {
-                throw new NotImplementedException();
+                return KnownValues.SubRace.NONE;
             }
 
             set

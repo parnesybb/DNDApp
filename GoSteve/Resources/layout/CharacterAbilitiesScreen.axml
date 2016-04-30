@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayout1"
+    android:layout_width="fill_parent"
+    android:layout_marginLeft="50dp"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    android:orientation="vertical"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:weightSum="1.5">
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:minWidth="25px"
+            android:minHeight="25px">
+            <TableLayout
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:minWidth="25px"
+                android:minHeight="25px">
+                <TableRow>
+                    <TableLayout
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:minWidth="25px"
+                        android:minHeight="25px">
+                        <TableRow>
+                            <TextView
+                                android:background="@drawable/characterSheetCellShape"
+                                android:text="Armor Class"
+                                android:gravity="center"
+                                android:padding="5dip"
+                                android:layout_marginBottom="15.5dp" />
+                            <EditText
+                                android:background="@drawable/characterSheetCellShape"
+                                android:text=""
+                                android:id="@+id/CharacterAbilitiesArmorClass"
+                                android:gravity="center"
+                                android:padding="5dip"
+                                android:numeric="integer" />
+                            <TextView
+                                android:background="@drawable/characterSheetCellShape"
+                                android:text="Initiative"
+                                android:gravity="center"
+                                android:padding="5dip" />
+                            <EditText
+                                android:background="@drawable/characterSheetCellShape"
+                                android:text=""
+                                android:id="@+id/CharacterAbilitiesInitiative"
+                                android:gravity="center"
+                                android:padding="5dip"
+                                android:numeric="integer" />
+                            <TextView
+                                android:background="@drawable/characterSheetCellShape"
+                                android:text="Speed"
+                                android:gravity="center"
+                                android:padding="5dip" />
+                            <TextView
+                                android:background="@drawable/characterSheetCellShape"
+                                android:text=""
+                                android:id="@+id/CharacterAbilitiesSpeed"
+                                android:gravity="center"
+                                android:padding="5dip" />
+                        </TableRow>
+                    </TableLayout>
+                </TableRow>
+                <TableRow>
+                    <TableLayout
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:minWidth="25px"
+                        android:minHeight="25px">
+                        <TableRow>
+                            <TextView
+                                android:background="@drawable/characterSheetCellShape"
+                                android:text="Hit Points"
+                                android:gravity="center"
+                                android:padding="5dip" />
+                        </TableRow>
+                        <TableRow>
+                            <TextView
+                                android:background="@drawable/characterSheetCellShape"
+                                android:text="Max"
+                                android:gravity="center"
+                                android:padding="5dip"
+                                android:layout_marginBottom="15.5dp" />
+                            <EditText
+                                android:background="@drawable/characterSheetCellShape"
+                                android:text=""
+                                android:id="@+id/CharacterAbilitiesHitPntMax"
+                                android:gravity="center"
+                                android:padding="5dip"
+                                android:numeric="integer" />
+                            <TextView
+                                android:background="@drawable/characterSheetCellShape"
+                                android:text="Current"
+                                android:gravity="center"
+                                android:padding="5dip" />
+                            <EditText
+                                android:background="@drawable/characterSheetCellShape"
+                                android:text=""
+                                android:id="@+id/CharacterAbilitiesHitPntCrnt"
+                                android:gravity="center"
+                                android:padding="5dip"
+                                android:numeric="integer" />
+                            <TextView
+                                android:background="@drawable/characterSheetCellShape"
+                                android:text="Temp"
+                                android:gravity="center"
+                                android:padding="5dip" />
+                            <EditText
+                                android:background="@drawable/characterSheetCellShape"
+                                android:text=""
+                                android:id="@+id/CharacterAbilitiesHitPntTmp"
+                                android:gravity="center"
+                                android:padding="5dip"
+                                android:numeric="integer" />
+                        </TableRow>
+                    </TableLayout>
+                </TableRow>
+                <TableRow>
+                    <TableLayout
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:minWidth="25px"
+                        android:minHeight="25px">
+                        <TableRow
+                            android:layout_height="match_parent">
+                            <TextView
+                                android:background="@drawable/characterSheetCellShape"
+                                android:text="Hit Dice"
+                                android:gravity="center"
+                                android:padding="5dip" />
+                        </TableRow>
+                        <TableRow>
+                            <TextView
+                                android:background="@drawable/characterSheetCellShape"
+                                android:text="Total"
+                                android:gravity="center"
+                                android:padding="5dip"
+                                android:layout_marginBottom="15.5dp" />
+                            <EditText
+                                android:background="@drawable/characterSheetCellShape"
+                                android:text=""
+                                android:id="@+id/CharacterAbilitiesHitDiceMax"
+                                android:gravity="center"
+                                android:padding="5dip"
+                                android:numeric="integer" />
+                            <TextView
+                                android:background="@drawable/characterSheetCellShape"
+                                android:text="Current"
+                                android:gravity="center"
+                                android:padding="5dip" />
+                            <EditText
+                                android:background="@drawable/characterSheetCellShape"
+                                android:text=""
+                                android:id="@+id/CharacterAbilitiesHitDiceCurrent"
+                                android:gravity="center"
+                                android:padding="5dip"
+                                android:numeric="integer" />
+                            <TextView
+                                android:background="@drawable/characterSheetCellShape"
+                                android:text="Dice"
+                                android:gravity="center"
+                                android:padding="5dip" />
+                            <TextView
+                                android:background="@drawable/characterSheetCellShape"
+                                android:text=""
+                                android:id="@+id/CharacterAbilitiesHitDiceType"
+                                android:gravity="center"
+                                android:padding="5dip"
+                                android:numeric="integer" />
+                        </TableRow>
+                        <TableRow>
+                            <TextView
+                                android:background="@drawable/characterSheetCellShape"
+                                android:text="Death Saves"
+                                android:gravity="center"
+                                android:padding="5dip" />
+                        </TableRow>
+                        <TableRow>
+                            <TextView
+                                android:background="@drawable/characterSheetCellShape"
+                                android:text="Successes"
+                                android:gravity="center"
+                                android:padding="5dip" />
+                            <RadioGroup
+                                android:orientation="horizontal">
+                                <RadioButton
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:checked="false" />
+                                <RadioButton
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
+                                <RadioButton
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
+                            </RadioGroup>
+                        </TableRow>
+                        <TableRow>
+                            <TextView
+                                android:background="@drawable/characterSheetCellShape"
+                                android:text="Failures"
+                                android:gravity="center"
+                                android:padding="5dip"
+                                android:layout_marginBottom="15.5dp" />
+                            <RadioGroup
+                                android:orientation="horizontal">
+                                <RadioButton
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:checked="false" />
+                                <RadioButton
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
+                                <RadioButton
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
+                            </RadioGroup>
+                        </TableRow>
+                    </TableLayout>
+                </TableRow>
+                <TextView
+                    android:background="@drawable/characterSheetCellShape"
+                    android:text="Attacks - Spellcasting"
+                    android:gravity="center"
+                    android:padding="5dip" />
+                <EditText
+                    android:inputType="textMultiLine"
+                    android:layout_column="2"
+                    android:id="@+id/CharacterAbilitiesAttkSpell" />
+            </TableLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

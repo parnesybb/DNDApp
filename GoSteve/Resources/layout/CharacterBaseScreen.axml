@@ -29,7 +29,18 @@
                     </TableRow>
                     <TableRow>
                         <TextView
-                            android:text="@string/PlayerName" />
+                            android:text="@string/CharacterName"
+                            android:layout_height="22.5dp" />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:background="@drawable/characterSheetCellShape"
+                            android:text=""
+                            android:id="@+id/characterScreenClass" />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:text="@string/Class" />
                     </TableRow>
                 </TableLayout>
                 <TableLayout
@@ -37,18 +48,23 @@
                     android:layout_height="wrap_content"
                     android:padding="5dip">
                     <TableRow>
-                        <TextView
-                            android:text="5"
+                        <EditText
+                            android:text=""
+                            android:numeric="integer"
                             android:background="@drawable/characterSheetCellShape"
-                            android:id="@+id/characterScreenClassLevel" />
+                            android:id="@+id/characterScreenLevel"
+                            android:layout_marginRight="0.0dp"
+                            android:layout_width="32.0dp"
+                            android:layout_height="18.5dp" />
                     </TableRow>
                     <TableRow>
                         <TextView
-                            android:text="@string/ClassLevel" />
+                            android:text="@string/Level"
+                            android:layout_height="20.5dp" />
                     </TableRow>
                     <TableRow>
                         <TextView
-                            android:text="Dwarf"
+                            android:text=""
                             android:background="@drawable/characterSheetCellShape"
                             android:id="@+id/characterScreenRace" />
                     </TableRow>
@@ -63,17 +79,19 @@
                     android:padding="5dip">
                     <TableRow>
                         <TextView
-                            android:text="Soldier"
+                            android:text=""
                             android:background="@drawable/characterSheetCellShape"
-                            android:id="@+id/characterScreenBackground" />
+                            android:id="@+id/characterScreenBackground"
+                            android:layout_height="17.5dp" />
                     </TableRow>
                     <TableRow>
                         <TextView
-                            android:text="@string/Background" />
+                            android:text="@string/Background"
+                            android:layout_height="21.5dp" />
                     </TableRow>
                     <TableRow>
                         <TextView
-                            android:text="Lawful Good"
+                            android:text=""
                             android:background="@drawable/characterSheetCellShape"
                             android:id="@+id/characterScreenAlignment" />
                     </TableRow>
@@ -88,7 +106,7 @@
                     android:padding="5dip">
                     <TableRow>
                         <TextView
-                            android:text="Justin"
+                            android:text=""
                             android:background="@drawable/characterSheetCellShape"
                             android:id="@+id/characterScreenPlayerName" />
                     </TableRow>
@@ -97,10 +115,11 @@
                             android:text="@string/PlayerName" />
                     </TableRow>
                     <TableRow>
-                        <TextView
-                            android:text="1599"
+                        <EditText
+                            android:text=""
                             android:background="@drawable/characterSheetCellShape"
-                            android:id="@+id/characterScreenXP" />
+                            android:id="@+id/characterScreenXP"
+                            android:numeric="integer" />
                     </TableRow>
                     <TableRow>
                         <TextView
