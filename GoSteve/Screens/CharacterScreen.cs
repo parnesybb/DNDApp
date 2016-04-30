@@ -19,8 +19,24 @@ namespace GoSteve.Screens
         private static readonly string TAG = "CharacterScreen";
         private readonly string[] _tabNames = { "Stats/Skills", "Attributes",  "Prof/Langs", "Equip", "Info"};
         private Fragment[] _fragments;
-        private CharacterSheet _cs;
+        private static CharacterSheet _cs;
         private bool isDM;
+
+        /// <summary>
+        /// Gets the character sheet being used in CharacterScreen instance.
+        /// To set this, pass a character sheet by intent to CharacterScreen.
+        /// </summary>
+        public static CharacterSheet CharacterSheet
+        {
+            get
+            {
+                return _cs;
+            }
+            private set
+            {
+                _cs = value;
+            }
+        }
 
         //TODO
         // TIMED SAVE
@@ -39,14 +55,51 @@ namespace GoSteve.Screens
 
             _fragments = new Fragment[]
           {
-                new StatsSkillsFragment(_cs),
-                new AbilitiesFragment(_cs),
-                new ProfsLangsFragment(_cs),
-                new EquipFragment(_cs),
-                new InfoFragment(_cs)
+                new StatsSkillsFragment(),
+                new AbilitiesFragment(),
+                new ProfsLangsFragment(),
+                new EquipFragment(),
+                new InfoFragment()
           };
 
             CreateTabs();
+
+            // XP
+            var view = FindViewById<EditText>(Resource.Id.characterScreenXP);
+            view.Text = _cs.Xp.ToString();
+            view.TextChanged += (s, e) =>
+            {
+                var sender = s as EditText;
+                if (!String.IsNullOrEmpty(sender.Text))
+                    _cs.Xp = Int32.Parse(sender.Text);
+            };
+
+            // LEVEL
+            view = FindViewById<EditText>(Resource.Id.characterScreenLevel);
+            view.Text = _cs.Level.ToString();
+            view.TextChanged += (s, e) =>
+            {
+                var sender = s as EditText;
+                if (!String.IsNullOrEmpty(sender.Text))
+                    _cs.Level = Int32.Parse(sender.Text);
+            };
+
+            // OTHER PERSISTENT VALUES IN VIEW
+            FindViewById<TextView>(Resource.Id.characterScreenClass).Text = _cs.ClassInstance.Type.ToString();
+            FindViewById<TextView>(Resource.Id.characterScreenPlayerName).Text = _cs.PlayerName;
+            FindViewById<TextView>(Resource.Id.characterScreenName).Text = _cs.CharacterName;
+            FindViewById<TextView>(Resource.Id.characterScreenBackground).Text = _cs.Background.ToString();
+            FindViewById<TextView>(Resource.Id.characterScreenAlignment).Text = _cs.Alignment;
+            if (_cs.RaceInstance.SubRace != KnownValues.SubRace.NONE)
+            {
+                FindViewById<TextView>(Resource.Id.characterScreenRace).Text = _cs.RaceInstance.Race.ToString() + " " +
+                    _cs.RaceInstance.SubRace.ToString();
+            }
+            else
+            {
+                FindViewById<TextView>(Resource.Id.characterScreenRace).Text = _cs.RaceInstance.Race.ToString();
+            }
+            
         }
 
         private void ReceiveMessage()
@@ -85,6 +138,7 @@ namespace GoSteve.Screens
                     e.FragmentTransaction.Replace(Resource.Id.characterScreenDisplay, _fragments[0]);
                     break;
                 case 1:
+                    e.FragmentTransaction.Replace(Resource.Id.characterScreenDisplay, _fragments[1]);
                     break;
                 case 2:
                     break;

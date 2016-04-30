@@ -43,7 +43,8 @@ namespace GoSteve
         private int _initiative;
         private HitPoints _hitPoints;
         private List<Spell> _spells;
-        private List<Weapon> _weapons;
+        //private List<Weapon> _weapons;
+        private List<string> _weapons;
         private List<string> _equipment;
         private Currency _currency;
         private string _personalityTraits;
@@ -74,7 +75,8 @@ namespace GoSteve
             this._othrProfsLangs = new List<string>();
             this._hitPoints = new HitPoints();
             this._spells = new List<Spell>();
-            this._weapons = new List<Weapon>();
+            //this._weapons = new List<Weapon>();
+            this._weapons = new List<string>();
             this._equipment = new List<string>();
             this._currency = new Currency();
             this._featuresTraits = new List<string>();
@@ -486,7 +488,7 @@ namespace GoSteve
         /// <summary>
         /// Gets an array of the chacters weapons.
         /// </summary>
-        public Weapon[] Weapons
+        public string[] Weapons
         {
             get
             {
@@ -498,9 +500,12 @@ namespace GoSteve
         /// Adds a weapon to the character sheet.
         /// </summary>
         /// <param name="w"></param>
-        public void AddWeapon(Weapon w)
+        public void AddWeapon(string w)
         {
-            this._weapons.Add(w);
+            if (!this._weapons.Contains(w))
+            {
+                this._weapons.Add(w);
+            }       
         }
 
         /// <summary>

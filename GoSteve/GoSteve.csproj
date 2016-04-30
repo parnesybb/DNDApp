@@ -148,6 +148,9 @@
     <AndroidResource Include="Resources\layout\CharacterStatsSkillsScreen.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\CharacterAbilitiesScreen.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
     <AndroidResource Include="Resources\layout\newChar4.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
