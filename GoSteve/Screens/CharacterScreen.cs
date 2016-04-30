@@ -17,7 +17,7 @@ namespace GoSteve.Screens
     public class CharacterScreen : Activity
     {
         private static readonly string TAG = "CharacterScreen";
-        private readonly string[] _tabNames = { "Stats/Skills", "Attributes",  "Prof/Langs", "Equip", "Info"};
+        private readonly string[] _tabNames = { "Stats/Skills", "Health/Attacks", "Features/Traits", "Prof/Langs", "Equip", "Info"};
         private Fragment[] _fragments;
         private static CharacterSheet _cs;
         private bool isDM;
@@ -57,6 +57,7 @@ namespace GoSteve.Screens
           {
                 new StatsSkillsFragment(),
                 new AbilitiesFragment(),
+                new FeaturesTraitsFragment(),
                 new ProfsLangsFragment(),
                 new EquipFragment(),
                 new InfoFragment()
@@ -141,10 +142,15 @@ namespace GoSteve.Screens
                     e.FragmentTransaction.Replace(Resource.Id.characterScreenDisplay, _fragments[1]);
                     break;
                 case 2:
+                    e.FragmentTransaction.Replace(Resource.Id.characterScreenDisplay, _fragments[2]);
                     break;
                 case 3:
+                    e.FragmentTransaction.Replace(Resource.Id.characterScreenDisplay, _fragments[3]);
                     break;
                 case 4:
+                    e.FragmentTransaction.Replace(Resource.Id.characterScreenDisplay, _fragments[4]);
+                    break;
+                case 5:
                     break;
 
                 default:

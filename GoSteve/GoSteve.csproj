@@ -154,6 +154,15 @@
     <AndroidResource Include="Resources\layout\newChar4.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\CharacterScreenProfsLangs.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\CharacterScreenFeaturesTraits.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\CharacterScreenEquipment.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
     <None Include="Resources\xml\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
   </ItemGroup>

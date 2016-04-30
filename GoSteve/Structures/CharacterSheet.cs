@@ -398,6 +398,14 @@ namespace GoSteve
         }
 
         /// <summary>
+        /// Clears the proficiences and languages list.
+        /// </summary>
+        public void ClearProficienciesLanguages()
+        {
+            this._othrProfsLangs.Clear();
+        }
+
+        /// <summary>
         /// An array of the misc proficiencies and languages.
         /// </summary>
         public string[] OtherProficienciesLanguages
@@ -414,7 +422,10 @@ namespace GoSteve
         /// <param name="val">The value to add.</param>
         public void AddProficiencyORLanguage(string val)
         {
-            this._othrProfsLangs.Add(val);
+            if (!this._othrProfsLangs.Contains(val))
+            {
+                this._othrProfsLangs.Add(val);
+            } 
         }
 
         /// <summary>
@@ -486,6 +497,14 @@ namespace GoSteve
         }
 
         /// <summary>
+        /// Clears the weapons list.
+        /// </summary>
+        public void ClearWeapons()
+        {
+            this._weapons.Clear();
+        }
+
+        /// <summary>
         /// Gets an array of the chacters weapons.
         /// </summary>
         public string[] Weapons
@@ -509,6 +528,14 @@ namespace GoSteve
         }
 
         /// <summary>
+        /// Clears the equipment list.
+        /// </summary>
+        public void ClearEquipment()
+        {
+            this._equipment.Clear();
+        }
+
+        /// <summary>
         /// Gets an array of the characters weapons.
         /// </summary>
         public string[] Equipment
@@ -525,7 +552,10 @@ namespace GoSteve
         /// <param name="e">The equipment to add.</param>
         public void AddEquipment(string e)
         {
-            this._equipment.Add(e);
+            if (!_equipment.Contains(e))
+            {
+                this._equipment.Add(e);
+            }
         }
 
         /// <summary>
@@ -609,6 +639,14 @@ namespace GoSteve
         }
 
         /// <summary>
+        /// Clears the features and traits list.
+        /// </summary>
+        public void ClearFeaturesAndTraits()
+        {
+            this._featuresTraits.Clear();
+        }
+
+        /// <summary>
         /// Gets an array of the characters features and traits.
         /// </summary>
         public string[] FeaturesAndTraits
@@ -625,7 +663,10 @@ namespace GoSteve
         /// <param name="val">The feature or trait to add.</param>
         public void AddFeatureOrTrait(string val)
         {
-            this._featuresTraits.Add(val);
+            if (!_featuresTraits.Contains(val))
+            {
+                this._featuresTraits.Add(val);
+            } 
         }
 
         /// <summary>
