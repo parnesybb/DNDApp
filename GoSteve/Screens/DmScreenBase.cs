@@ -71,7 +71,7 @@ namespace GoSteve.Screens
                 b.Click += (sender, args) =>
                 {
                     // Screen to call. This will be an instance of Mike's character screen.
-                    var charScreen = new Intent(this, typeof(TestScreen));
+                    var charScreen = new Intent(this, typeof(CharacterScreen));
                     var gsMsg = new GSActivityMessage();
 
                     gsMsg.Message = CharacterSheet.GetBytes(_campaign[b.CharacterID]);
@@ -172,15 +172,17 @@ namespace GoSteve.Screens
             _layout.AddView(_genEncounterBtn);
 
             //TEST
-            //var cs = new CharacterSheet();
-            //cs.CharacterName = "TEST";
-            //cs.SetRace(KnownValues.Race.DRAGONBORN, true);
-            //cs.Background = KnownValues.Background.ACOLYTE;
-            //cs.SetClass(KnownValues.ClassType.BARBARIAN, true);
-            //cs.ID = new Guid().ToString();
+            var csx = new CharacterSheet();
+            csx.CharacterName = "TEST";
+            csx.SetRace(KnownValues.Race.DRAGONBORN, true);
+            csx.Background = KnownValues.Background.ACOLYTE;
+            csx.SetClass(KnownValues.ClassType.BARBARIAN, true);
+            csx.ID = new Guid().ToString();
+            csx.Level = 5;
             //CharacterSheet.WriteToFile(cs);
             //var csFromFile = CharacterSheet.ReadFromFile(cs.CharacterName);
             //this.Update(csFromFile);
+            this.Update(csx);
 
             if (savedInstanceState != null)
             {

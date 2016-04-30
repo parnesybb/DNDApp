@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="25px"
+    android:minHeight="25px">
+    <ScrollView
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/characterScreenInfoScrollView">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:minWidth="25px"
+            android:minHeight="25px">
+            <TextView
+                android:text="Personality Traits"
+                android:background="@drawable/characterSheetCellShape"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:padding="5dip" />
+            <EditText
+                android:inputType="textMultiLine"
+                android:background="@drawable/characterSheetCellShape"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/characterScreenInfoTraits" />
+            <TextView
+                android:text="Ideals"
+                android:background="@drawable/characterSheetCellShape"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:padding="5dip" />
+            <EditText
+                android:inputType="textMultiLine"
+                android:background="@drawable/characterSheetCellShape"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/characterScreenInfoIeals" />
+            <TextView
+                android:text="Bonds"
+                android:background="@drawable/characterSheetCellShape"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:padding="5dip" />
+            <EditText
+                android:inputType="textMultiLine"
+                android:background="@drawable/characterSheetCellShape"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/characterScreenInfoBonds" />
+            <TextView
+                android:text="Flaws"
+                android:background="@drawable/characterSheetCellShape"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:padding="5dip" />
+            <EditText
+                android:inputType="textMultiLine"
+                android:background="@drawable/characterSheetCellShape"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/characterScreenInfoFlaws" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

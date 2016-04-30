@@ -43,8 +43,8 @@ namespace GoSteve
 
             newCharName.AfterTextChanged += (s, arg) =>
             {
-                if(String.IsNullOrEmpty(arg.ToString()))
-                {}
+                if (String.IsNullOrEmpty(arg.ToString()))
+                { }
                 else
                 {
                     c.CharacterName = newCharName.Text;
@@ -53,7 +53,7 @@ namespace GoSteve
 
             radioGender.Click += (s, arg) =>
             {
-                if(radioGender.CheckedRadioButtonId == radioMale.Id)
+                if (radioGender.CheckedRadioButtonId == radioMale.Id)
                 {
                     c.Gender = "Male";
                 }
@@ -74,7 +74,7 @@ namespace GoSteve
                     var race = pickRace.Text;
                     pickRace.Text = arg1.Item.TitleFormatted.ToString();
 
-                    if(race != pickRace.Text)
+                    if (race != pickRace.Text)
                     {
                         pickSub.Text = "Pick A Sub Race";
                     }
@@ -143,7 +143,7 @@ namespace GoSteve
             {
                 PopupMenu m = new PopupMenu(this, pickSub);
 
-                switch(pickRace.Text)
+                switch (pickRace.Text)
                 {
                     case "Dwarf":
                         //pickSub.Text = "Pick a Sub Race";
@@ -173,7 +173,7 @@ namespace GoSteve
                 {
                     pickSub.Text = arg1.Item.TitleFormatted.ToString();
 
-                    switch(pickSub.Text)
+                    switch (pickSub.Text)
                     {
                         case "Hill":
                             c.setSubRace(KnownValues.SubRace.HILL_DWARF);
@@ -221,7 +221,7 @@ namespace GoSteve
                     var background = pickBack.Text;
                     pickBack.Text = arg2.Item.TitleFormatted.ToString();
 
-                    switch(pickBack.Text)
+                    switch (pickBack.Text)
                     {
                         case "Acolyte":
                             c.Background = KnownValues.Background.ACOLYTE;
@@ -282,7 +282,7 @@ namespace GoSteve
 
             continueButton.Click += (s, arg) =>
             {
-                if (String.IsNullOrEmpty(c.CharacterName) ||  c.RaceInstance == null || c.Alignment == null || c.Background == KnownValues.Background.NONE || (pickSub.Visibility == ViewStates.Visible && c.getSubRace() == KnownValues.SubRace.NONE))
+                if (String.IsNullOrEmpty(c.CharacterName) || c.RaceInstance == null || c.Alignment == null || c.Background == KnownValues.Background.NONE || (pickSub.Visibility == ViewStates.Visible && c.getSubRace() == KnownValues.SubRace.NONE))
                 {
                     missing1.Visibility = ViewStates.Visible;
                 }
