@@ -1,5 +1,6 @@
 
 using Android.App;
+using Android.Net.Nsd;
 using Android.OS;
 using Android.Util;
 using Android.Widget;
@@ -7,6 +8,7 @@ using GoSteve;
 using GoSteve.Buttons;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
@@ -20,7 +22,8 @@ namespace Server
         //private string _serverHost;
         //private int _serverPort;
         private GSNsdHelper _nsd;
-        private Dictionary<string, ServerButton> list;
+        //private ClientGSDiscoveryListener listener;
+        private Dictionary<string, ServerButton> dict;
         private LinearLayout _layout;
 
         public const string TAG = "GSClient";
@@ -29,19 +32,25 @@ namespace Server
         {
             base.OnCreate(savedInstanceState);
 
-            list = new Dictionary<string, ServerButton>();
+            dict = new Dictionary<string, ServerButton>();
 
             _bf = new BinaryFormatter();
             _nsd = new GSNsdHelper(this);
+            //listener = new ClientGSDiscoveryListener(_nsd);
+
+            _nsd.StartHelper();
+            //_nsd.NsdDiscoveryListener = listener;
 
             this._layout = new LinearLayout(this);
             this._layout.Orientation = Orientation.Vertical;
             SetContentView(this._layout);
 
             Log.Info("GSClient", "Check it out I'm running I'm running: ");
+            Log.Debug(TAG, "This computer Host: " + Dns.GetHostName());
 
             _nsd.ServiceFound += (sender, args) =>
             {
+                Log.Debug(TAG,"Found Host: "+ Dns.GetHostEntry(args.UpdatedNsdServiceInfo.Host.HostAddress).HostName+" Port: "+ args.UpdatedNsdServiceInfo.Port);
                 AddServerButton(args.UpdatedNsdServiceInfo.Host.HostName, args.UpdatedNsdServiceInfo.Port);
 
                 //AlertDialog.Builder b = new AlertDialog.Builder(this);
@@ -55,7 +64,11 @@ namespace Server
                 //SendUpdate(cs);
             };
 
-            _nsd.StartHelper();
+            //listener.ServiceLost += (sender, args) =>
+            //{
+            //    RemoveServer(args.Host.HostName);
+            //};
+
             _nsd.DiscoverServices();
         }
 
@@ -63,14 +76,33 @@ namespace Server
         {
             RunOnUiThread(() =>
             {
-                ServerButton btn = new ServerButton(this, hostName, port);
-                btn.Click += (btnSender, btnArgs) =>
+                if (!dict.ContainsKey(hostName))
                 {
-                    var cs = this.CreateFakeRequest();
-                    SendUpdate(btn.HostName, btn.Port, cs);
-                };
-                list.Add(hostName,btn);
-                _layout.AddView(btn);
+                    ServerButton btn = new ServerButton(this, hostName, port);
+                    btn.Click += (btnSender, btnArgs) =>
+                    {
+                        var cs = this.CreateFakeRequest();
+                        SendUpdate(btn.HostName, btn.Port, cs);
+                    };
+                    dict.Add(hostName, btn);
+                    _layout.AddView(btn);
+                }
+                else
+                {
+                    dict[hostName].Port = port;
+                }
+            });
+        }
+
+        private void RemoveServer(string hostName)
+        {
+            RunOnUiThread(() =>
+            {
+                if (dict.ContainsKey(hostName))
+                {
+                    _layout.RemoveView(dict[hostName]);
+                    dict.Remove(hostName);
+                }
             });
         }
 
@@ -95,8 +127,11 @@ namespace Server
                 failAlert.SetMessage("Error Could not connect to Host: " + serverHost + "\nPort: " + serverPort);
                 failAlert.Show();
                 Log.Debug(TAG, "Exception Occurred:"+ex);
-                _layout.RemoveView(list[serverHost]);
-                list.Remove(serverHost);
+                if (dict.ContainsKey(serverHost))
+                {
+                    _layout.RemoveView(dict[serverHost]);
+                    dict.Remove(serverHost);
+                }
                 return;
             }
             var stream = server.GetStream();
@@ -138,6 +173,27 @@ namespace Server
             cs.CharacterName = "Flaf";
 
             return cs;
+        }
+
+        class ClientGSDiscoveryListener : GSDiscoveryListener
+        {
+            public delegate void ServiceLostDelegate(object sender, NsdServiceInfo args);
+
+            public event ServiceLostDelegate ServiceLost;
+
+            public ClientGSDiscoveryListener(GSNsdHelper nsd) : base(nsd)
+            {
+            }
+
+            public new void OnServiceLost(NsdServiceInfo serviceInfo)
+            {
+                Log.Debug(TAG, "Service Lost: " + serviceInfo);
+                base.OnServiceLost(serviceInfo);
+                if (ServiceLost != null)
+                {
+                    ServiceLost(this, serviceInfo);
+                }
+            }
         }
     }
 }
