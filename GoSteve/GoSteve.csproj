@@ -163,6 +163,9 @@
     <AndroidResource Include="Resources\layout\CharacterScreenEquipment.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\CharacterScreenInfo.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
     <None Include="Resources\xml\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
   </ItemGroup>

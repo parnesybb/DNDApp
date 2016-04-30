@@ -126,36 +126,36 @@ namespace GoSteve.Screens
             var tab = sender as ActionBar.Tab;
             Log.Debug(TAG, "TabClick -> {0}", tab.Text);
 
-            //try
-            //{
-            //    e.FragmentTransaction.Replace(Resource.Id.characterScreenDisplay, _fragments[tab.Position]);
-            //}
-            //catch (Exception)
-            //{/*Supress for now*/}
-
-            switch (tab.Position)
+            try
             {
-                case 0:
-                    e.FragmentTransaction.Replace(Resource.Id.characterScreenDisplay, _fragments[0]);
-                    break;
-                case 1:
-                    e.FragmentTransaction.Replace(Resource.Id.characterScreenDisplay, _fragments[1]);
-                    break;
-                case 2:
-                    e.FragmentTransaction.Replace(Resource.Id.characterScreenDisplay, _fragments[2]);
-                    break;
-                case 3:
-                    e.FragmentTransaction.Replace(Resource.Id.characterScreenDisplay, _fragments[3]);
-                    break;
-                case 4:
-                    e.FragmentTransaction.Replace(Resource.Id.characterScreenDisplay, _fragments[4]);
-                    break;
-                case 5:
-                    break;
-
-                default:
-                    break;
+                e.FragmentTransaction.Replace(Resource.Id.characterScreenDisplay, _fragments[tab.Position]);
             }
+            catch (Exception)
+            {/*Supress for now*/}
+
+            //switch (tab.Position)
+            //{
+            //    case 0:
+            //        e.FragmentTransaction.Replace(Resource.Id.characterScreenDisplay, _fragments[0]);
+            //        break;
+            //    case 1:
+            //        e.FragmentTransaction.Replace(Resource.Id.characterScreenDisplay, _fragments[1]);
+            //        break;
+            //    case 2:
+            //        e.FragmentTransaction.Replace(Resource.Id.characterScreenDisplay, _fragments[2]);
+            //        break;
+            //    case 3:
+            //        e.FragmentTransaction.Replace(Resource.Id.characterScreenDisplay, _fragments[3]);
+            //        break;
+            //    case 4:
+            //        e.FragmentTransaction.Replace(Resource.Id.characterScreenDisplay, _fragments[4]);
+            //        break;
+            //    case 5:
+            //        break;
+
+            //    default:
+            //        break;
+            //}
         }
     }
 }

@@ -478,10 +478,64 @@ namespace GoSteve.Screens
     public class InfoFragment : Fragment
     {
         private CharacterSheet _cs;
+        private View _view;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            throw new NotImplementedException();
+            _view = inflater.Inflate(Resource.Layout.CharacterScreenInfo, null);
+            _cs = CharacterScreen.CharacterSheet;
+
+            if (_cs != null)
+            {
+                // traits
+                var input = _view.FindViewById<EditText>(Resource.Id.characterScreenInfoTraits);
+                input.Text = _cs.PersonalityTraits;
+                input.TextChanged += Input_TextChanged;
+
+                // ideals
+                input = _view.FindViewById<EditText>(Resource.Id.characterScreenInfoIeals);
+                input.Text = _cs.Ideals;
+                input.TextChanged += Input_TextChanged;
+
+                // bonds
+                input = _view.FindViewById<EditText>(Resource.Id.characterScreenInfoBonds);
+                input.Text = _cs.Bonds;
+                input.TextChanged += Input_TextChanged;
+
+                // flaws
+                input = _view.FindViewById<EditText>(Resource.Id.characterScreenInfoFlaws);
+                input.Text = _cs.Flaws;
+                input.TextChanged += Input_TextChanged;
+            }
+
+            return _view;
+        }
+
+        private void Input_TextChanged(object sender, Android.Text.TextChangedEventArgs e)
+        {
+            var s = sender as EditText;
+
+            switch (s.Id)
+            {
+                case Resource.Id.characterScreenInfoTraits:
+                    _cs.PersonalityTraits = s.Text;
+                    break;
+
+                case Resource.Id.characterScreenInfoIeals:
+                    _cs.Ideals = s.Text;
+                    break;
+
+                case Resource.Id.characterScreenInfoBonds:
+                    _cs.Bonds = s.Text;
+                    break;
+
+                case Resource.Id.characterScreenInfoFlaws:
+                    _cs.Flaws = s.Text;
+                    break;
+
+                default:
+                    break;
+            }
         }
     }
 }
