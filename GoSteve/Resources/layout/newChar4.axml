@@ -20,4 +20,10 @@
         p1:id="@+id/yourClass"
         p1:gravity="center"
         p1:textColor="@android:color/holo_blue_bright" />
+    <Button
+        p1:text="Continue"
+        p1:layout_height="wrap_content"
+        p1:layout_width="match_parent"
+        p1:layout_below="@+id/yourClass"
+        p1:id="@+id/continueBtn" />
 </RelativeLayout>

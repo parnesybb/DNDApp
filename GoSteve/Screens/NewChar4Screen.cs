@@ -30,6 +30,7 @@ namespace GoSteve
             SetContentView(Resource.Layout.newChar4);
 
             TextView yourClass = FindViewById<TextView>(Resource.Id.yourClass);
+            Button continuteBtn = FindViewById<Button>(Resource.Id.continuteBtn);
 
             switch (c.Background.ToString())
             {
@@ -109,6 +110,15 @@ namespace GoSteve
                 default:
                     break;
             }
+
+            continuteBtn.Click += (s, arg) =>
+            {
+                var charScreen = new Intent(this, typeof());
+                var gsMsg1 = new GSActivityMessage();
+                gsMsg1.Message = CharacterSheet.GetBytes(c);
+                charScreen.PutExtra(gsMsg1.CharacterMessage, gsMsg1.Message);
+                StartActivity(charScreen);
+            };
         }
     }
 }
