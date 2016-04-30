@@ -17,12 +17,33 @@ namespace GoSteve.Screens
     public class CharacterScreen : Activity
     {
         private static CharacterSheet _cs;
-        public static bool isDM;
+        private static bool _isDM;
         private static readonly string TAG = "CharacterScreen";
 
         private readonly string[] _tabNames = { "Stats/Skills", "Health/Attacks", "Features/Traits", "Prof/Langs", "Equip", "Info"};
         private Fragment[] _fragments;
         private System.Timers.Timer _timer;     
+
+        public CharacterScreen()
+        {
+            _isDM = false;
+        }
+
+        /// <summary>
+        /// Set this after creating a new instance of CharacterScreen.
+        /// A value of false is default.
+        /// </summary>
+        public static bool IsDM
+        {
+            get
+            {
+                return _isDM;
+            }
+            set
+            {
+                _isDM = value;
+            }
+        }
 
         /// <summary>
         /// Gets the character sheet being used in CharacterScreen instance.
@@ -39,11 +60,6 @@ namespace GoSteve.Screens
                 _cs = value;
             }
         }
-
-        //TODO
-        // TIMED SAVE
-        // BUTTON TO SEND TO DM
-        // NEED TO SEND A BOOLEAN OR SOMETHING HERE TO SET isDM. RECEIVEMESSAGE SHOULD HANDLE THIS.
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -111,6 +127,19 @@ namespace GoSteve.Screens
             _timer.Start();
         }
 
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            //return base.OnCreateOptionsMenu(menu);
+            var item = menu.Add("Upload");
+            item.SetIcon(Resource.Drawable.uparrow);
+            item.SetShowAsAction(ShowAsAction.Always);
+
+            item.SetOnMenuItemClickListener(x =>
+            {
+
+            });
+        }
+
         protected override void OnPause()
         {
             base.OnPause();
@@ -154,11 +183,13 @@ namespace GoSteve.Screens
                 tab.TabSelected += TabClick;
                 ActionBar.AddTab(tab);
             }
+
+            ActionBar.
         }
 
         private void TimedSave(object sender, System.Timers.ElapsedEventArgs e)
         {
-            if (_cs != null && !isDM)
+            if (_cs != null && !_isDM)
             {
                 CharacterSheet.WriteToFile(_cs);
             }
@@ -175,6 +206,14 @@ namespace GoSteve.Screens
             }
             catch (Exception)
             {/*Supress for now*/}
+        }
+    }
+
+    internal class CSMenuEvent : Java.Lang.Object, IMenuItemOnMenuItemClickListener
+    {
+        public bool OnMenuItemClick(IMenuItem item)
+        {
+            throw new NotImplementedException();
         }
     }
 }
