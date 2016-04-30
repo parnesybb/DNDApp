@@ -16,11 +16,13 @@ namespace GoSteve.Screens
     [Activity(Label = "Character Screen")]
     public class CharacterScreen : Activity
     {
+        private static CharacterSheet _cs;
+        public static bool isDM;
         private static readonly string TAG = "CharacterScreen";
+
         private readonly string[] _tabNames = { "Stats/Skills", "Health/Attacks", "Features/Traits", "Prof/Langs", "Equip", "Info"};
         private Fragment[] _fragments;
-        private static CharacterSheet _cs;
-        private bool isDM;
+        private System.Timers.Timer _timer;     
 
         /// <summary>
         /// Gets the character sheet being used in CharacterScreen instance.
@@ -100,7 +102,40 @@ namespace GoSteve.Screens
             {
                 FindViewById<TextView>(Resource.Id.characterScreenRace).Text = _cs.RaceInstance.Race.ToString();
             }
-            
+
+            // Timed writer.
+            _timer = new System.Timers.Timer();
+            _timer.Interval = 60000; // 1 min = 60000
+            _timer.AutoReset = true;
+            _timer.Elapsed += TimedSave;
+            _timer.Start();
+        }
+
+        protected override void OnPause()
+        {
+            base.OnPause();
+
+            if (_timer != null)
+            {
+                _timer.Enabled = false;
+            }
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+
+            if (_timer != null)
+            {
+                _timer.Enabled = true;
+            }
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            _timer.Stop();
+            _timer.Dispose();
         }
 
         private void ReceiveMessage()
@@ -121,6 +156,14 @@ namespace GoSteve.Screens
             }
         }
 
+        private void TimedSave(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            if (_cs != null && !isDM)
+            {
+                CharacterSheet.WriteToFile(_cs);
+            }
+        }
+
         private void TabClick(object sender, ActionBar.TabEventArgs e)
         {
             var tab = sender as ActionBar.Tab;
@@ -132,30 +175,6 @@ namespace GoSteve.Screens
             }
             catch (Exception)
             {/*Supress for now*/}
-
-            //switch (tab.Position)
-            //{
-            //    case 0:
-            //        e.FragmentTransaction.Replace(Resource.Id.characterScreenDisplay, _fragments[0]);
-            //        break;
-            //    case 1:
-            //        e.FragmentTransaction.Replace(Resource.Id.characterScreenDisplay, _fragments[1]);
-            //        break;
-            //    case 2:
-            //        e.FragmentTransaction.Replace(Resource.Id.characterScreenDisplay, _fragments[2]);
-            //        break;
-            //    case 3:
-            //        e.FragmentTransaction.Replace(Resource.Id.characterScreenDisplay, _fragments[3]);
-            //        break;
-            //    case 4:
-            //        e.FragmentTransaction.Replace(Resource.Id.characterScreenDisplay, _fragments[4]);
-            //        break;
-            //    case 5:
-            //        break;
-
-            //    default:
-            //        break;
-            //}
         }
     }
 }
