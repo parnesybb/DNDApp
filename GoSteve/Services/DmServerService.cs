@@ -49,6 +49,7 @@ namespace GoSteve.Services
         private const string TAG = "DmServerService";
 
         public const int notifyNewCharID = 0;
+        public const Boolean IsDebugMode = true;
 
         public override void OnCreate()
         {
@@ -131,7 +132,6 @@ namespace GoSteve.Services
             base.OnDestroy();
 
             StopService();
-            Toast.MakeText(this, "The dm service has stopped", ToastLength.Long).Show();
         }
 
         void SendNotification()
@@ -248,6 +248,8 @@ namespace GoSteve.Services
                     var client = _server.AcceptTcpClient();
                     var stream = client.GetStream();
 
+                    Log.Info(TAG, "Connected to Client.");
+
                     try
                     {
                         // Information about data from client.
@@ -256,14 +258,17 @@ namespace GoSteve.Services
                         var msgByteLength = new byte[4];
 
                         // Get the size of the incoming object.
-                        stream.Read(msgByteLength, 0, 4);
+                        dataRead = stream.Read(msgByteLength, 0, 4);
                         msgLength = BitConverter.ToInt32(msgByteLength, 0);
                         buffer = new byte[msgLength];
+
+                        Log.Info(TAG, "Recieved "+ dataRead + " Bytes from client.");
 
                         // Read the object into byte buffer.
                         do
                         {
                             dataRead += stream.Read(buffer, dataRead, msgLength - dataRead);
+                            Log.Info(TAG, "Recieved " + dataRead + " Bytes from client.");
                         } while (dataRead < msgLength);
 
                         // Try to deserialize the object and update GUI.
@@ -348,6 +353,7 @@ namespace GoSteve.Services
 
         public void StopService()
         {
+            Toast.MakeText(this, "The dm service has stopped", ToastLength.Long).Show();
             NotificationManager nManager =
                GetSystemService(Context.NotificationService) as NotificationManager;
             nManager.CancelAll();
