@@ -50,8 +50,8 @@ namespace Server
 
             _nsd.ServiceFound += (sender, args) =>
             {
-                Log.Debug(TAG,"Found Host: "+ Dns.GetHostEntry(args.UpdatedNsdServiceInfo.Host.HostAddress).HostName+" Port: "+ args.UpdatedNsdServiceInfo.Port);
-                AddServerButton(args.UpdatedNsdServiceInfo.Host.HostName, args.UpdatedNsdServiceInfo.Port);
+                Log.Debug(TAG,"Found Host: "+ args.UpdatedNsdServiceInfo.ServiceName+" Port: "+ args.UpdatedNsdServiceInfo.Port);
+                AddServerButton(args.UpdatedNsdServiceInfo.ServiceName, args.UpdatedNsdServiceInfo.Host.HostAddress, args.UpdatedNsdServiceInfo.Port);
 
                 //AlertDialog.Builder b = new AlertDialog.Builder(this);
                 //b.SetMessage("Server Found: " + args.UpdatedNsdServiceInfo.Host + "\nPort: " + args.UpdatedNsdServiceInfo.Port);
@@ -72,17 +72,17 @@ namespace Server
             _nsd.DiscoverServices();
         }
 
-        private void AddServerButton(string hostName, int port)
+        private void AddServerButton(string serviceName, string hostName, int port)
         {
             RunOnUiThread(() =>
             {
                 if (!dict.ContainsKey(hostName))
                 {
-                    ServerButton btn = new ServerButton(this, hostName, port);
+                    ServerButton btn = new ServerButton(this, serviceName, hostName, port);
                     btn.Click += (btnSender, btnArgs) =>
                     {
                         var cs = this.CreateFakeRequest();
-                        SendUpdate(btn.HostName, btn.Port, cs);
+                        SendUpdate(btn.ServiceName, btn.HostName, btn.Port, cs);
                     };
                     dict.Add(hostName, btn);
                     _layout.AddView(btn);
@@ -113,7 +113,7 @@ namespace Server
             _nsd.StopDiscovery();
         }
 
-        private void SendUpdate(string serverHost, int serverPort, CharacterSheet cs)
+        private void SendUpdate(string serviceName, string serverHost, int serverPort, CharacterSheet cs)
         {
             // make connection
             var server = new TcpClient();
@@ -124,7 +124,7 @@ namespace Server
             catch(SocketException ex)
             {
                 AlertDialog.Builder failAlert = new AlertDialog.Builder(this);
-                failAlert.SetMessage("Error Could not connect to Host: " + serverHost + "\nPort: " + serverPort);
+                failAlert.SetMessage("Error Could not connect to Device: "+serviceName+"\nIP: " + serverHost + "\nPort: " + serverPort);
                 failAlert.Show();
                 Log.Debug(TAG, "Exception Occurred:"+ex);
                 if (dict.ContainsKey(serverHost))
@@ -160,7 +160,7 @@ namespace Server
             server.Close();
 
             AlertDialog.Builder b = new AlertDialog.Builder(this);
-            b.SetMessage("Successfully Sent character sheet to Server: " + serverHost + "\nPort: " + serverPort);
+            b.SetMessage("Successfully Sent character sheet to Device: " + serviceName +"\nIP: " + serverHost + "\nPort: " + serverPort);
             b.Show();
         }
 
