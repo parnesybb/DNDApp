@@ -64,6 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Buttons\ServerButton.cs" />
     <Compile Include="Screens\CharacterSelectScreen.cs" />
     <Compile Include="Screens\GSActivityMessage.cs" />
     <Compile Include="Screens\NewChar1Screen.cs" />
