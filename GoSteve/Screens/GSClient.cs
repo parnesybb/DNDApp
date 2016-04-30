@@ -69,6 +69,8 @@ namespace Server
             respText = ASCIIEncoding.ASCII.GetString(resp);
             cs.ID = respText;
 
+            stream.Flush();
+
             // close
             stream.Close();
             server.Close();

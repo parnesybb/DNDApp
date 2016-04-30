@@ -131,7 +131,10 @@ namespace GoSteve.Services
             Log.Debug(TAG, "DmServerService stopped");
             base.OnDestroy();
 
-            StopService();
+            if (_isServiceUp)
+            {
+                StopService();
+            }
         }
 
         void SendNotification()
@@ -290,10 +293,14 @@ namespace GoSteve.Services
 
                         Log.Info(TAG, "Receive character ID:" + cs.ID);
 
+                        stream.Flush();
+
                         stream.Close();
                         SendNotification();
                         Log.Info(TAG, "Is character null:" + (cs == null));
                         BroadcastNewCharacterToActivity();
+
+
 
                     }
 
@@ -358,7 +365,10 @@ namespace GoSteve.Services
                GetSystemService(Context.NotificationService) as NotificationManager;
             nManager.CancelAll();
 
-            UnregisterReceiver(_stopServiceReceiver);
+            if (_stopServiceReceiver != null)
+            {
+                UnregisterReceiver(_stopServiceReceiver);
+            }
             StopServer();
         }
 
