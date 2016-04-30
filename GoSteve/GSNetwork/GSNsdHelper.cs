@@ -30,7 +30,7 @@ namespace Server
         private NsdServiceInfo _nsdServiceInfo;
 
         public event ServiceFoundDelegate ServiceFound;
-        public static readonly string SERVICE_TYPE = "_http._tcp.";
+        public static readonly string SERVICE_TYPE = "_dnd._tcp.";
         public static readonly string TAG = "GSNsdHelper";
 
         public GSNsdHelper(Context context)

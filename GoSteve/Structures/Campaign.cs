@@ -81,6 +81,11 @@ namespace GoSteve.Structures
             return _players.ContainsKey(id);
         }
 
+        public Dictionary<string,CharacterSheet>.Enumerator GetEnumerator()
+        {
+            return _players.GetEnumerator();
+        }
+
         /// <summary>
         /// Add a player to campaign.
         /// </summary>

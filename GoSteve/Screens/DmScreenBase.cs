@@ -22,6 +22,11 @@ using GoSteve.Services;
 
 namespace GoSteve.Screens
 {
+    /// <summary>
+    /// This class displays the DM mode screen. It lauches a background service
+    /// that runs a IP network server and DNS Domain Name Service. This allows 
+    /// clients to connect and update charactersheets
+    /// </summary>
     [Activity(Label = "DM Mode", LaunchMode = Android.Content.PM.LaunchMode.SingleTask)]
     public class DmScreenBase : Activity
     {
@@ -30,7 +35,8 @@ namespace GoSteve.Screens
         private LinearLayout _layout;
         private Button _genEncounterBtn;
         private Button _broadcastBtn;
-        private DmServiceReceiver _characterReceiver;
+        public DmServerService ServerService { get; set; }
+        private DmServiceCharacterReceiver _characterReceiver;
         //private DmStopServiceReceiver _stopServiceReceiver;
         private DmServerStateChangedReceiver _serverStateReceiver;
         private Intent _dmServerServiceIntent;
@@ -40,7 +46,8 @@ namespace GoSteve.Screens
         public DmServerServiceConnection ServiceConnection { set; get; }
         public DmServerBinder Binder { get; set; }
 
-        public const string CharacterDictionaryMessage = "CharacterDictionaryMessage";
+        public const string CharacterCampaignMessage = "CharacterCampaignMessage";
+        private const string TAG = "DmScreenBase";
 
         public DmScreenBase()
         {
@@ -48,6 +55,11 @@ namespace GoSteve.Screens
             this._buttonCount = 0;
         }
 
+        /// <summary>
+        /// Update charactersheets in the campaign and add a button if it is a new
+        /// charactersheet.
+        /// </summary>
+        /// <param name="cs">Charactersheet to add or update</param>
         public void Update(CharacterSheet cs)
         {
             if (!_campaign.IsMember(cs.ID))
@@ -107,6 +119,10 @@ namespace GoSteve.Screens
             }
         }
 
+        /// <summary>
+        /// Called by Android OS when the activity is created
+        /// </summary>
+        /// <param name="savedInstanceState">Contains previous instance data</param>
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -115,9 +131,15 @@ namespace GoSteve.Screens
             this._layout.Orientation = Orientation.Vertical;
             SetContentView(this._layout);
 
-            _characterReceiver = new DmServiceReceiver();
+            //Initialize broadcast receivers
+            _characterReceiver = new DmServiceCharacterReceiver();
             //_stopServiceReceiver = new DmStopServiceReceiver();
             _serverStateReceiver = new DmServerStateChangedReceiver();
+
+            // Intent to start the Server Service Connection
+            // This allows the activity to get the binder from the Service
+            _dmServerServiceIntent = new Intent(this, typeof(DmServerService));
+            ServiceConnection = new DmServerServiceConnection(this);
 
             _broadcastBtn = new Button(this);
             _broadcastBtn.Id = Button.GenerateViewId();
@@ -127,7 +149,6 @@ namespace GoSteve.Screens
                 ToggleServerButtonState();
             };
 
-            UpdateButton();
             _layout.AddView(_broadcastBtn);
 
             // Encounter button
@@ -184,31 +205,36 @@ namespace GoSteve.Screens
             //this.Update(csFromFile);
             this.Update(csx);
 
+            // Load the previously saved data
+            /*
             if (savedInstanceState != null)
             {
-                byte[] csBytes = null;
                 BinaryFormatter _formatter = new BinaryFormatter();
 
                 var gsMsg = new GSActivityMessage();
-                gsMsg.Message = savedInstanceState.GetByteArray(CharacterDictionaryMessage);
+                gsMsg.Message = savedInstanceState.GetByteArray(CharacterCampaignMessage);
                 var ms = new System.IO.MemoryStream(gsMsg.Message);
-                var cs = _formatter.Deserialize(ms) as CharacterSheet;
+                var tempCampaign = _formatter.Deserialize(ms) as Campaign;
                 ms.Close();
-                /*
-                var gsMsg = new GSActivityMessage();
-                gsMsg.Message = CharacterSheet.GetBytes(_charSheets[b.CharacterID]);
-                charScreen.PutExtra(gsMsg.CharacterMessage, gsMsg.Message);
 
-                _counter = savedInstanceState.GetExtra("click_count", 0);
-                Log.Debug(GetType().FullName, "Activity A - Recovered instance state");
-                */
-            }
+                foreach (var pair in tempCampaign)
+                {
+                    Update(pair.Value);
+                }
+            }*/
+
+            UpdateButton();
         }
 
+        /// <summary>
+        /// Called by Android OS when the activity is started
+        /// </summary>
         protected override void OnStart()
         {
             base.OnStart();
 
+            // Register Broadcast Recievers
+            // This allows the service send the activity messages
             var intentFilter = new IntentFilter(DmServerService.CharSheetUpdatedAction) { Priority = (int)IntentFilterPriority.HighPriority };
             RegisterReceiver(_characterReceiver, intentFilter);
 
@@ -218,13 +244,24 @@ namespace GoSteve.Screens
             var serverStateIntentFilter = new IntentFilter(DmServerService.ServerStateChangedAction) { Priority = (int)IntentFilterPriority.HighPriority };
             RegisterReceiver(_serverStateReceiver, serverStateIntentFilter);
 
-            _dmServerServiceIntent = new Intent(this, typeof(DmServerService));
-            ServiceConnection = new DmServerServiceConnection(this);
-            ApplicationContext.BindService(_dmServerServiceIntent, ServiceConnection, Bind.AutoCreate);
+            // "Bind" to service
+            // This setups up the ServerServiceConnection.
+            // Also it gives us the binder for the service
+            BindDmServerService();
         }
 
+        protected override void OnResume()
+        {
+            base.OnResume();
+        }
+
+        /// <summary>
+        /// Called by Android OS when an activity should save data between instances
+        /// </summary>
+        /// <param name="outState">State data</param>
         protected override void OnSaveInstanceState(Bundle outState)
         {
+            /*
             byte[] csBytes = null;
             BinaryFormatter _formatter = new BinaryFormatter();
             var ms = new System.IO.MemoryStream();
@@ -232,32 +269,54 @@ namespace GoSteve.Screens
             // Serialize the character sheet.
             _formatter.Serialize(ms, _campaign);
             csBytes = ms.ToArray();
-            outState.PutByteArray(CharacterDictionaryMessage, csBytes);
+            outState.PutByteArray(CharacterCampaignMessage, csBytes);
             ms.Close();
+            */
 
-            Log.Debug(GetType().FullName, "Activity A - Saving instance state");
+            Log.Debug(TAG, "Activity A - Saving instance state");
 
             // always call the base implementation!
             base.OnSaveInstanceState(outState);
         }
 
+        /// <summary>
+        /// Called by Android OS when an activity is destroyed
+        /// </summary>
         protected override void OnDestroy()
         {
             base.OnDestroy();
 
-            Log.Info("DmScreenBase", "OnDestroy called!");
+            Log.Info(TAG, "OnDestroy called!");
 
+            if (IsServiceRunning())
+            {
+                ServerService.UpdateCampaign(_campaign);
+            }
+
+            // Unregister Broadcast receivers
             UnregisterReceiver(_characterReceiver);
             //UnregisterReceiver(_stopServiceReceiver);
             UnregisterReceiver(_serverStateReceiver);
 
-
+            //Unbind the service
             UnbindDmServerService();
         }
 
+        /// <summary>
+        /// Determines if the DM Server Service is running
+        /// </summary>
+        /// <returns>true if is running, else it is not running</returns>
+        private bool IsServiceRunning()
+        {
+            return IsBound && ServerService != null && ServerService.IsServiceRunning;
+        }
+
+        /// <summary>
+        /// Called when the user clicks the Start/Stop Broadcast button
+        /// </summary>
         private void ToggleServerButtonState()
         {
-            if (IsServiceUp)
+            if (IsServiceRunning())
             {
                 //stop service
                 StopDmServerService();
@@ -270,12 +329,14 @@ namespace GoSteve.Screens
             }
         }
 
+        /// <summary>
+        /// Called by the DM server service when the service has been started or stopped
+        /// </summary>
         public void UpdateButton()
         {
             RunOnUiThread(() =>
             {
-                IsServiceUp = DmServerService.IsServiceRunning;
-                if (IsServiceUp)
+                if (IsServiceRunning())
                 {
                     //stop service
                     _broadcastBtn.Text = "Stop Broadcast Session";
@@ -288,15 +349,21 @@ namespace GoSteve.Screens
             });
         }
 
+        /// <summary>
+        /// Called when the activity wants to bind to the DM server service
+        /// </summary>
         private void BindDmServerService()
         {
             if (!IsBound)
             {
-                ApplicationContext.BindService(_dmServerServiceIntent, ServiceConnection, Bind.AutoCreate);
+                ApplicationContext.BindService(_dmServerServiceIntent, ServiceConnection, 0);
                 IsBound = true;
             }
         }
 
+        /// <summary>
+        /// Called when the activity wants to unbind to the DM server service
+        /// </summary>
         private void UnbindDmServerService()
         {
             if (IsBound)
@@ -306,47 +373,72 @@ namespace GoSteve.Screens
             }
         }
 
+        /// <summary>
+        /// Called when the activity wants to stop the DM server service
+        /// </summary>
         private void StopDmServerService()
         {
             _broadcastBtn.Text = "Start Broadcast Session";
             UnbindDmServerService();
             //StopService(new Intent(DmServerService.IntentFilter));
-            ApplicationContext.StopService(new Intent(this, typeof(DmServerService)));
+            Log.Debug(TAG, "User tried Stopping The DMServerService!");
+            StopService(new Intent(this, typeof(DmServerService)));
+            //ApplicationContext.StopService(new Intent(DmServerService.IntentFilter));
         }
 
+        /// <summary>
+        /// Called when the activity wants to stop the DM server service
+        /// </summary>
         private void StartDmServerService()
         {
             _broadcastBtn.Text = "Stop Broadcast Session";
-            BindDmServerService();
             ApplicationContext.StartService(new Intent(this, typeof(DmServerService)));
+            //ApplicationContext.StartService(new Intent(DmServerService.IntentFilter));
+            BindDmServerService();
         }
 
-        void UpdateCharacterSheets()
+        /// <summary>
+        /// Called when the service received a new character sheet
+        /// </summary>
+        public void LoadCharacterSheets()
         {
-            if (IsBound)
+            Log.Debug(TAG,"LoadCharacterSheets Reached");
+            if (IsServiceRunning())
             {
                 RunOnUiThread(() => {
-                    var locCs = DmServerService.Service.GetCharacterSheets();
+                    var locCampaign = ServerService.GetCampaign();
 
-                    if (locCs != null)
+                    if (locCampaign != null)
                     {
-                        Update(locCs);
+                        Log.Debug(TAG, "LoadCharacterSheets Inner Reached");
+                        int i = 0;
+                        foreach (var pair in locCampaign)
+                        {
+                            i++;
+                            Update(pair.Value);
+                        }
+                        Log.Debug(TAG, i + " Characters loaded!");
+                        
                     }
                     else
                     {
-                        Log.Debug("DmScreenBase", "charactersheet is null");
+                        Log.Debug(TAG, "charactersheet is null");
                     }
                 }
                 );
             }
         }
 
-        class DmServiceReceiver : BroadcastReceiver
+        /// <summary>
+        /// A Broadcast Receiver that is called by DM Server Service when
+        /// a charactersheet has been updated
+        /// </summary>
+        class DmServiceCharacterReceiver : BroadcastReceiver
         {
             public override void OnReceive(Context context, Android.Content.Intent intent)
             {
                 // Get Character sheets
-                ((DmScreenBase)context).UpdateCharacterSheets();
+                ((DmScreenBase)context).LoadCharacterSheets();
 
                 InvokeAbortBroadcast();
             }
@@ -368,6 +460,10 @@ namespace GoSteve.Screens
         }
         */
 
+        /// <summary>
+        /// A Broadcast receiver called by the DM Server Service start/stop
+        /// state has changed
+        /// </summary>
         class DmServerStateChangedReceiver : BroadcastReceiver
         {
             public override void OnReceive(Context context, Android.Content.Intent intent)
@@ -381,17 +477,32 @@ namespace GoSteve.Screens
 
     }
 
+    /// <summary>
+    /// Called by Android OS from Bind and Unbinding. This sets up the DM Server Service binder.
+    /// The Binder allows the activity to call service methods.
+    /// </summary>
     public class DmServerServiceConnection : Java.Lang.Object, IServiceConnection
     {
         DmScreenBase activity;
 
         public DmServerBinder Binder { get; set; }
 
+        /// <summary>
+        /// Called by Android OS when a connection between the service and activity has
+        /// been estabhlished.
+        /// </summary>
+        /// <param name="activity">DmScreenBase activity instance</param>
         public DmServerServiceConnection(DmScreenBase activity)
         {
             this.activity = activity;
         }
-
+        
+        /// <summary>
+        /// Called by Android OS when a service has been connected by
+        /// Bind
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="service"></param>
         public void OnServiceConnected(ComponentName name, IBinder service)
         {
             var demoServiceBinder = service as DmServerBinder;
@@ -400,13 +511,20 @@ namespace GoSteve.Screens
                 var binder = (DmServerBinder)service;
                 activity.Binder = binder;
                 activity.IsBound = true;
+                activity.ServerService = activity.Binder.GetDmServerService();
                 activity.UpdateButton();
 
                 // keep instance for preservation across configuration changes
                 this.Binder = (DmServerBinder)service;
+                activity.LoadCharacterSheets();
             }
         }
 
+        /// <summary>
+        /// Called by Android OS when a service has been disconnected by 
+        /// Unbind
+        /// </summary>
+        /// <param name="name"></param>
         public void OnServiceDisconnected(ComponentName name)
         {
             activity.IsBound = false;
