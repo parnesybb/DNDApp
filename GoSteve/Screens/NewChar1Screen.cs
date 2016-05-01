@@ -84,52 +84,146 @@ namespace GoSteve
                         case "Dragonborn":
                             instructionSubRace.Visibility = ViewStates.Invisible;
                             pickSub.Visibility = ViewStates.Invisible;
-                            c.SetRace(KnownValues.Race.DRAGONBORN, true);
-                            c.setSubRace(KnownValues.SubRace.NONE);
+
+                            if(c.RaceInstance == null)
+                            {
+                                c.SetRace(KnownValues.Race.DRAGONBORN, true);
+                                c.setSubRace(KnownValues.SubRace.NONE);
+                            }
+                            else
+                            {
+                                c.ClearFeaturesAndTraits();
+                                c.ClearProficienciesLanguages();
+                                c.SetRace(KnownValues.Race.DRAGONBORN, true);
+                                c.setSubRace(KnownValues.SubRace.NONE);
+                            }
                             break;
                         case "Dwarf":
                             instructionSubRace.Visibility = ViewStates.Visible;
                             pickSub.Visibility = ViewStates.Visible;
-                            c.SetRace(KnownValues.Race.DWARF, true);
+                            
+                            if(c.RaceInstance == null)
+                            {
+                                c.SetRace(KnownValues.Race.DWARF, true);
+                            }
+                            else
+                            {
+                                c.ClearFeaturesAndTraits();
+                                c.ClearProficienciesLanguages();
+                                c.SetRace(KnownValues.Race.DWARF, true);
+                            }
                             break;
                         case "Elf":
                             instructionSubRace.Visibility = ViewStates.Visible;
                             pickSub.Visibility = ViewStates.Visible;
-                            c.SetRace(KnownValues.Race.ELF, true);
+                            if (c.RaceInstance == null)
+                            {
+                                c.SetRace(KnownValues.Race.ELF, true);
+                            }
+                            else
+                            {
+                                c.ClearFeaturesAndTraits();
+                                c.ClearProficienciesLanguages();
+                                c.SetRace(KnownValues.Race.ELF, true);
+                            }
                             break;
                         case "Gnome":
                             instructionSubRace.Visibility = ViewStates.Visible;
                             pickSub.Visibility = ViewStates.Visible;
-                            c.SetRace(KnownValues.Race.GNOME, true);
+
+                            if (c.RaceInstance == null)
+                            {
+                                c.SetRace(KnownValues.Race.GNOME, true);
+                            }
+                            else
+                            {
+                                c.ClearFeaturesAndTraits();
+                                c.ClearProficienciesLanguages();
+                                c.SetRace(KnownValues.Race.GNOME, true);
+                            }
                             break;
                         case "Half-Elf":
                             instructionSubRace.Visibility = ViewStates.Invisible;
                             pickSub.Visibility = ViewStates.Invisible;
-                            c.SetRace(KnownValues.Race.HALF_ELF, true);
-                            c.setSubRace(KnownValues.SubRace.NONE);
+
+                            if (c.RaceInstance == null)
+                            {
+                                c.SetRace(KnownValues.Race.HALF_ELF, true);
+                                c.setSubRace(KnownValues.SubRace.NONE);
+                            }
+                            else
+                            {
+                                c.ClearFeaturesAndTraits();
+                                c.ClearProficienciesLanguages();
+                                c.SetRace(KnownValues.Race.HALF_ELF, true);
+                                c.setSubRace(KnownValues.SubRace.NONE);
+                            }
                             break;
                         case "Halfling":
                             instructionSubRace.Visibility = ViewStates.Visible;
                             pickSub.Visibility = ViewStates.Visible;
-                            c.SetRace(KnownValues.Race.HALFLING, true);
+
+                            if (c.RaceInstance == null)
+                            {
+                                c.SetRace(KnownValues.Race.HALFLING, true);
+                            }
+                            else
+                            {
+                                c.ClearFeaturesAndTraits();
+                                c.ClearProficienciesLanguages();
+                                c.SetRace(KnownValues.Race.HALFLING, true);
+                            }
                             break;
                         case "Half-Orc":
                             instructionSubRace.Visibility = ViewStates.Invisible;
                             pickSub.Visibility = ViewStates.Invisible;
-                            c.SetRace(KnownValues.Race.HALF_ORC, true);
-                            c.setSubRace(KnownValues.SubRace.NONE);
+
+                            if (c.RaceInstance == null)
+                            {
+                                c.SetRace(KnownValues.Race.HALF_ORC, true);
+                                c.setSubRace(KnownValues.SubRace.NONE);
+                            }
+                            else
+                            {
+                                c.ClearFeaturesAndTraits();
+                                c.ClearProficienciesLanguages();
+                                c.SetRace(KnownValues.Race.HALF_ORC, true);
+                                c.setSubRace(KnownValues.SubRace.NONE);
+                            }
                             break;
                         case "Human":
                             instructionSubRace.Visibility = ViewStates.Invisible;
                             pickSub.Visibility = ViewStates.Invisible;
-                            c.SetRace(KnownValues.Race.HUMAN, true);
-                            c.setSubRace(KnownValues.SubRace.NONE);
+
+                            if (c.RaceInstance == null)
+                            {
+                                c.SetRace(KnownValues.Race.HUMAN, true);
+                                c.setSubRace(KnownValues.SubRace.NONE);
+                            }
+                            else
+                            {
+                                c.ClearFeaturesAndTraits();
+                                c.ClearProficienciesLanguages();
+                                c.SetRace(KnownValues.Race.HUMAN, true);
+                                c.setSubRace(KnownValues.SubRace.NONE);
+                            }
                             break;
                         case "Tiefling":
                             instructionSubRace.Visibility = ViewStates.Invisible;
                             pickSub.Visibility = ViewStates.Invisible;
-                            c.SetRace(KnownValues.Race.TIEFLING, true);
-                            c.setSubRace(KnownValues.SubRace.NONE);
+
+                            if (c.RaceInstance == null)
+                            {
+                                c.SetRace(KnownValues.Race.TIEFLING, true);
+                                c.setSubRace(KnownValues.SubRace.NONE);
+                            }
+                            else
+                            {
+                                c.ClearFeaturesAndTraits();
+                                c.ClearProficienciesLanguages();
+                                c.SetRace(KnownValues.Race.TIEFLING, true);
+                                c.setSubRace(KnownValues.SubRace.NONE);
+                            }
                             break;
                         default:
                             instructionSubRace.Visibility = ViewStates.Invisible;
