@@ -10,23 +10,29 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Util;
+using GoSteve.Buttons;
+using Server;
+using GoSteve.GSNetwork;
 
 namespace GoSteve.Screens
 {
     [Activity(Label = "Character Screen")]
     public class CharacterScreen : Activity
     {
-        private static CharacterSheet _cs;
-        private static bool _isDM;
+        private static CharacterSheet _cs = null;
+        private static bool _isDM = false;
         private static readonly string TAG = "CharacterScreen";
 
         private readonly string[] _tabNames = { "Stats/Skills", "Health/Attacks", "Features/Traits", "Prof/Langs", "Equip", "Info"};
         private Fragment[] _fragments;
-        private System.Timers.Timer _timer;     
+        private System.Timers.Timer _timer;
+
+        internal GSPlayer _gsPlayer;
+
+        private IMenu _dmMenu;
 
         public CharacterScreen()
         {
-            _isDM = false;
         }
 
         /// <summary>
@@ -119,25 +125,48 @@ namespace GoSteve.Screens
                 FindViewById<TextView>(Resource.Id.characterScreenRace).Text = _cs.RaceInstance.Race.ToString();
             }
 
-            // Timed writer.
-            _timer = new System.Timers.Timer();
-            _timer.Interval = 60000; // 1 min = 60000
-            _timer.AutoReset = true;
-            _timer.Elapsed += TimedSave;
-            _timer.Start();
+            // Player only.
+            if (_cs != null && !IsDM)
+            {
+                _gsPlayer = new GSPlayer(this, _cs);
+                _gsPlayer.NsdHelper.StartHelper();
+                _gsPlayer.NsdHelper.DiscoverServices();
+                _gsPlayer.OnDmDetected += (s, e) =>
+                {
+                     _dmMenu.Add(e.DmIdentity);
+                };
+
+                // Timed writer.
+                _timer = new System.Timers.Timer();
+                _timer.Interval = 60000; // 1 min = 60000
+                _timer.AutoReset = true;
+                _timer.Elapsed += TimedSave;
+                _timer.Start();
+            }       
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
-            //return base.OnCreateOptionsMenu(menu);
-            var item = menu.Add("Upload");
-            item.SetIcon(Resource.Drawable.uparrow);
-            item.SetShowAsAction(ShowAsAction.Always);
+            if (!IsDM)
+                _dmMenu = menu.AddSubMenu("Upload");
 
-            item.SetOnMenuItemClickListener(x =>
+            return base.OnCreateOptionsMenu(menu);
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            if (!_isDM)
             {
+                var result = _gsPlayer.SendUpdate(item.TitleFormatted.ToString());
 
-            });
+                if (!result)
+                {
+                    _dmMenu.RemoveItem(item.ItemId);
+                }
+            }
+                
+
+            return base.OnOptionsItemSelected(item);
         }
 
         protected override void OnPause()
@@ -184,7 +213,7 @@ namespace GoSteve.Screens
                 ActionBar.AddTab(tab);
             }
 
-            ActionBar.
+            //ActionBar.
         }
 
         private void TimedSave(object sender, System.Timers.ElapsedEventArgs e)
@@ -206,14 +235,6 @@ namespace GoSteve.Screens
             }
             catch (Exception)
             {/*Supress for now*/}
-        }
-    }
-
-    internal class CSMenuEvent : Java.Lang.Object, IMenuItemOnMenuItemClickListener
-    {
-        public bool OnMenuItemClick(IMenuItem item)
-        {
-            throw new NotImplementedException();
         }
     }
 }

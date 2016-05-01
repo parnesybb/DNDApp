@@ -8,6 +8,8 @@ using Android.OS;
 using System.Runtime.Serialization.Formatters.Binary;
 using GoSteve.Screens;
 using Server;
+using System.IO;
+using System.Collections.Generic;
 
 namespace GoSteve
 {
@@ -30,9 +32,35 @@ namespace GoSteve
                 StartActivity(typeof(NewChar1Screen));
             };
 
+            // Open menu of saved character sheets.
             exCharButton.Click += (s, arg) =>
             {
-                StartActivity(typeof(GSClient));
+                var locPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+                string[] files = Directory.GetFiles(locPath);
+                var menu = new PopupMenu(this, exCharButton);
+
+                foreach (var file in files)
+                {
+                    if (file.Contains(CharacterSheet.FILE_EXT))
+                    {
+                        menu.Menu.Add(file.Substring(file.LastIndexOf('/') + 1));
+                    }
+                }
+
+                // Load the clicked character sheet.
+                menu.MenuItemClick += (ss, ee) =>
+                {
+                    CharacterScreen.IsDM = false;
+                    var csFile = CharacterSheet.ReadFromFile(ee.Item.TitleFormatted.ToString());
+                    var msg = new GSActivityMessage();
+                    msg.Message = CharacterSheet.GetBytes(csFile);
+
+                    var intent = new Intent(this, typeof(CharacterScreen));
+                    intent.PutExtra(msg.CharacterMessage, msg.Message);
+                    StartActivity(intent);
+                };
+
+                menu.Show();
             };
         }
     }
