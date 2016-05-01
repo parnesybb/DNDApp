@@ -92,9 +92,12 @@ namespace GoSteve.GSNetwork
             }
             catch (SocketException ex)
             {
+                _servers.Remove(serverHost);
+
                 AlertDialog.Builder failAlert = new AlertDialog.Builder(_context);
                 failAlert.SetMessage("Error Could not connect to Host: " + serverHost + "\nPort: " + serverPort);
                 failAlert.Show();
+                
                 return false;
             }
             var stream = server.GetStream();
