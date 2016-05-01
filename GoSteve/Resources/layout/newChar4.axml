@@ -13,11 +13,154 @@
         p1:id="@+id/instructionSkills"
         p1:gravity="center" />
     <TextView
-        p1:textAppearance="?android:attr/textAppearanceLarge"
+        p1:text="Pick what skills your character will be good at.  Keep in mind that based on your Race, Class, and Background, the number of skills you can pick will change, some skills will be off-limits, and some skills will have already been chosen for you."
+        p1:textAppearance="?android:attr/textAppearanceSmall"
         p1:layout_width="match_parent"
-        p1:layout_height="108.0dp"
+        p1:layout_height="wrap_content"
         p1:layout_below="@+id/instructionSkills"
-        p1:id="@+id/yourClass"
+        p1:id="@+id/instructionOptions" />
+    <TextView
+        p1:textAppearance="?android:attr/textAppearanceMedium"
+        p1:layout_width="match_parent"
+        p1:layout_height="69.5dp"
+        p1:gravity="center"
+        p1:layout_below="@+id/instructionOptions"
+        p1:id="@+id/yourOptions"
+        p1:textColor="@android:color/holo_blue_bright" />
+    <ScrollView
+        p1:minWidth="25px"
+        p1:minHeight="25px"
+        p1:layout_width="382.5dp"
+        p1:layout_height="300.0dp"
+        p1:layout_below="@id/yourOptions"
+        p1:id="@+id/scrollView1">
+        <RelativeLayout
+            p1:minWidth="25px"
+            p1:minHeight="25px"
+            p1:layout_width="match_parent"
+            p1:layout_height="match_parent"
+            p1:id="@+id/relativeLayout2">
+            <CheckBox
+                p1:text="Acrobatics"
+                p1:layout_width="wrap_content"
+                p1:layout_height="wrap_content"
+                p1:id="@+id/acrobaticsChk" />
+            <CheckBox
+                p1:text="Animal Handling"
+                p1:layout_width="wrap_content"
+                p1:layout_height="wrap_content"
+                p1:layout_below="@+id/acrobaticsChk"
+                p1:id="@+id/animalhandlingChk" />
+            <CheckBox
+                p1:text="Arcana"
+                p1:layout_width="wrap_content"
+                p1:layout_height="wrap_content"
+                p1:layout_below="@+id/animalhandlingChk"
+                p1:id="@+id/arcanaChk" />
+            <CheckBox
+                p1:text="Athletics"
+                p1:layout_width="wrap_content"
+                p1:layout_height="wrap_content"
+                p1:layout_below="@+id/arcanaChk"
+                p1:id="@+id/athleticsChk" />
+            <CheckBox
+                p1:text="Deception"
+                p1:layout_width="wrap_content"
+                p1:layout_height="wrap_content"
+                p1:layout_below="@+id/athleticsChk"
+                p1:id="@+id/deceptionChk" />
+            <CheckBox
+                p1:text="History"
+                p1:layout_width="wrap_content"
+                p1:layout_height="wrap_content"
+                p1:layout_below="@+id/deceptionChk"
+                p1:id="@+id/historyChk" />
+            <CheckBox
+                p1:text="Insight"
+                p1:layout_width="wrap_content"
+                p1:layout_height="wrap_content"
+                p1:layout_below="@+id/historyChk"
+                p1:id="@+id/insightChk" />
+            <CheckBox
+                p1:text="Intimidation"
+                p1:layout_width="wrap_content"
+                p1:layout_height="wrap_content"
+                p1:layout_below="@+id/insightChk"
+                p1:id="@+id/intimidationChk" />
+            <CheckBox
+                p1:text="Investigation"
+                p1:layout_width="wrap_content"
+                p1:layout_height="wrap_content"
+                p1:layout_below="@+id/intimidationChk"
+                p1:id="@+id/investigationChk" />
+            <CheckBox
+                p1:text="Medicine"
+                p1:layout_width="wrap_content"
+                p1:layout_height="wrap_content"
+                p1:layout_below="@+id/investigationChk"
+                p1:id="@+id/medicineChk" />
+            <CheckBox
+                p1:text="Nature"
+                p1:layout_width="wrap_content"
+                p1:layout_height="wrap_content"
+                p1:layout_below="@+id/medicineChk"
+                p1:id="@+id/natureChk" />
+            <CheckBox
+                p1:text="Perception"
+                p1:layout_width="wrap_content"
+                p1:layout_height="wrap_content"
+                p1:layout_below="@+id/natureChk"
+                p1:id="@+id/perceptionChk" />
+            <CheckBox
+                p1:text="Performance"
+                p1:layout_width="wrap_content"
+                p1:layout_height="wrap_content"
+                p1:layout_below="@+id/perceptionChk"
+                p1:id="@+id/performanceChk" />
+            <CheckBox
+                p1:text="Persuasion"
+                p1:layout_width="wrap_content"
+                p1:layout_height="wrap_content"
+                p1:layout_below="@+id/performanceChk"
+                p1:id="@+id/persuasionChk" />
+            <CheckBox
+                p1:text="Religion"
+                p1:layout_width="wrap_content"
+                p1:layout_height="wrap_content"
+                p1:layout_below="@+id/persuasionChk"
+                p1:id="@+id/religionChk" />
+            <CheckBox
+                p1:text="Sleight of Hand"
+                p1:layout_width="wrap_content"
+                p1:layout_height="wrap_content"
+                p1:layout_below="@+id/religionChk"
+                p1:id="@+id/sleightChk" />
+            <CheckBox
+                p1:text="Stealth"
+                p1:layout_width="wrap_content"
+                p1:layout_height="wrap_content"
+                p1:layout_below="@+id/sleightChk"
+                p1:id="@+id/stealthChk" />
+            <CheckBox
+                p1:text="Survival"
+                p1:layout_width="wrap_content"
+                p1:layout_height="wrap_content"
+                p1:layout_below="@+id/stealthChk"
+                p1:id="@+id/survivalChk" />
+        </RelativeLayout>
+    </ScrollView>
+    <TextView
+        p1:textAppearance="?android:attr/textAppearanceMedium"
+        p1:layout_width="match_parent"
+        p1:layout_height="33.5dp"
+        p1:layout_below="@+id/scrollView1"
+        p1:id="@+id/numPoints"
         p1:gravity="center"
         p1:textColor="@android:color/holo_blue_bright" />
+    <Button
+        p1:text="Continue"
+        p1:layout_width="381.5dp"
+        p1:layout_height="wrap_content"
+        p1:layout_below="@+id/numPoints"
+        p1:id="@+id/continueBtn" />
 </RelativeLayout>
