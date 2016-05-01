@@ -59,7 +59,7 @@
     <TextView
         p1:textAppearance="?android:attr/textAppearanceLarge"
         p1:layout_width="match_parent"
-        p1:layout_height="wrap_content"
+        p1:layout_height="17.5dp"
         p1:layout_below="@+id/strScore"
         p1:id="@+id/blank2"
         p1:visibility="invisible" />
@@ -96,7 +96,7 @@
     <TextView
         p1:textAppearance="?android:attr/textAppearanceLarge"
         p1:layout_width="match_parent"
-        p1:layout_height="wrap_content"
+        p1:layout_height="17.5dp"
         p1:layout_below="@+id/dexScore"
         p1:id="@+id/blank3"
         p1:visibility="invisible" />
@@ -133,7 +133,7 @@
     <TextView
         p1:textAppearance="?android:attr/textAppearanceLarge"
         p1:layout_width="match_parent"
-        p1:layout_height="wrap_content"
+        p1:layout_height="17.5dp"
         p1:layout_below="@+id/conScore"
         p1:id="@+id/blank4"
         p1:visibility="invisible" />
@@ -170,7 +170,7 @@
     <TextView
         p1:textAppearance="?android:attr/textAppearanceLarge"
         p1:layout_width="match_parent"
-        p1:layout_height="wrap_content"
+        p1:layout_height="17.5dp"
         p1:layout_below="@+id/intScore"
         p1:id="@+id/blank5"
         p1:visibility="invisible" />
@@ -207,7 +207,7 @@
     <TextView
         p1:textAppearance="?android:attr/textAppearanceLarge"
         p1:layout_width="match_parent"
-        p1:layout_height="wrap_content"
+        p1:layout_height="17.5dp"
         p1:layout_below="@+id/wisScore"
         p1:id="@+id/blank6"
         p1:visibility="invisible" />
