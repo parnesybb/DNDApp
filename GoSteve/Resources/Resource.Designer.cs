@@ -207,44 +207,44 @@ namespace GoSteve
 			// aapt resource value: 0x7f060035
 			public const int alignment = 2131099701;
 			
-			// aapt resource value: 0x7f060094
-			public const int barbarianBtn = 2131099796;
+			// aapt resource value: 0x7f060099
+			public const int barbarianBtn = 2131099801;
 			
-			// aapt resource value: 0x7f060095
-			public const int bardBtn = 2131099797;
-			
-			// aapt resource value: 0x7f060071
-			public const int blank1 = 2131099761;
+			// aapt resource value: 0x7f06009a
+			public const int bardBtn = 2131099802;
 			
 			// aapt resource value: 0x7f060076
-			public const int blank2 = 2131099766;
+			public const int blank1 = 2131099766;
 			
 			// aapt resource value: 0x7f06007b
-			public const int blank3 = 2131099771;
+			public const int blank2 = 2131099771;
 			
 			// aapt resource value: 0x7f060080
-			public const int blank4 = 2131099776;
+			public const int blank3 = 2131099776;
 			
 			// aapt resource value: 0x7f060085
-			public const int blank5 = 2131099781;
+			public const int blank4 = 2131099781;
 			
 			// aapt resource value: 0x7f06008a
-			public const int blank6 = 2131099786;
+			public const int blank5 = 2131099786;
+			
+			// aapt resource value: 0x7f06008f
+			public const int blank6 = 2131099791;
 			
 			// aapt resource value: 0x7f060037
 			public const int button1 = 2131099703;
 			
-			// aapt resource value: 0x7f06008c
-			public const int chaMinus = 2131099788;
+			// aapt resource value: 0x7f060091
+			public const int chaMinus = 2131099793;
 			
-			// aapt resource value: 0x7f06008e
-			public const int chaPlus = 2131099790;
+			// aapt resource value: 0x7f060093
+			public const int chaPlus = 2131099795;
 			
-			// aapt resource value: 0x7f06008b
-			public const int chaScore = 2131099787;
+			// aapt resource value: 0x7f060090
+			public const int chaScore = 2131099792;
 			
-			// aapt resource value: 0x7f06008d
-			public const int chaScoreNum = 2131099789;
+			// aapt resource value: 0x7f060092
+			public const int chaScoreNum = 2131099794;
 			
 			// aapt resource value: 0x7f060031
 			public const int charBG = 2131099697;
@@ -312,50 +312,65 @@ namespace GoSteve
 			// aapt resource value: 0x7f06000d
 			public const int characterScreentableLayout = 2131099661;
 			
-			// aapt resource value: 0x7f0600a0
-			public const int classDesc = 2131099808;
+			// aapt resource value: 0x7f0600a5
+			public const int classDesc = 2131099813;
 			
 			// aapt resource value: 0x7f06002f
 			public const int classSelect = 2131099695;
 			
-			// aapt resource value: 0x7f060096
-			public const int clericBtn = 2131099798;
+			// aapt resource value: 0x7f06009b
+			public const int clericBtn = 2131099803;
 			
-			// aapt resource value: 0x7f06007d
-			public const int conMinus = 2131099773;
+			// aapt resource value: 0x7f060082
+			public const int conMinus = 2131099778;
 			
-			// aapt resource value: 0x7f06007f
-			public const int conPlus = 2131099775;
+			// aapt resource value: 0x7f060084
+			public const int conPlus = 2131099780;
 			
-			// aapt resource value: 0x7f06007c
-			public const int conScore = 2131099772;
+			// aapt resource value: 0x7f060081
+			public const int conScore = 2131099777;
 			
-			// aapt resource value: 0x7f06007e
-			public const int conScoreNum = 2131099774;
-			
-			// aapt resource value: 0x7f060092
-			public const int continueBtn = 2131099794;
-			
-			// aapt resource value: 0x7f06006e
-			public const int continueButton = 2131099758;
-			
-			// aapt resource value: 0x7f060078
-			public const int dexMinus = 2131099768;
-			
-			// aapt resource value: 0x7f06007a
-			public const int dexPlus = 2131099770;
-			
-			// aapt resource value: 0x7f060077
-			public const int dexScore = 2131099767;
-			
-			// aapt resource value: 0x7f060079
-			public const int dexScoreNum = 2131099769;
-			
-			// aapt resource value: 0x7f06005c
-			public const int dmModeBtn = 2131099740;
+			// aapt resource value: 0x7f060083
+			public const int conScoreNum = 2131099779;
 			
 			// aapt resource value: 0x7f060097
-			public const int druidBtn = 2131099799;
+			public const int continueBtn = 2131099799;
+			
+			// aapt resource value: 0x7f060073
+			public const int continueButton = 2131099763;
+			
+			// aapt resource value: 0x7f06007d
+			public const int dexMinus = 2131099773;
+			
+			// aapt resource value: 0x7f06007f
+			public const int dexPlus = 2131099775;
+			
+			// aapt resource value: 0x7f06007c
+			public const int dexScore = 2131099772;
+			
+			// aapt resource value: 0x7f06007e
+			public const int dexScoreNum = 2131099774;
+			
+			// aapt resource value: 0x7f060061
+			public const int dmModeBtn = 2131099745;
+			
+			// aapt resource value: 0x7f060060
+			public const int dmScreenBaseCharacterLayout = 2131099744;
+			
+			// aapt resource value: 0x7f06005d
+			public const int dmScreenBaseControlsLayout = 2131099741;
+			
+			// aapt resource value: 0x7f06005c
+			public const int dmScreenBaseMainLayout = 2131099740;
+			
+			// aapt resource value: 0x7f06005f
+			public const int dmScreenBaseScrollView = 2131099743;
+			
+			// aapt resource value: 0x7f06005e
+			public const int dmScreenBaseTextView = 2131099742;
+			
+			// aapt resource value: 0x7f06009c
+			public const int druidBtn = 2131099804;
 			
 			// aapt resource value: 0x7f06001c
 			public const int equipmentBuyBtn = 2131099676;
@@ -390,98 +405,98 @@ namespace GoSteve
 			// aapt resource value: 0x7f06001e
 			public const int equipmentSPADD = 2131099678;
 			
-			// aapt resource value: 0x7f060091
-			public const int errMsg = 2131099793;
+			// aapt resource value: 0x7f060096
+			public const int errMsg = 2131099798;
 			
 			// aapt resource value: 0x7f06002c
 			public const int exCharButton = 2131099692;
 			
-			// aapt resource value: 0x7f060098
-			public const int fighterBtn = 2131099800;
+			// aapt resource value: 0x7f06009d
+			public const int fighterBtn = 2131099805;
 			
-			// aapt resource value: 0x7f06005e
-			public const int instruction1 = 2131099742;
+			// aapt resource value: 0x7f060063
+			public const int instruction1 = 2131099747;
 			
-			// aapt resource value: 0x7f06006f
-			public const int instructionAb1 = 2131099759;
+			// aapt resource value: 0x7f060074
+			public const int instructionAb1 = 2131099764;
+			
+			// aapt resource value: 0x7f060075
+			public const int instructionAb2 = 2131099765;
+			
+			// aapt resource value: 0x7f06006e
+			public const int instructionAlign = 2131099758;
 			
 			// aapt resource value: 0x7f060070
-			public const int instructionAb2 = 2131099760;
+			public const int instructionBackground = 2131099760;
 			
-			// aapt resource value: 0x7f060069
-			public const int instructionAlign = 2131099753;
-			
-			// aapt resource value: 0x7f06006b
-			public const int instructionBackground = 2131099755;
-			
-			// aapt resource value: 0x7f060093
-			public const int instructionClass = 2131099795;
-			
-			// aapt resource value: 0x7f060062
-			public const int instructionGender = 2131099746;
-			
-			// aapt resource value: 0x7f060060
-			public const int instructionName = 2131099744;
-			
-			// aapt resource value: 0x7f060065
-			public const int instructionRace = 2131099749;
-			
-			// aapt resource value: 0x7f0600a1
-			public const int instructionSkills = 2131099809;
+			// aapt resource value: 0x7f060098
+			public const int instructionClass = 2131099800;
 			
 			// aapt resource value: 0x7f060067
-			public const int instructionSubRace = 2131099751;
+			public const int instructionGender = 2131099751;
 			
-			// aapt resource value: 0x7f060082
-			public const int intMinus = 2131099778;
+			// aapt resource value: 0x7f060065
+			public const int instructionName = 2131099749;
 			
-			// aapt resource value: 0x7f060084
-			public const int intPlus = 2131099780;
-			
-			// aapt resource value: 0x7f060081
-			public const int intScore = 2131099777;
-			
-			// aapt resource value: 0x7f060083
-			public const int intScoreNum = 2131099779;
-			
-			// aapt resource value: 0x7f0600a3
-			public const int item0 = 2131099811;
-			
-			// aapt resource value: 0x7f0600a4
-			public const int item1 = 2131099812;
-			
-			// aapt resource value: 0x7f0600ad
-			public const int item10 = 2131099821;
-			
-			// aapt resource value: 0x7f0600ae
-			public const int item11 = 2131099822;
-			
-			// aapt resource value: 0x7f0600af
-			public const int item12 = 2131099823;
-			
-			// aapt resource value: 0x7f0600a5
-			public const int item2 = 2131099813;
+			// aapt resource value: 0x7f06006a
+			public const int instructionRace = 2131099754;
 			
 			// aapt resource value: 0x7f0600a6
-			public const int item3 = 2131099814;
+			public const int instructionSkills = 2131099814;
 			
-			// aapt resource value: 0x7f0600a7
-			public const int item4 = 2131099815;
+			// aapt resource value: 0x7f06006c
+			public const int instructionSubRace = 2131099756;
+			
+			// aapt resource value: 0x7f060087
+			public const int intMinus = 2131099783;
+			
+			// aapt resource value: 0x7f060089
+			public const int intPlus = 2131099785;
+			
+			// aapt resource value: 0x7f060086
+			public const int intScore = 2131099782;
+			
+			// aapt resource value: 0x7f060088
+			public const int intScoreNum = 2131099784;
 			
 			// aapt resource value: 0x7f0600a8
-			public const int item5 = 2131099816;
+			public const int item0 = 2131099816;
 			
 			// aapt resource value: 0x7f0600a9
-			public const int item6 = 2131099817;
+			public const int item1 = 2131099817;
+			
+			// aapt resource value: 0x7f0600b2
+			public const int item10 = 2131099826;
+			
+			// aapt resource value: 0x7f0600b3
+			public const int item11 = 2131099827;
+			
+			// aapt resource value: 0x7f0600b4
+			public const int item12 = 2131099828;
 			
 			// aapt resource value: 0x7f0600aa
-			public const int item7 = 2131099818;
+			public const int item2 = 2131099818;
 			
 			// aapt resource value: 0x7f0600ab
-			public const int item8 = 2131099819;
+			public const int item3 = 2131099819;
 			
 			// aapt resource value: 0x7f0600ac
-			public const int item9 = 2131099820;
+			public const int item4 = 2131099820;
+			
+			// aapt resource value: 0x7f0600ad
+			public const int item5 = 2131099821;
+			
+			// aapt resource value: 0x7f0600ae
+			public const int item6 = 2131099822;
+			
+			// aapt resource value: 0x7f0600af
+			public const int item7 = 2131099823;
+			
+			// aapt resource value: 0x7f0600b0
+			public const int item8 = 2131099824;
+			
+			// aapt resource value: 0x7f0600b1
+			public const int item9 = 2131099825;
 			
 			// aapt resource value: 0x7f060030
 			public const int level = 2131099696;
@@ -489,35 +504,35 @@ namespace GoSteve
 			// aapt resource value: 0x7f060000
 			public const int linearLayout1 = 2131099648;
 			
-			// aapt resource value: 0x7f06006d
-			public const int missing1 = 2131099757;
+			// aapt resource value: 0x7f060072
+			public const int missing1 = 2131099762;
 			
-			// aapt resource value: 0x7f060099
-			public const int monkBtn = 2131099801;
+			// aapt resource value: 0x7f06009e
+			public const int monkBtn = 2131099806;
 			
 			// aapt resource value: 0x7f06002b
 			public const int newCharButton = 2131099691;
 			
-			// aapt resource value: 0x7f060061
-			public const int newCharName = 2131099745;
-			
-			// aapt resource value: 0x7f06009a
-			public const int paladinBtn = 2131099802;
-			
-			// aapt resource value: 0x7f06006a
-			public const int pickAlign = 2131099754;
-			
-			// aapt resource value: 0x7f06006c
-			public const int pickBack = 2131099756;
-			
 			// aapt resource value: 0x7f060066
-			public const int pickRace = 2131099750;
+			public const int newCharName = 2131099750;
 			
-			// aapt resource value: 0x7f060068
-			public const int pickSub = 2131099752;
+			// aapt resource value: 0x7f06009f
+			public const int paladinBtn = 2131099807;
 			
-			// aapt resource value: 0x7f06005d
-			public const int playerModeBtn = 2131099741;
+			// aapt resource value: 0x7f06006f
+			public const int pickAlign = 2131099759;
+			
+			// aapt resource value: 0x7f060071
+			public const int pickBack = 2131099761;
+			
+			// aapt resource value: 0x7f06006b
+			public const int pickRace = 2131099755;
+			
+			// aapt resource value: 0x7f06006d
+			public const int pickSub = 2131099757;
+			
+			// aapt resource value: 0x7f060062
+			public const int playerModeBtn = 2131099746;
 			
 			// aapt resource value: 0x7f060032
 			public const int playerName = 2131099698;
@@ -525,74 +540,74 @@ namespace GoSteve
 			// aapt resource value: 0x7f060033
 			public const int race = 2131099699;
 			
-			// aapt resource value: 0x7f06008f
-			public const int raceLabel = 2131099791;
+			// aapt resource value: 0x7f060094
+			public const int raceLabel = 2131099796;
+			
+			// aapt resource value: 0x7f060069
+			public const int radioFemale = 2131099753;
 			
 			// aapt resource value: 0x7f060064
-			public const int radioFemale = 2131099748;
+			public const int radioGender = 2131099748;
 			
-			// aapt resource value: 0x7f06005f
-			public const int radioGender = 2131099743;
+			// aapt resource value: 0x7f060068
+			public const int radioMale = 2131099752;
 			
-			// aapt resource value: 0x7f060063
-			public const int radioMale = 2131099747;
-			
-			// aapt resource value: 0x7f06009b
-			public const int rangerBtn = 2131099803;
+			// aapt resource value: 0x7f0600a0
+			public const int rangerBtn = 2131099808;
 			
 			// aapt resource value: 0x7f06002d
 			public const int relativeLayout1 = 2131099693;
 			
-			// aapt resource value: 0x7f060090
-			public const int remPoints = 2131099792;
+			// aapt resource value: 0x7f060095
+			public const int remPoints = 2131099797;
 			
-			// aapt resource value: 0x7f06009c
-			public const int rogueBtn = 2131099804;
+			// aapt resource value: 0x7f0600a1
+			public const int rogueBtn = 2131099809;
 			
 			// aapt resource value: 0x7f060001
 			public const int scrollView1 = 2131099649;
 			
-			// aapt resource value: 0x7f06009d
-			public const int sorcerorBtn = 2131099805;
+			// aapt resource value: 0x7f0600a2
+			public const int sorcerorBtn = 2131099810;
 			
-			// aapt resource value: 0x7f060073
-			public const int strMinus = 2131099763;
+			// aapt resource value: 0x7f060078
+			public const int strMinus = 2131099768;
 			
-			// aapt resource value: 0x7f060075
-			public const int strPlus = 2131099765;
+			// aapt resource value: 0x7f06007a
+			public const int strPlus = 2131099770;
 			
-			// aapt resource value: 0x7f060072
-			public const int strScore = 2131099762;
+			// aapt resource value: 0x7f060077
+			public const int strScore = 2131099767;
 			
-			// aapt resource value: 0x7f060074
-			public const int strScoreNum = 2131099764;
+			// aapt resource value: 0x7f060079
+			public const int strScoreNum = 2131099769;
 			
 			// aapt resource value: 0x7f060034
 			public const int subRace = 2131099700;
 			
-			// aapt resource value: 0x7f06009e
-			public const int warlockBtn = 2131099806;
+			// aapt resource value: 0x7f0600a3
+			public const int warlockBtn = 2131099811;
 			
-			// aapt resource value: 0x7f060087
-			public const int wisMinus = 2131099783;
+			// aapt resource value: 0x7f06008c
+			public const int wisMinus = 2131099788;
 			
-			// aapt resource value: 0x7f060089
-			public const int wisPlus = 2131099785;
+			// aapt resource value: 0x7f06008e
+			public const int wisPlus = 2131099790;
 			
-			// aapt resource value: 0x7f060086
-			public const int wisScore = 2131099782;
+			// aapt resource value: 0x7f06008b
+			public const int wisScore = 2131099787;
 			
-			// aapt resource value: 0x7f060088
-			public const int wisScoreNum = 2131099784;
+			// aapt resource value: 0x7f06008d
+			public const int wisScoreNum = 2131099789;
 			
-			// aapt resource value: 0x7f06009f
-			public const int wizardBtn = 2131099807;
+			// aapt resource value: 0x7f0600a4
+			public const int wizardBtn = 2131099812;
 			
 			// aapt resource value: 0x7f060036
 			public const int xp = 2131099702;
 			
-			// aapt resource value: 0x7f0600a2
-			public const int yourClass = 2131099810;
+			// aapt resource value: 0x7f0600a7
+			public const int yourClass = 2131099815;
 			
 			static Id()
 			{

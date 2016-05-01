@@ -39,7 +39,7 @@ namespace Server
         public GSNsdHelper(Context context)
         {
             this._nsdManager = (NsdManager)context.GetSystemService(Context.NsdService);
-            this.ServiceName = "DND";
+            this.ServiceName = Build.Manufacturer+'_'+ Build.Model;
         }
 
         public void StartHelper()

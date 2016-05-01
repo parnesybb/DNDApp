@@ -216,10 +216,17 @@ namespace GoSteve.Screens
 
         protected override void OnDestroy()
         {
-            _gsPlayer.NsdHelper.StopDiscovery();
-            _gsPlayer.NsdHelper.UnregisterService();
-            _timer.Stop();
-            _timer.Dispose();
+            if (_gsPlayer!=null && _gsPlayer.NsdHelper != null)
+            {
+                _gsPlayer.NsdHelper.StopDiscovery();
+                _gsPlayer.NsdHelper.UnregisterService();
+            }
+
+            if (_timer != null)
+            {
+                _timer.Stop();
+                _timer.Dispose();
+            }
 
             base.OnDestroy();  
         }

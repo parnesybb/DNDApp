@@ -33,7 +33,8 @@ namespace GoSteve.Screens
     {
         private Campaign _campaign;
         private int _buttonCount;
-        private LinearLayout _layout;
+        private LinearLayout _controlsLayout;
+        private LinearLayout _characterLayout;
         private Button _genEncounterBtn;
         private Button _broadcastBtn;
         public DmServerService ServerService { get; set; }
@@ -104,7 +105,7 @@ namespace GoSteve.Screens
                     {
                         b.Visibility = ViewStates.Invisible;
                         _campaign.RemovePlayer(b.CharacterID);
-                        _layout.RemoveView(b);
+                        _characterLayout.RemoveView(b);
                     });
 
                     alert.SetNegativeButton("No", (s, e) => { });
@@ -112,7 +113,7 @@ namespace GoSteve.Screens
                     RunOnUiThread(() => { alert.Show(); });
                 };
 
-                this._layout.AddView(b);
+                this._characterLayout.AddView(b);
             }
             else
             {
@@ -128,11 +129,14 @@ namespace GoSteve.Screens
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+
+            // Create your application here
+            SetContentView(Resource.Layout.DmScreenBase);
+
             CharacterScreen.IsDM = true;
 
-            this._layout = new LinearLayout(this);
-            this._layout.Orientation = Orientation.Vertical;
-            SetContentView(this._layout);
+            _characterLayout = FindViewById<LinearLayout>(Resource.Id.dmScreenBaseCharacterLayout);
+            _controlsLayout = FindViewById<LinearLayout>(Resource.Id.dmScreenBaseControlsLayout);
 
             //Initialize broadcast receivers
             _characterReceiver = new DmServiceCharacterReceiver();
@@ -152,7 +156,7 @@ namespace GoSteve.Screens
                 ToggleServerButtonState();
             };
 
-            _layout.AddView(_broadcastBtn);
+            _controlsLayout.AddView(_broadcastBtn);
 
             // Encounter button
             _genEncounterBtn = new Button(this);
@@ -193,7 +197,7 @@ namespace GoSteve.Screens
 
                 menu.Show();
             };
-            _layout.AddView(_genEncounterBtn);
+            _controlsLayout.AddView(_genEncounterBtn);
 
             // Load the previously saved data
             /*
