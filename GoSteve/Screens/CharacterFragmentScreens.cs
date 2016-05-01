@@ -133,7 +133,7 @@ namespace GoSteve.Screens
                         _view.FindViewById<TextView>(Resource.Id.StatsSkillsReligion).Text = _cs.AbilitiesAndStats.Religion.ToString();
                         break;
                     case Resource.Id.StatsSkillsWis:
-                        _cs.AbilitiesAndStats.Strength = Int32.Parse(s.Text);
+                        _cs.AbilitiesAndStats.Wisdom = Int32.Parse(s.Text);
                         _view.FindViewById<TextView>(Resource.Id.StatsSkillsWisMod).Text = _cs.AbilitiesAndStats.WisdomMod.ToString();
                         _view.FindViewById<TextView>(Resource.Id.StatsSkills_w_saving).Text = _cs.AbilitiesAndStats.WisdomSavingThrow.ToString();
                         _view.FindViewById<TextView>(Resource.Id.StatsSkillsAnimalHdnl).Text = _cs.AbilitiesAndStats.AnimalHandling.ToString();
@@ -143,7 +143,7 @@ namespace GoSteve.Screens
                         _view.FindViewById<TextView>(Resource.Id.StatsSkillsSurvival).Text = _cs.AbilitiesAndStats.Survival.ToString();
                         break;
                     case Resource.Id.StatsSkillsChar:
-                        _cs.AbilitiesAndStats.Strength = Int32.Parse(s.Text);
+                        _cs.AbilitiesAndStats.Charisma = Int32.Parse(s.Text);
                         _view.FindViewById<TextView>(Resource.Id.StatsSkillsCharMod).Text = _cs.AbilitiesAndStats.CharismaMod.ToString();
                         _view.FindViewById<TextView>(Resource.Id.StatsSkills_char_saving).Text = _cs.AbilitiesAndStats.CharismaSavingThrow.ToString();
                         _view.FindViewById<TextView>(Resource.Id.StatsSkillsDeception).Text = _cs.AbilitiesAndStats.Deception.ToString();

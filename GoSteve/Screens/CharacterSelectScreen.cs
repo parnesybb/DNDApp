@@ -52,6 +52,7 @@ namespace GoSteve
                 {
                     CharacterScreen.IsDM = false;
                     var csFile = CharacterSheet.ReadFromFile(ee.Item.TitleFormatted.ToString());
+                    //csFile.ID = "";
                     var msg = new GSActivityMessage();
                     msg.Message = CharacterSheet.GetBytes(csFile);
 

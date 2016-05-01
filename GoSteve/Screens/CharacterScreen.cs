@@ -133,7 +133,13 @@ namespace GoSteve.Screens
                 _gsPlayer.NsdHelper.DiscoverServices();
                 _gsPlayer.OnDmDetected += (s, e) =>
                 {
-                     _dmMenu.Add(e.DmIdentity);
+                    RunOnUiThread(() => 
+                    {
+                        if (_dmMenu != null)
+                        {
+                            _dmMenu.AddSubMenu(e.DmIdentity);
+                        }
+                    });
                 };
 
                 // Timed writer.
@@ -148,7 +154,11 @@ namespace GoSteve.Screens
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             if (!IsDM)
-                _dmMenu = menu.AddSubMenu("Upload");
+            {
+                _dmMenu = menu;
+                //_dmMenu = menu.AddSubMenu("Upload");
+                return true;
+            }
 
             return base.OnCreateOptionsMenu(menu);
         }
@@ -163,37 +173,55 @@ namespace GoSteve.Screens
                 {
                     _dmMenu.RemoveItem(item.ItemId);
                 }
-            }
-                
 
-            return base.OnOptionsItemSelected(item);
+                return true;
+            }
+            else
+            {
+                return base.OnOptionsItemSelected(item);
+            }      
         }
 
         protected override void OnPause()
         {
-            base.OnPause();
+           
+            if (_gsPlayer != null)
+            {
+                _gsPlayer.NsdHelper.StopDiscovery();
+            }
 
             if (_timer != null)
             {
                 _timer.Enabled = false;
             }
+
+            base.OnPause();
         }
 
         protected override void OnResume()
         {
-            base.OnResume();
+
+            if (_gsPlayer != null)
+            {
+                _gsPlayer.NsdHelper.DiscoverServices();
+            }
 
             if (_timer != null)
             {
                 _timer.Enabled = true;
             }
+
+            base.OnResume();
         }
 
         protected override void OnDestroy()
         {
-            base.OnDestroy();
+            _gsPlayer.NsdHelper.StopDiscovery();
+            _gsPlayer.NsdHelper.UnregisterService();
             _timer.Stop();
             _timer.Dispose();
+
+            base.OnDestroy();  
         }
 
         private void ReceiveMessage()
@@ -221,6 +249,7 @@ namespace GoSteve.Screens
             if (_cs != null && !_isDM)
             {
                 CharacterSheet.WriteToFile(_cs);
+                RunOnUiThread(() => Toast.MakeText(this, "Saved", ToastLength.Long));
             }
         }
 

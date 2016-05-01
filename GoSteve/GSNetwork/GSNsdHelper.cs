@@ -29,6 +29,9 @@ namespace Server
         private NsdManager.IRegistrationListener _nsdRegistrationListener;
         private NsdServiceInfo _nsdServiceInfo;
 
+        private bool isDiscovery = false;
+        private bool isRegistered = false;
+
         public event ServiceFoundDelegate ServiceFound;
         public static readonly string SERVICE_TYPE = "_dnd._tcp.";
         public static readonly string TAG = "GSNsdHelper";
@@ -48,27 +51,44 @@ namespace Server
 
         public void RegisterService(int port)
         {
-            var serviceInfo = new NsdServiceInfo();
-            serviceInfo.Port = port;
-            serviceInfo.ServiceName = this.ServiceName;
-            serviceInfo.ServiceType = GSNsdHelper.SERVICE_TYPE;
+            if (!isRegistered)
+            {
+                var serviceInfo = new NsdServiceInfo();
+                serviceInfo.Port = port;
+                serviceInfo.ServiceName = this.ServiceName;
+                serviceInfo.ServiceType = GSNsdHelper.SERVICE_TYPE;
 
-            this.NsdManager.RegisterService(serviceInfo, NsdProtocol.DnsSd, this.NsdRegistrationListener);
+                this.NsdManager.RegisterService(serviceInfo, NsdProtocol.DnsSd, this.NsdRegistrationListener);
+
+                isRegistered = true;
+            }     
         }
 
         public void DiscoverServices()
         {
-            this.NsdManager.DiscoverServices(GSNsdHelper.SERVICE_TYPE, NsdProtocol.DnsSd, this.NsdDiscoveryListener);
+            if (!isDiscovery)
+            {
+                this.NsdManager.DiscoverServices(GSNsdHelper.SERVICE_TYPE, NsdProtocol.DnsSd, this.NsdDiscoveryListener);
+                isDiscovery = true;
+            }            
         }
 
         public void StopDiscovery()
         {
-            this.NsdManager.StopServiceDiscovery(this.NsdDiscoveryListener);
+            if (isDiscovery)
+            {
+                this.NsdManager.StopServiceDiscovery(this.NsdDiscoveryListener);
+                isDiscovery = false;
+            }           
         }
 
         public void UnregisterService()
         {
-            this.NsdManager.UnregisterService(this.NsdRegistrationListener);
+            if (isRegistered)
+            {
+                this.NsdManager.UnregisterService(this.NsdRegistrationListener);
+                isRegistered = false;
+            }        
         }
 
         public string ServiceName
@@ -137,8 +157,8 @@ namespace Server
 
             set
             {
-                if (_nsdServiceInfo != value)
-                {
+                //if (_nsdServiceInfo != value)
+                //{
                     _nsdServiceInfo = value;
 
                     if (ServiceFound != null)
@@ -147,7 +167,7 @@ namespace Server
                         args.UpdatedNsdServiceInfo = value;
                         ServiceFound(this, args);
                     }
-                }
+                //}
             }
         }
     }
