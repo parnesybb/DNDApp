@@ -54,7 +54,7 @@ namespace GoSteve.Screens
         {
             _campaign = new Campaign();
             this._buttonCount = 0;
-            CharacterScreen.IsDM = true;
+            
         }
 
         /// <summary>
@@ -128,6 +128,7 @@ namespace GoSteve.Screens
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+            CharacterScreen.IsDM = true;
 
             this._layout = new LinearLayout(this);
             this._layout.Orientation = Orientation.Vertical;
@@ -193,19 +194,6 @@ namespace GoSteve.Screens
                 menu.Show();
             };
             _layout.AddView(_genEncounterBtn);
-
-            //TEST
-            //var csx = new CharacterSheet();
-            //csx.CharacterName = "TEST";
-            //csx.SetRace(KnownValues.Race.DRAGONBORN, true);
-            //csx.Background = KnownValues.Background.ACOLYTE;
-            //csx.SetClass(KnownValues.ClassType.BARBARIAN, true);
-            //csx.ID = new Guid().ToString();
-            //csx.Level = 5;
-            ////CharacterSheet.WriteToFile(cs);
-            ////var csFromFile = CharacterSheet.ReadFromFile(cs.CharacterName);
-            ////this.Update(csFromFile);
-            //this.Update(csx);
 
             // Load the previously saved data
             /*

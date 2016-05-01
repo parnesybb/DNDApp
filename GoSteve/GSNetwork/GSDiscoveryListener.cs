@@ -43,7 +43,14 @@ namespace Server
             }
             else if (serviceInfo.ServiceName.Contains(_nsdHelper.ServiceName))
             {
-                _nsdHelper.NsdManager.ResolveService(serviceInfo, _nsdHelper.NsdResolveListener);
+                try
+                {
+                    _nsdHelper.NsdManager.ResolveService(serviceInfo, _nsdHelper.NsdResolveListener);
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(GSNsdHelper.TAG, ex.Message);
+                } 
             }
         }
 
