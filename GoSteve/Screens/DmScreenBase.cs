@@ -19,6 +19,7 @@ using System.IO;
 using System.Net;
 using Android.Util;
 using GoSteve.Services;
+using GoSteve.Buttons;
 
 namespace GoSteve.Screens
 {
@@ -53,6 +54,7 @@ namespace GoSteve.Screens
         {
             _campaign = new Campaign();
             this._buttonCount = 0;
+            
         }
 
         /// <summary>
@@ -83,7 +85,7 @@ namespace GoSteve.Screens
                 b.Click += (sender, args) =>
                 {
                     // Screen to call. This will be an instance of Mike's character screen.
-                    var charScreen = new Intent(this, typeof(TestScreen));
+                    var charScreen = new Intent(this, typeof(CharacterScreen));
                     var gsMsg = new GSActivityMessage();
 
                     gsMsg.Message = CharacterSheet.GetBytes(_campaign[b.CharacterID]);
@@ -126,6 +128,7 @@ namespace GoSteve.Screens
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+            CharacterScreen.IsDM = true;
 
             this._layout = new LinearLayout(this);
             this._layout.Orientation = Orientation.Vertical;
@@ -191,17 +194,6 @@ namespace GoSteve.Screens
                 menu.Show();
             };
             _layout.AddView(_genEncounterBtn);
-
-            //TEST
-            //var cs = new CharacterSheet();
-            //cs.CharacterName = "TEST";
-            //cs.SetRace(KnownValues.Race.DRAGONBORN, true);
-            //cs.Background = KnownValues.Background.ACOLYTE;
-            //cs.SetClass(KnownValues.ClassType.BARBARIAN, true);
-            //cs.ID = new Guid().ToString();
-            //CharacterSheet.WriteToFile(cs);
-            //var csFromFile = CharacterSheet.ReadFromFile(cs.CharacterName);
-            //this.Update(csFromFile);
 
             // Load the previously saved data
             /*

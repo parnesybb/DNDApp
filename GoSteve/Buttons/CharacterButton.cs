@@ -10,7 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-namespace GoSteve.Structures
+namespace GoSteve.Buttons
 {
     class CharacterButton : Button
     {

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="25px"
+    android:minHeight="25px">
+    <ScrollView
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/characterScreenProfsLangsscrollView">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:minWidth="25px"
+            android:minHeight="25px">
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TableRow>
+                    <TextView
+                        android:text="CP"
+                        android:background="@drawable/characterSheetCellShape"
+                        android:gravity="center"
+                        android:padding="5dip" />
+                    <EditText
+                        android:background="@drawable/characterSheetCellShape"
+                        android:id="@+id/equipmentCP"
+                        android:gravity="center"
+                        android:padding="5dip"
+                        android:numeric="integer" />
+                    <TextView
+                        android:text="SP"
+                        android:background="@drawable/characterSheetCellShape"
+                        android:gravity="center"
+                        android:padding="5dip" />
+                    <EditText
+                        android:background="@drawable/characterSheetCellShape"
+                        android:id="@+id/equipmentSP"
+                        android:gravity="center"
+                        android:padding="5dip"
+                        android:numeric="integer" />
+                    <TextView
+                        android:text="GP"
+                        android:background="@drawable/characterSheetCellShape"
+                        android:gravity="center"
+                        android:padding="5dip" />
+                    <EditText
+                        android:background="@drawable/characterSheetCellShape"
+                        android:id="@+id/equipmentGP"
+                        android:gravity="center"
+                        android:padding="5dip"
+                        android:numeric="integer" />
+                    <TextView
+                        android:text="PP"
+                        android:background="@drawable/characterSheetCellShape"
+                        android:gravity="center"
+                        android:padding="5dip" />
+                    <EditText
+                        android:background="@drawable/characterSheetCellShape"
+                        android:id="@+id/equipmentPP"
+                        android:gravity="center"
+                        android:padding="5dip"
+                        android:numeric="integer" />
+                    <Button
+                        android:text="Buy"
+                        android:id="@+id/equipmentBuyBtn" />
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:text="CP"
+                        android:background="@drawable/characterSheetCellShape"
+                        android:gravity="center"
+                        android:padding="5dip" />
+                    <EditText
+                        android:background="@drawable/characterSheetCellShape"
+                        android:id="@+id/equipmentCPADD"
+                        android:gravity="center"
+                        android:padding="5dip"
+                        android:numeric="integer" />
+                    <TextView
+                        android:text="SP"
+                        android:background="@drawable/characterSheetCellShape"
+                        android:gravity="center"
+                        android:padding="5dip" />
+                    <EditText
+                        android:background="@drawable/characterSheetCellShape"
+                        android:id="@+id/equipmentSPADD"
+                        android:gravity="center"
+                        android:padding="5dip"
+                        android:numeric="integer" />
+                    <TextView
+                        android:text="GP"
+                        android:background="@drawable/characterSheetCellShape"
+                        android:gravity="center"
+                        android:padding="5dip" />
+                    <EditText
+                        android:background="@drawable/characterSheetCellShape"
+                        android:id="@+id/equipmentGPADD"
+                        android:gravity="center"
+                        android:padding="5dip"
+                        android:numeric="integer" />
+                    <TextView
+                        android:text="PP"
+                        android:background="@drawable/characterSheetCellShape"
+                        android:gravity="center"
+                        android:padding="5dip" />
+                    <EditText
+                        android:background="@drawable/characterSheetCellShape"
+                        android:id="@+id/equipmentPPADD"
+                        android:gravity="center"
+                        android:padding="5dip"
+                        android:numeric="integer" />
+                    <Button
+                        android:text="Add"
+                        android:id="@+id/equipmentMoneyADD" />
+                </TableRow>
+                <TextView
+                    android:text="bal"
+                    android:id="@+id/equipmentMoneyBal"
+                    android:background="@drawable/characterSheetCellShape"
+                    android:gravity="center"
+                    android:padding="5dip"
+                    android:layout_width="match_parent" />
+            </TableLayout>
+            <EditText
+                android:inputType="textMultiLine"
+                android:background="@drawable/characterSheetCellShape"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/characterScreenEquipmentEditText" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

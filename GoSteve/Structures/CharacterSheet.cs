@@ -43,7 +43,8 @@ namespace GoSteve
         private int _initiative;
         private HitPoints _hitPoints;
         private List<Spell> _spells;
-        private List<Weapon> _weapons;
+        //private List<Weapon> _weapons;
+        private List<string> _weapons;
         private List<string> _equipment;
         private Currency _currency;
         private string _personalityTraits;
@@ -74,7 +75,8 @@ namespace GoSteve
             this._othrProfsLangs = new List<string>();
             this._hitPoints = new HitPoints();
             this._spells = new List<Spell>();
-            this._weapons = new List<Weapon>();
+            //this._weapons = new List<Weapon>();
+            this._weapons = new List<string>();
             this._equipment = new List<string>();
             this._currency = new Currency();
             this._featuresTraits = new List<string>();
@@ -396,6 +398,14 @@ namespace GoSteve
         }
 
         /// <summary>
+        /// Clears the proficiences and languages list.
+        /// </summary>
+        public void ClearProficienciesLanguages()
+        {
+            this._othrProfsLangs.Clear();
+        }
+
+        /// <summary>
         /// An array of the misc proficiencies and languages.
         /// </summary>
         public string[] OtherProficienciesLanguages
@@ -412,7 +422,10 @@ namespace GoSteve
         /// <param name="val">The value to add.</param>
         public void AddProficiencyORLanguage(string val)
         {
-            this._othrProfsLangs.Add(val);
+            if (!this._othrProfsLangs.Contains(val))
+            {
+                this._othrProfsLangs.Add(val);
+            } 
         }
 
         /// <summary>
@@ -484,9 +497,17 @@ namespace GoSteve
         }
 
         /// <summary>
+        /// Clears the weapons list.
+        /// </summary>
+        public void ClearWeapons()
+        {
+            this._weapons.Clear();
+        }
+
+        /// <summary>
         /// Gets an array of the chacters weapons.
         /// </summary>
-        public Weapon[] Weapons
+        public string[] Weapons
         {
             get
             {
@@ -498,9 +519,20 @@ namespace GoSteve
         /// Adds a weapon to the character sheet.
         /// </summary>
         /// <param name="w"></param>
-        public void AddWeapon(Weapon w)
+        public void AddWeapon(string w)
         {
-            this._weapons.Add(w);
+            if (!this._weapons.Contains(w))
+            {
+                this._weapons.Add(w);
+            }       
+        }
+
+        /// <summary>
+        /// Clears the equipment list.
+        /// </summary>
+        public void ClearEquipment()
+        {
+            this._equipment.Clear();
         }
 
         /// <summary>
@@ -520,7 +552,10 @@ namespace GoSteve
         /// <param name="e">The equipment to add.</param>
         public void AddEquipment(string e)
         {
-            this._equipment.Add(e);
+            if (!_equipment.Contains(e))
+            {
+                this._equipment.Add(e);
+            }
         }
 
         /// <summary>
@@ -604,6 +639,14 @@ namespace GoSteve
         }
 
         /// <summary>
+        /// Clears the features and traits list.
+        /// </summary>
+        public void ClearFeaturesAndTraits()
+        {
+            this._featuresTraits.Clear();
+        }
+
+        /// <summary>
         /// Gets an array of the characters features and traits.
         /// </summary>
         public string[] FeaturesAndTraits
@@ -620,7 +663,10 @@ namespace GoSteve
         /// <param name="val">The feature or trait to add.</param>
         public void AddFeatureOrTrait(string val)
         {
-            this._featuresTraits.Add(val);
+            if (!_featuresTraits.Contains(val))
+            {
+                this._featuresTraits.Add(val);
+            } 
         }
 
         /// <summary>

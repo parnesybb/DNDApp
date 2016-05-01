@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="Hello">Hello World, Click Me!</string>
     <string name="ApplicationName">GoSteve</string>
+  
+    <string name="CharacterName">Character</string>
+    <string name="Class">Class</string>
+    <string name="Level">Level</string>
+    <string name="Race">Race</string>
+    <string name="Background">BG</string>
+    <string name="Alignment">Alignment</string>
+    <string name="PlayerName">Player</string>
+    <string name="XP">XP</string>
 </resources>

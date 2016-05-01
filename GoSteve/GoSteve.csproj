@@ -65,6 +65,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Buttons\ServerButton.cs" />
+    <Compile Include="GSNetwork\GSDmInfo.cs" />
+    <Compile Include="GSNetwork\GSPlayer.cs" />
+    <Compile Include="Screens\CharacterFragmentScreens.cs" />
+    <Compile Include="Screens\CharacterScreen.cs" />
     <Compile Include="Screens\CharacterSelectScreen.cs" />
     <Compile Include="Screens\GSActivityMessage.cs" />
     <Compile Include="Screens\NewChar1Screen.cs" />
@@ -80,12 +84,13 @@
     <Compile Include="Screens\GSClient.cs" />
     <Compile Include="Screens\NewChar2Screen.cs" />
     <Compile Include="Screens\NewChar3Screen.cs" />
+    <Compile Include="Screens\NewChar4Screen.cs" />
     <Compile Include="Screens\TestScreen.cs" />
     <Compile Include="Services\DmServerService.cs" />
     <Compile Include="Services\ShutdownDmServerService.cs" />
     <Compile Include="Structures\Campaign.cs" />
     <Compile Include="Structures\CharacterSheet.cs" />
-    <Compile Include="Structures\CharacterButton.cs" />
+    <Compile Include="Buttons\CharacterButton.cs" />
     <Compile Include="Structures\HitDice.cs" />
     <Compile Include="Structures\HitPoints.cs" />
     <Compile Include="Structures\Currency.cs" />
@@ -140,6 +145,30 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <None Include="packages.config" />
+    <AndroidResource Include="Resources\layout\CharacterBaseScreen.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\CharacterStatsSkillsScreen.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\CharacterAbilitiesScreen.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\newChar4.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\CharacterScreenProfsLangs.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\CharacterScreenFeaturesTraits.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\CharacterScreenEquipment.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\CharacterScreenInfo.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
     <None Include="Resources\xml\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
   </ItemGroup>
@@ -162,6 +191,13 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\Icon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\characterSheetCellShape.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\uparrow.png" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Android.Support.Vector.Drawable.23.3.0\build\Xamarin.Android.Support.Vector.Drawable.targets" Condition="Exists('..\packages\Xamarin.Android.Support.Vector.Drawable.23.3.0\build\Xamarin.Android.Support.Vector.Drawable.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
