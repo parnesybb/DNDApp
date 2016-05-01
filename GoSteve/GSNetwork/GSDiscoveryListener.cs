@@ -37,13 +37,21 @@ namespace Server
         {
             Console.WriteLine(GSNsdHelper.TAG + " Service Found");
 
-            if (!serviceInfo.ServiceType.Equals(GSNsdHelper.SERVICE_TYPE))
+            if (serviceInfo.ServiceType.Equals(GSNsdHelper.SERVICE_TYPE))
             {
-                Console.WriteLine(GSNsdHelper.TAG + "Unknown Service Type " + serviceInfo.ServiceType);
+                Log.Debug(GSNsdHelper.TAG, "Resolving: " + GSNsdHelper.SERVICE_TYPE);
+                try
+                {
+                    _nsdHelper.NsdManager.ResolveService(serviceInfo, _nsdHelper.NsdResolveListener);
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(GSNsdHelper.TAG, ex.Message);
+                }
             }
-            else if (serviceInfo.ServiceName.Contains(_nsdHelper.ServiceName))
+            else
             {
-                _nsdHelper.NsdManager.ResolveService(serviceInfo, _nsdHelper.NsdResolveListener);
+                Log.Debug(GSNsdHelper.TAG, "Not a DND sevice: " + serviceInfo.ServiceType);
             }
         }
 

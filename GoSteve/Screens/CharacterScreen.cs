@@ -10,19 +10,46 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Util;
+using GoSteve.Buttons;
+using Server;
+using GoSteve.GSNetwork;
 
 namespace GoSteve.Screens
 {
     [Activity(Label = "Character Screen")]
     public class CharacterScreen : Activity
     {
-        private static CharacterSheet _cs;
-        public static bool isDM;
+        private static CharacterSheet _cs = null;
+        private static bool _isDM = false;
         private static readonly string TAG = "CharacterScreen";
 
         private readonly string[] _tabNames = { "Stats/Skills", "Health/Attacks", "Features/Traits", "Prof/Langs", "Equip", "Info"};
         private Fragment[] _fragments;
-        private System.Timers.Timer _timer;     
+        private System.Timers.Timer _timer;
+
+        internal GSPlayer _gsPlayer;
+
+        private IMenu _dmMenu;
+
+        public CharacterScreen()
+        {
+        }
+
+        /// <summary>
+        /// Set this after creating a new instance of CharacterScreen.
+        /// A value of false is default.
+        /// </summary>
+        public static bool IsDM
+        {
+            get
+            {
+                return _isDM;
+            }
+            set
+            {
+                _isDM = value;
+            }
+        }
 
         /// <summary>
         /// Gets the character sheet being used in CharacterScreen instance.
@@ -39,11 +66,6 @@ namespace GoSteve.Screens
                 _cs = value;
             }
         }
-
-        //TODO
-        // TIMED SAVE
-        // BUTTON TO SEND TO DM
-        // NEED TO SEND A BOOLEAN OR SOMETHING HERE TO SET isDM. RECEIVEMESSAGE SHOULD HANDLE THIS.
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -103,39 +125,110 @@ namespace GoSteve.Screens
                 FindViewById<TextView>(Resource.Id.characterScreenRace).Text = _cs.RaceInstance.Race.ToString();
             }
 
-            // Timed writer.
-            _timer = new System.Timers.Timer();
-            _timer.Interval = 60000; // 1 min = 60000
-            _timer.AutoReset = true;
-            _timer.Elapsed += TimedSave;
-            _timer.Start();
+            // Player only.
+            if (_cs != null && !IsDM)
+            {
+                _gsPlayer = new GSPlayer(this, _cs);
+                _gsPlayer.NsdHelper.StartHelper();
+                _gsPlayer.NsdHelper.DiscoverServices();
+                _gsPlayer.OnDmDetected += (s, e) =>
+                {
+                    RunOnUiThread(() => 
+                    {
+                        if (_dmMenu != null)
+                        {
+                            _dmMenu.AddSubMenu(e.DmIdentity);
+                        }
+                    });
+                };
+
+                // Timed writer.
+                _timer = new System.Timers.Timer();
+                _timer.Interval = 60000; // 1 min = 60000
+                _timer.AutoReset = true;
+                _timer.Elapsed += TimedSave;
+                _timer.Start();
+            }       
+        }
+
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            if (!IsDM)
+            {
+                _dmMenu = menu;
+                //_dmMenu = menu.AddSubMenu("Upload");
+                return true;
+            }
+
+            return base.OnCreateOptionsMenu(menu);
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            if (!_isDM)
+            {
+                var result = _gsPlayer.SendUpdate(item.TitleFormatted.ToString());
+
+                if (!result)
+                {
+                    _dmMenu.RemoveItem(item.ItemId);
+                }
+
+                return true;
+            }
+            else
+            {
+                return base.OnOptionsItemSelected(item);
+            }      
         }
 
         protected override void OnPause()
         {
-            base.OnPause();
+           
+            if (_gsPlayer != null)
+            {
+                _gsPlayer.NsdHelper.StopDiscovery();
+            }
 
             if (_timer != null)
             {
                 _timer.Enabled = false;
             }
+
+            base.OnPause();
         }
 
         protected override void OnResume()
         {
-            base.OnResume();
+
+            if (_gsPlayer != null)
+            {
+                _gsPlayer.NsdHelper.DiscoverServices();
+            }
 
             if (_timer != null)
             {
                 _timer.Enabled = true;
             }
+
+            base.OnResume();
         }
 
         protected override void OnDestroy()
         {
-            base.OnDestroy();
-            _timer.Stop();
-            _timer.Dispose();
+            if (_gsPlayer!=null && _gsPlayer.NsdHelper != null)
+            {
+                _gsPlayer.NsdHelper.StopDiscovery();
+                _gsPlayer.NsdHelper.UnregisterService();
+            }
+
+            if (_timer != null)
+            {
+                _timer.Stop();
+                _timer.Dispose();
+            }
+
+            base.OnDestroy();  
         }
 
         private void ReceiveMessage()
@@ -154,13 +247,16 @@ namespace GoSteve.Screens
                 tab.TabSelected += TabClick;
                 ActionBar.AddTab(tab);
             }
+
+            //ActionBar.
         }
 
         private void TimedSave(object sender, System.Timers.ElapsedEventArgs e)
         {
-            if (_cs != null && !isDM)
+            if (_cs != null && !_isDM)
             {
                 CharacterSheet.WriteToFile(_cs);
+                RunOnUiThread(() => Toast.MakeText(this, "Saved", ToastLength.Long));
             }
         }
 
