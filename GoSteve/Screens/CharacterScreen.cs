@@ -135,8 +135,10 @@ namespace GoSteve.Screens
                 {
                     RunOnUiThread(() => 
                     {
-                        _dmMenu.AddSubMenu(e.DmIdentity);
-                        //.SetShowAsAction(ShowAsAction.Always);
+                        if (_dmMenu != null)
+                        {
+                            _dmMenu.AddSubMenu(e.DmIdentity);
+                        }
                     });
                 };
 
@@ -247,6 +249,7 @@ namespace GoSteve.Screens
             if (_cs != null && !_isDM)
             {
                 CharacterSheet.WriteToFile(_cs);
+                RunOnUiThread(() => Toast.MakeText(this, "Saved", ToastLength.Long));
             }
         }
 

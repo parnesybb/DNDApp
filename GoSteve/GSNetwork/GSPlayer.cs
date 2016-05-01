@@ -116,6 +116,8 @@ namespace GoSteve.GSNetwork
             var respText = String.Empty;
             stream.Read(resp, 0, resp.Length);
             respText = ASCIIEncoding.ASCII.GetString(resp);
+            // removes null bytes.
+            respText = respText.Replace("\0", "");
             cs.ID = respText;
 
             // close
