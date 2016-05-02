@@ -502,19 +502,6 @@ namespace GoSteve
                 }
 
             };
-            //DOUBLE CHECK THIS, WHY IS THERE A DUPLICATE
-            historyChk.Click += (s, arg) =>
-            {
-                if (acrobaticsChk.Checked)
-                {
-                    numSkillsChosen++;
-                }
-                else
-                {
-                    numSkillsChosen--;
-                }
-
-            };
 
             historyChk.Click += (s, arg) =>
             {

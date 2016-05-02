@@ -321,6 +321,7 @@ namespace GoSteve
                 {
                     c.SetRace(theRace, true);
                     c.setSubRace(theSubRace);
+                    c.Level = 1;
 
                     var charScreen = new Intent(this, typeof(NewChar3Screen));
                     var gsMsg = new GSActivityMessage();
