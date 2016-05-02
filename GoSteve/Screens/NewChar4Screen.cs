@@ -36,6 +36,7 @@ namespace GoSteve
 
             TextView yourOptions = FindViewById<TextView>(Resource.Id.yourOptions);
             TextView numPoints = FindViewById<TextView>(Resource.Id.numPoints);
+            TextView errMsg = FindViewById<TextView>(Resource.Id.errMsg);
             CheckBox acrobaticsChk = FindViewById<CheckBox>(Resource.Id.acrobaticsChk);
             CheckBox animalhandlingChk = FindViewById<CheckBox>(Resource.Id.animalhandlingChk);
             CheckBox arcanaChk = FindViewById<CheckBox>(Resource.Id.arcanaChk);
@@ -260,7 +261,7 @@ namespace GoSteve
                     break;
             }
 
-            numPoints.Text = "Skills Remaining: " + numMaxSkills;
+            numPoints.Text = "Choose " + numMaxSkills + " Skills";
 
             foreach(CheckBox checkbox in chks)
             {
@@ -437,81 +438,273 @@ namespace GoSteve
                 }
             }
 
-            if (numSkillsChosen < numMaxSkills)
+            acrobaticsChk.Click += (s, arg) =>
             {
-                acrobaticsChk.Click += (s, arg) =>
+                if(acrobaticsChk.Checked)
                 {
-                    if (acrobaticsChk.Checked)
-                    {
-                        numSkillsChosen++;
-                        numPoints.Text = "Skills Remaining: " + (numMaxSkills - numSkillsChosen);
-                    }
-                    else
-                    {
-                        numSkillsChosen--;
-                        numPoints.Text = "Skills Remaining: " + (numMaxSkills - numSkillsChosen);
-                    }
-                };
-
-                animalhandlingChk.Click += (s, arg) =>
-                {
-                    if (animalhandlingChk.Checked)
-                    {
-                        numSkillsChosen++;
-                        numPoints.Text = "Skills Remaining: " + (numMaxSkills - numSkillsChosen);
-                    }
-                    else
-                    {
-                        numSkillsChosen--;
-                        numPoints.Text = "Skills Remaining: " + (numMaxSkills - numSkillsChosen);
-                    }
-                };
-
-                arcanaChk.Click += (s, arg) =>
-                {
-                    if (arcanaChk.Checked)
-                    {
-                        numSkillsChosen++;
-                        numPoints.Text = "Skills Remaining: " + (numMaxSkills - numSkillsChosen);
-                    }
-                    else
-                    {
-                        numSkillsChosen--;
-                        numPoints.Text = "Skills Remaining: " + (numMaxSkills - numSkillsChosen);
-                    }
-                };
-
-                athleticsChk.Click += (s, arg) =>
-                {
-                    if (athleticsChk.Checked)
-                    {
-                        numSkillsChosen++;
-                        numPoints.Text = "Skills Remaining: " + (numMaxSkills - numSkillsChosen);
-                    }
-                    else
-                    {
-                        numSkillsChosen--;
-                        numPoints.Text = "Skills Remaining: " + (numMaxSkills - numSkillsChosen);
-                    }
-                };
-            }
-            else
-            {
-                foreach(CheckBox chk in chks)
-                {
-                    chk.Enabled = false;
+                    numSkillsChosen++;
                 }
-            }
+                else
+                {
+                    numSkillsChosen--;
+                }
 
-           yourOptions.Text = "Race: " + race + "\nClass: " + c.ClassInstance.ToString().Substring(27) + "\nBackground: " + bg;
+            };
+
+            animalhandlingChk.Click += (s, arg) =>
+            {
+                if (animalhandlingChk.Checked)
+                {
+                    numSkillsChosen++;
+                }
+                else
+                {
+                    numSkillsChosen--;
+                }
+
+            };
+
+            arcanaChk.Click += (s, arg) =>
+            {
+                if (arcanaChk.Checked)
+                {
+                    numSkillsChosen++;
+                }
+                else
+                {
+                    numSkillsChosen--;
+                }
+
+            };
+
+            athleticsChk.Click += (s, arg) =>
+            {
+                if (athleticsChk.Checked)
+                {
+                    numSkillsChosen++;
+                }
+                else
+                {
+                    numSkillsChosen--;
+                }
+
+            };
+
+            deceptionChk.Click += (s, arg) =>
+            {
+                if (deceptionChk.Checked)
+                {
+                    numSkillsChosen++;
+                }
+                else
+                {
+                    numSkillsChosen--;
+                }
+
+            };
+            //DOUBLE CHECK THIS, WHY IS THERE A DUPLICATE
+            historyChk.Click += (s, arg) =>
+            {
+                if (acrobaticsChk.Checked)
+                {
+                    numSkillsChosen++;
+                }
+                else
+                {
+                    numSkillsChosen--;
+                }
+
+            };
+
+            historyChk.Click += (s, arg) =>
+            {
+                if (acrobaticsChk.Checked)
+                {
+                    numSkillsChosen++;
+                }
+                else
+                {
+                    numSkillsChosen--;
+                }
+
+            };
+
+            insightChk.Click += (s, arg) =>
+            {
+                if (insightChk.Checked)
+                {
+                    numSkillsChosen++;
+                }
+                else
+                {
+                    numSkillsChosen--;
+                }
+
+            };
+
+            intimidationChk.Click += (s, arg) =>
+            {
+                if (intimidationChk.Checked)
+                {
+                    numSkillsChosen++;
+                }
+                else
+                {
+                    numSkillsChosen--;;
+                }
+
+            };
+
+            investigationChk.Click += (s, arg) =>
+            {
+                if (investigationChk.Checked)
+                {
+                    numSkillsChosen++;
+                }
+                else
+                {
+                    numSkillsChosen--;
+                }
+
+            };
+
+            medicineChk.Click += (s, arg) =>
+            {
+                if (medicineChk.Checked)
+                {
+                    numSkillsChosen++;
+                }
+                else
+                {
+                    numSkillsChosen--;
+                }
+
+            };
+
+            natureChk.Click += (s, arg) =>
+            {
+                if (natureChk.Checked)
+                {
+                    numSkillsChosen++;
+                }
+                else
+                {
+                    numSkillsChosen--;
+                }
+
+            };
+
+            perceptionChk.Click += (s, arg) =>
+            {
+                if (perceptionChk.Checked)
+                {
+                    numSkillsChosen++;
+                }
+                else
+                {
+                    numSkillsChosen--;
+                }
+
+            };
+
+            performanceChk.Click += (s, arg) =>
+            {
+                if (performanceChk.Checked)
+                {
+                    numSkillsChosen++;
+                }
+                else
+                {
+                    numSkillsChosen--;
+                }
+
+            };
+
+            persuasionChk.Click += (s, arg) =>
+            {
+                if (persuasionChk.Checked)
+                {
+                    numSkillsChosen++;
+                }
+                else
+                {
+                    numSkillsChosen--;
+                }
+
+            };
+
+            religionChk.Click += (s, arg) =>
+            {
+                if (religionChk.Checked)
+                {
+                    numSkillsChosen++;
+                }
+                else
+                {
+                    numSkillsChosen--;
+                }
+
+            };
+
+            sleightChk.Click += (s, arg) =>
+            {
+                if (sleightChk.Checked)
+                {
+                    numSkillsChosen++;
+                }
+                else
+                {
+                    numSkillsChosen--;
+                }
+
+            };
+
+            stealthChk.Click += (s, arg) =>
+            {
+                if (stealthChk.Checked)
+                {
+                    numSkillsChosen++;
+                }
+                else
+                {
+                    numSkillsChosen--;
+                }
+
+            };
+
+            survivalChk.Click += (s, arg) =>
+            {
+                if (survivalChk.Checked)
+                {
+                    numSkillsChosen++;
+                }
+                else
+                {
+                    numSkillsChosen--;
+                }
+
+            };
+
+            yourOptions.Text = "Race: " + race + "\nClass: " + c.ClassInstance.ToString().Substring(27) + "\nBackground: " + bg;
             
             continueBtn.Click += (s, arg) =>
             {
-                var charScreen = new Intent(this, typeof(CharacterScreen));
-                var gsMsg1 = new GSActivityMessage();
-                gsMsg1.Message = CharacterSheet.GetBytes(c);
-                charScreen.PutExtra(gsMsg1.CharacterMessage, gsMsg1.Message);
-                StartActivity(charScreen);
+                if(numSkillsChosen < numMaxSkills)
+                {
+                    errMsg.Text = "YOU DID NOT PICK ALL OF YOUR SKILLS";
+                }
+                else if(numSkillsChosen > numMaxSkills)
+                {
+                    errMsg.Text = "YOU HAVE CHOSEN TOO MANY SKILLS";
+                }
+                else
+                {
+                    var charScreen = new Intent(this, typeof(CharacterScreen));
+                    var gsMsg1 = new GSActivityMessage();
+                    gsMsg1.Message = CharacterSheet.GetBytes(c);
+                    charScreen.PutExtra(gsMsg1.CharacterMessage, gsMsg1.Message);
+                    StartActivity(charScreen);
+                }
             };
         }
     }
