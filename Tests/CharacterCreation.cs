@@ -58,5 +58,45 @@ namespace Tests
             cs.SetClass(KnownValues.ClassType.WIZARD, true);
             Assert.AreEqual(cs.ClassInstance.Type, KnownValues.ClassType.WIZARD);
         }
+
+        [TestMethod]
+        public void RaceAssigmnet()
+        {
+            var cs = new CharacterSheet();
+            cs.SetRace(KnownValues.Race.DRAGONBORN, true);
+            Assert.AreEqual(cs.RaceInstance.Race, KnownValues.Race.DRAGONBORN);
+
+            cs = new CharacterSheet();
+            cs.SetRace(KnownValues.Race.DWARF, true);
+            Assert.AreEqual(cs.RaceInstance.Race, KnownValues.Race.DWARF);
+
+            cs = new CharacterSheet();
+            cs.SetRace(KnownValues.Race.ELF, true);
+            Assert.AreEqual(cs.RaceInstance.Race, KnownValues.Race.ELF);
+
+            cs = new CharacterSheet();
+            cs.SetRace(KnownValues.Race.GNOME, true);
+            Assert.AreEqual(cs.RaceInstance.Race, KnownValues.Race.GNOME);
+
+            cs = new CharacterSheet();
+            cs.SetRace(KnownValues.Race.HALF_ELF, true);
+            Assert.AreEqual(cs.RaceInstance.Race, KnownValues.Race.HALF_ELF);
+
+            cs = new CharacterSheet();
+            cs.SetRace(KnownValues.Race.HALFLING, true);
+            Assert.AreEqual(cs.RaceInstance.Race, KnownValues.Race.HALFLING);
+
+            cs = new CharacterSheet();
+            cs.SetRace(KnownValues.Race.HALF_ORC, true);
+            Assert.AreEqual(cs.RaceInstance.Race, KnownValues.Race.HALF_ORC);
+
+            cs = new CharacterSheet();
+            cs.SetRace(KnownValues.Race.HUMAN, true);
+            Assert.AreEqual(cs.RaceInstance.Race, KnownValues.Race.HUMAN);
+
+            cs = new CharacterSheet();
+            cs.SetRace(KnownValues.Race.TIEFLING, true);
+            Assert.AreEqual(cs.RaceInstance.Race, KnownValues.Race.TIEFLING);
+        }
     }
 }
