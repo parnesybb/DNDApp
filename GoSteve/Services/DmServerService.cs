@@ -389,9 +389,8 @@ namespace GoSteve.Services
                 _serverThread.Join();
                 _serverThread = null;
                 _server = null;
+                setServerRunning(false);
             }
-
-            setServerRunning(false);
         }
 
         /// <summary>
