@@ -28,15 +28,16 @@ namespace GoSteve.Services
     /// sends character update messages to the DMScreenBase Activity. It also stores character sheet
     /// data between instances of DMScreenBase Activity.
     /// </summary>
-    [Service(Exported=true)]
+    [Service(Exported = true)]
     [IntentFilter(new String[] { DmServerService.IntentFilter })]
     public class DmServerService : Service
     {
         DmServerBinder binder;
 
         private bool _isServiceUp = false;
-        private static DmServerService _service=null;
+        private static DmServerService _service = null;
         private Campaign _campaign;
+        private CharacterSheet _cs = null;
 
         public bool IsServiceRunning { get { return _isServiceUp; } }
         public static DmServerService Service { get { return _service; } }
@@ -55,7 +56,6 @@ namespace GoSteve.Services
         private const string TAG = "DmServerService";
 
         public const int notifyNewCharID = 0;
-        public const Boolean IsDebugMode = true;
 
         /// <summary>
         /// Called by Android OS when the service is created
@@ -116,8 +116,8 @@ namespace GoSteve.Services
             */
 
             //var pendingIntent = PendingIntent.GetActivity(this, 0, new Intent(this, typeof(DmScreenBase)), 0);
-            
-            
+
+
             //var curIntent = new Intent(this, typeof(DmServerService));
             //curIntent.PutExtra("shutdownService", true);
             //var pendingIntent = PendingIntent.GetService(this, 0, curIntent, 0);
@@ -259,12 +259,24 @@ namespace GoSteve.Services
             return _campaign;
         }
 
+        public CharacterSheet GetCharacterSheet()
+        {
+            return _cs;
+        }
+
+        public void ResetCharacterSheet()
+        {
+            _cs = null;
+        }
+
         /// <summary>
         /// Method for the IP network server. Called by new thread.
         /// </summary>
         /// <param name="port"></param>
         private void StartServerThread(int port)
         {
+            // announce server/port
+            StartNSD(port);
             _server = null;
             Log.Info(TAG, "server TCPListener startup");
             try
@@ -279,7 +291,6 @@ namespace GoSteve.Services
                     Log.Info(TAG, "IP: " + ip);
                 }
 
-                CharacterSheet cs = null;
                 MemoryStream ms = null;
                 byte[] buffer = null;
                 byte[] retToClient = null;
@@ -321,29 +332,34 @@ namespace GoSteve.Services
 
                         // Try to deserialize the object and update GUI.
                         ms = new MemoryStream(buffer);
-                        cs = format.Deserialize(ms) as CharacterSheet;
+                        _cs = format.Deserialize(ms) as CharacterSheet;
 
                         // Create new ID if there's not one for the player.
-                        if (String.IsNullOrWhiteSpace(cs.ID))
+                        if (String.IsNullOrWhiteSpace(_cs.ID))
                         {
-                            cs.ID = System.Guid.NewGuid().ToString(); ;
+                            _cs.ID = System.Guid.NewGuid().ToString(); ;
                         }
 
                         // Update UI.
-                        //RunOnUiThread(() => Update(cs));
+                        //RunOnUiThread(() => Update(_cs));
 
                         // Return the ID to client.
-                        retToClient = ASCIIEncoding.ASCII.GetBytes(cs.ID);
+                        retToClient = ASCIIEncoding.ASCII.GetBytes(_cs.ID);
                         stream.Write(retToClient, 0, retToClient.Length);
 
-                        Log.Info(TAG, "Receive character ID:" + cs.ID);
+                        Log.Info(TAG, "Receive character ID:" + _cs.ID);
 
                         stream.Close();
-                        UpdateCharacterSheet(cs);
+                        UpdateCharacterSheet(_cs);
                         SendNotification();
-                        Log.Info(TAG, "Is character null:" + (cs == null));
+                        Log.Info(TAG, "Is character null:" + (_cs == null));
                         BroadcastNewCharacterToActivity();
                         Log.Info(TAG, "Disconnect client");
+
+                        while(_cs!=null)
+                        {
+                            Thread.Sleep(250);
+                        }
 
 
                     }
@@ -369,6 +385,7 @@ namespace GoSteve.Services
                 _server.Stop();
                 Log.Info(TAG, "server TCPListener shutdown");
                 _server = null;
+                StopNSD();
 
                 StopForeground(true);
 
@@ -382,7 +399,6 @@ namespace GoSteve.Services
         public void StopServer()
         {
             _isServerUp = false;
-            StopNSD();
             if (_server != null)
             {
                 _server.Stop();
@@ -446,9 +462,6 @@ namespace GoSteve.Services
 
                 _serverThread = new Thread(() => StartServerThread(port));
                 _serverThread.Start();
-
-                // announce server/port
-                StartNSD(port);
             }
         }
 
