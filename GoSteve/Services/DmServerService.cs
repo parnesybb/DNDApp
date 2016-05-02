@@ -77,8 +77,8 @@ namespace GoSteve.Services
             _campaign = new Campaign();
 
             //Initialize Wifi and Power Wake Locks
-            wifiMan = ((WifiManager)GetSystemService(Context.WifiService));
-            powerMan = ((PowerManager)GetSystemService(Context.PowerService));
+            wifiMan = GetSystemService(Context.WifiService) as WifiManager;
+            powerMan = GetSystemService(Context.PowerService) as PowerManager;
             wifiLock = wifiMan.CreateWifiLock(WifiMode.FullHighPerf, WifiLockTag);
             wakeLock = powerMan.NewWakeLock(WakeLockFlags.Partial, PowerWakeLockTag);
         }
