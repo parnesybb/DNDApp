@@ -127,8 +127,8 @@ namespace GoSteve.Services
 
             // Instantiate the builder and set notification elements:
             Notification.Builder builder = new Notification.Builder(this)
-                .SetContentTitle("DmServerService")
-                .SetContentText("Dm Server is running Click to stop")
+                .SetContentTitle("DM Server Running")
+                .SetContentText("DM server is running, click to stop")
                 .SetSmallIcon(Resource.Drawable.Icon)
                 .SetContentIntent(pendingIntent);
 
@@ -180,7 +180,7 @@ namespace GoSteve.Services
             // Instantiate the builder and set notification elements:
             Notification.Builder builder = new Notification.Builder(this)
                 .SetContentTitle("Go Steve DND Update")
-                .SetContentText("New CharacterSheet uploaded!")
+                .SetContentText("New character sheet uploaded!")
                 .SetSmallIcon(Resource.Drawable.Icon)
                 .SetContentIntent(pendingIntent);
 
