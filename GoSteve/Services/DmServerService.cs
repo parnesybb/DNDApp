@@ -166,6 +166,10 @@ namespace GoSteve.Services
             {
                 StopDMService();
             }
+            wifiLock = null;
+            wakeLock = null;
+            powerMan = null;
+            wifiMan = null;
         }
 
         /// <summary>
