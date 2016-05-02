@@ -41,6 +41,9 @@ namespace GoSteve
             c.CharacterName = null;
             c.Background = KnownValues.Background.NONE;
 
+            KnownValues.Race theRace = KnownValues.Race.DRAGONBORN;
+            KnownValues.SubRace theSubRace = KnownValues.SubRace.NONE;
+
             newCharName.AfterTextChanged += (s, arg) =>
             {
                 if (String.IsNullOrEmpty(arg.ToString()))
@@ -84,52 +87,70 @@ namespace GoSteve
                         case "Dragonborn":
                             instructionSubRace.Visibility = ViewStates.Invisible;
                             pickSub.Visibility = ViewStates.Invisible;
-                            c.SetRace(KnownValues.Race.DRAGONBORN, true);
-                            c.setSubRace(KnownValues.SubRace.NONE);
+                            theRace = KnownValues.Race.DRAGONBORN;
+                            theSubRace = KnownValues.SubRace.NONE;
+                            //c.SetRace(KnownValues.Race.DRAGONBORN, true);
+                            //c.setSubRace(KnownValues.SubRace.NONE);
                             break;
                         case "Dwarf":
                             instructionSubRace.Visibility = ViewStates.Visible;
                             pickSub.Visibility = ViewStates.Visible;
-                            c.SetRace(KnownValues.Race.DWARF, true);
+                            //c.SetRace(KnownValues.Race.DWARF, true);
+                            theRace = KnownValues.Race.DWARF;
+                            theSubRace = KnownValues.SubRace.NONE;
                             break;
                         case "Elf":
                             instructionSubRace.Visibility = ViewStates.Visible;
                             pickSub.Visibility = ViewStates.Visible;
-                            c.SetRace(KnownValues.Race.ELF, true);
+                            theRace = KnownValues.Race.ELF;
+                            theSubRace = KnownValues.SubRace.NONE;
+                            //c.SetRace(KnownValues.Race.ELF, true);
                             break;
                         case "Gnome":
                             instructionSubRace.Visibility = ViewStates.Visible;
                             pickSub.Visibility = ViewStates.Visible;
-                            c.SetRace(KnownValues.Race.GNOME, true);
+                            theRace = KnownValues.Race.GNOME;
+                            theSubRace = KnownValues.SubRace.NONE;
+                            //c.SetRace(KnownValues.Race.GNOME, true);
                             break;
                         case "Half-Elf":
                             instructionSubRace.Visibility = ViewStates.Invisible;
                             pickSub.Visibility = ViewStates.Invisible;
-                            c.SetRace(KnownValues.Race.HALF_ELF, true);
-                            c.setSubRace(KnownValues.SubRace.NONE);
+                            theRace = KnownValues.Race.HALF_ELF;
+                            theSubRace = KnownValues.SubRace.NONE;
+                            //c.SetRace(KnownValues.Race.HALF_ELF, true);
+                            //c.setSubRace(KnownValues.SubRace.NONE);
                             break;
                         case "Halfling":
                             instructionSubRace.Visibility = ViewStates.Visible;
                             pickSub.Visibility = ViewStates.Visible;
-                            c.SetRace(KnownValues.Race.HALFLING, true);
+                            theRace = KnownValues.Race.HALFLING;
+                            theSubRace = KnownValues.SubRace.NONE;
+                            //c.SetRace(KnownValues.Race.HALFLING, true);
                             break;
                         case "Half-Orc":
                             instructionSubRace.Visibility = ViewStates.Invisible;
                             pickSub.Visibility = ViewStates.Invisible;
-                            c.SetRace(KnownValues.Race.HALF_ORC, true);
-                            c.setSubRace(KnownValues.SubRace.NONE);
+                            theRace = KnownValues.Race.HALF_ORC;
+                            theSubRace = KnownValues.SubRace.NONE;
+                            //c.SetRace(KnownValues.Race.HALF_ORC, true);
+                            //c.setSubRace(KnownValues.SubRace.NONE);
                             break;
                         case "Human":
                             instructionSubRace.Visibility = ViewStates.Invisible;
                             pickSub.Visibility = ViewStates.Invisible;
-                            c.SetRace(KnownValues.Race.HUMAN, true);
-                            c.setSubRace(KnownValues.SubRace.NONE);
+                            theRace = KnownValues.Race.HUMAN;
+                            theSubRace = KnownValues.SubRace.NONE;
+                            //c.SetRace(KnownValues.Race.HUMAN, true);
+                            //c.setSubRace(KnownValues.SubRace.NONE);
                             break;
                         case "Tiefling":
                             instructionSubRace.Visibility = ViewStates.Invisible;
                             pickSub.Visibility = ViewStates.Invisible;
-                            c.SetRace(KnownValues.Race.TIEFLING, true);
-                            c.setSubRace(KnownValues.SubRace.NONE);
+                            theRace = KnownValues.Race.TIEFLING;
+                            theSubRace = KnownValues.SubRace.NONE;
+                            //c.SetRace(KnownValues.Race.TIEFLING, true);
+                            //c.setSubRace(KnownValues.SubRace.NONE);
                             break;
                         default:
                             instructionSubRace.Visibility = ViewStates.Invisible;
@@ -148,22 +169,22 @@ namespace GoSteve
                     case "Dwarf":
                         //pickSub.Text = "Pick a Sub Race";
                         m.Inflate(Resource.Xml.dwarfSub);
-                        c.setSubRace(KnownValues.SubRace.NONE);
+                        //c.setSubRace(KnownValues.SubRace.NONE);
                         break;
                     case "Elf":
                         //pickSub.Text = "Pick a Sub Race";
                         m.Inflate(Resource.Xml.elfSub);
-                        c.setSubRace(KnownValues.SubRace.NONE);
+                        //c.setSubRace(KnownValues.SubRace.NONE);
                         break;
                     case "Gnome":
                         //pickSub.Text = "Pick a Sub Race";
                         m.Inflate(Resource.Xml.gnomeSub);
-                        c.setSubRace(KnownValues.SubRace.NONE);
+                       //c.setSubRace(KnownValues.SubRace.NONE);
                         break;
                     case "Halfling":
                         //pickSub.Text = "Pick a Sub Race";
                         m.Inflate(Resource.Xml.halflingSub);
-                        c.setSubRace(KnownValues.SubRace.NONE);
+                        //c.setSubRace(KnownValues.SubRace.NONE);
                         break;
                 }
 
@@ -176,34 +197,44 @@ namespace GoSteve
                     switch (pickSub.Text)
                     {
                         case "Hill":
-                            c.setSubRace(KnownValues.SubRace.HILL_DWARF);
+                            theSubRace = KnownValues.SubRace.HILL_DWARF;
+                            //c.setSubRace(KnownValues.SubRace.HILL_DWARF);
                             break;
                         case "Mountain":
-                            c.setSubRace(KnownValues.SubRace.MOUNTAIN_DWARF);
+                            theSubRace = KnownValues.SubRace.MOUNTAIN_DWARF;
+                            //c.setSubRace(KnownValues.SubRace.MOUNTAIN_DWARF);
                             break;
                         case "Wood":
-                            c.setSubRace(KnownValues.SubRace.WOOD_ELF);
+                            theSubRace = KnownValues.SubRace.WOOD_ELF;
+                            //c.setSubRace(KnownValues.SubRace.WOOD_ELF);
                             break;
                         case "High":
-                            c.setSubRace(KnownValues.SubRace.HIGH_ELF);
+                            theSubRace = KnownValues.SubRace.HIGH_ELF;
+                            //c.setSubRace(KnownValues.SubRace.HIGH_ELF);
                             break;
                         case "Dark":
-                            c.setSubRace(KnownValues.SubRace.DARK_ELF);
+                            theSubRace = KnownValues.SubRace.DARK_ELF;
+                            // c.setSubRace(KnownValues.SubRace.DARK_ELF);
                             break;
                         case "Rock":
-                            c.setSubRace(KnownValues.SubRace.ROCK_GNOME);
+                            theSubRace = KnownValues.SubRace.ROCK_GNOME;
+                            // c.setSubRace(KnownValues.SubRace.ROCK_GNOME);
                             break;
                         case "Forest":
-                            c.setSubRace(KnownValues.SubRace.FOREST_GNOME);
+                            theSubRace = KnownValues.SubRace.FOREST_GNOME;
+                            // c.setSubRace(KnownValues.SubRace.FOREST_GNOME);
                             break;
                         case "Lightfoot":
-                            c.setSubRace(KnownValues.SubRace.LIGHTFOOT_HALFLING);
+                            theSubRace = KnownValues.SubRace.LIGHTFOOT_HALFLING;
+                            // c.setSubRace(KnownValues.SubRace.LIGHTFOOT_HALFLING);
                             break;
                         case "Stout":
-                            c.setSubRace(KnownValues.SubRace.STOUT_HALFLING);
+                            theSubRace = KnownValues.SubRace.STOUT_HALFLING;
+                            //c.setSubRace(KnownValues.SubRace.STOUT_HALFLING);
                             break;
                         default:
-                            c.setSubRace(KnownValues.SubRace.NONE);
+                            theSubRace = KnownValues.SubRace.NONE;
+                            // c.setSubRace(KnownValues.SubRace.NONE);
                             break;
                     }
 
@@ -288,6 +319,9 @@ namespace GoSteve
                 }
                 else
                 {
+                    c.SetRace(theRace, true);
+                    c.setSubRace(theSubRace);
+
                     var charScreen = new Intent(this, typeof(NewChar3Screen));
                     var gsMsg = new GSActivityMessage();
                     gsMsg.Message = CharacterSheet.GetBytes(c);

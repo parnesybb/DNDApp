@@ -26,6 +26,7 @@ namespace GoSteve
             // Set fields.
             Button newCharButton = FindViewById<Button>(Resource.Id.newCharButton);
             Button exCharButton = FindViewById<Button>(Resource.Id.exCharButton);
+            Button delCharButton = FindViewById<Button>(Resource.Id.removeCharBtn);
 
             newCharButton.Click += (s, arg) =>
             {
@@ -52,7 +53,7 @@ namespace GoSteve
                 {
                     CharacterScreen.IsDM = false;
                     var csFile = CharacterSheet.ReadFromFile(ee.Item.TitleFormatted.ToString());
-                    csFile.ID = "";
+                    //csFile.ID = "";
                     var msg = new GSActivityMessage();
                     msg.Message = CharacterSheet.GetBytes(csFile);
 
@@ -62,6 +63,39 @@ namespace GoSteve
                 };
 
                 menu.Show();
+            };
+
+            // Delete character button click
+            delCharButton.Click += (s, e) =>
+            {
+                var locPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+                string[] files = Directory.GetFiles(locPath);
+                var menu = new PopupMenu(this, exCharButton);
+
+                foreach (var file in files)
+                {
+                    if (file.Contains(CharacterSheet.FILE_EXT))
+                    {
+                        menu.Menu.Add(file.Substring(file.LastIndexOf('/') + 1));
+                    }
+                }
+
+                menu.Show();
+
+                // Delete the character?
+                menu.MenuItemClick += (ss, ee) =>
+                {
+                    var item = ee.Item.TitleFormatted.ToString();
+                    var confirm = new AlertDialog.Builder(this);
+                    confirm.SetMessage("Delete " + item + "?\nThis action is irreversible.");
+                    confirm.SetNegativeButton("No", (sss, eee) =>{});
+                    confirm.SetPositiveButton("Yes", (sss, eee) =>
+                    {
+                        File.Delete(locPath + '/' + item);
+                    });
+
+                    confirm.Show();
+                };
             };
         }
     }

@@ -17,10 +17,11 @@ namespace GoSteve.Structures.Classes
     {
         public Paladin()
         {
-            this._classType = KnownValues.ClassType.PALADIN;
             this.HitDice.TotalAmount = 1;
             this.HitDice.AvailableAmount = 1;
             this.HitDice.NumberOfSides = 10;
+
+            _classType = KnownValues.ClassType.PALADIN;
         }
 
         public override string[] GetEquipment()

@@ -79,13 +79,10 @@
     <Compile Include="GSNetwork\GSResolveListener.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Screens\CharacterSheetScreen.cs" />
     <Compile Include="Screens\DmScreenBase.cs" />
-    <Compile Include="Screens\GSClient.cs" />
     <Compile Include="Screens\NewChar2Screen.cs" />
     <Compile Include="Screens\NewChar3Screen.cs" />
     <Compile Include="Screens\NewChar4Screen.cs" />
-    <Compile Include="Screens\TestScreen.cs" />
     <Compile Include="Services\DmServerService.cs" />
     <Compile Include="Services\ShutdownDmServerService.cs" />
     <Compile Include="Structures\Campaign.cs" />
@@ -125,7 +122,6 @@
     <Compile Include="Structures\Weapons\Weapon.cs" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\CharacterSheet.axml" />
     <AndroidResource Include="Resources\layout\DmScreenBase.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
@@ -154,9 +150,6 @@
     <AndroidResource Include="Resources\layout\CharacterAbilitiesScreen.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\newChar4.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
     <AndroidResource Include="Resources\layout\CharacterScreenProfsLangs.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
@@ -167,6 +160,9 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\CharacterScreenInfo.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\newChar4.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <None Include="Resources\xml\AboutResources.txt" />
