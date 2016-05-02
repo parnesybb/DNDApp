@@ -394,9 +394,9 @@ namespace GoSteve.Screens
         /// <summary>
         /// Called when the service received a new character sheet
         /// </summary>
-        public void LoadCharacterSheets()
+        public void LoadCampaign()
         {
-            Log.Debug(TAG,"LoadCharacterSheets Reached");
+            Log.Debug(TAG,"LoadCampaign Reached");
             if (IsServiceRunning())
             {
                 RunOnUiThread(() => {
@@ -404,7 +404,6 @@ namespace GoSteve.Screens
 
                     if (locCampaign != null)
                     {
-                        Log.Debug(TAG, "LoadCharacterSheets Inner Reached");
                         int i = 0;
                         foreach (var pair in locCampaign)
                         {
@@ -413,6 +412,33 @@ namespace GoSteve.Screens
                         }
                         Log.Debug(TAG, i + " Characters loaded!");
                         
+                    }
+                    else
+                    {
+                        Log.Debug(TAG, "campaign is null");
+                    }
+                }
+                );
+            }
+        }
+
+        /// <summary>
+        /// Called when the service received a new character sheet
+        /// </summary>
+        public void LoadCharacterSheet()
+        {
+            Log.Debug(TAG, "LoadCharacterSheet Reached");
+            if (IsServiceRunning())
+            {
+                RunOnUiThread(() => {
+                    var locCs = ServerService.GetCharacterSheet();
+
+                    if (locCs != null)
+                    {
+                        Update(locCs);
+                        ServerService.ResetCharacterSheet();
+                        Log.Debug(TAG, "Character loaded!");
+
                     }
                     else
                     {
@@ -432,7 +458,7 @@ namespace GoSteve.Screens
             public override void OnReceive(Context context, Android.Content.Intent intent)
             {
                 // Get Character sheets
-                ((DmScreenBase)context).LoadCharacterSheets();
+                ((DmScreenBase)context).LoadCharacterSheet();
 
                 InvokeAbortBroadcast();
             }
@@ -510,7 +536,7 @@ namespace GoSteve.Screens
 
                 // keep instance for preservation across configuration changes
                 this.Binder = (DmServerBinder)service;
-                activity.LoadCharacterSheets();
+                activity.LoadCampaign();
             }
         }
 
