@@ -27,12 +27,20 @@
         p1:layout_below="@+id/instructionOptions"
         p1:id="@+id/yourOptions"
         p1:textColor="@android:color/holo_blue_bright" />
+    <TextView
+        p1:textAppearance="?android:attr/textAppearanceLarge"
+        p1:layout_width="match_parent"
+        p1:layout_height="50.5dp"
+        p1:layout_below="@+id/yourOptions"
+        p1:id="@+id/errMsg"
+        p1:gravity="center"
+        p1:textColor="@android:color/holo_red_dark" />
     <ScrollView
         p1:minWidth="25px"
         p1:minHeight="25px"
         p1:layout_width="382.5dp"
-        p1:layout_height="300.0dp"
-        p1:layout_below="@id/yourOptions"
+        p1:layout_height="225.0dp"
+        p1:layout_below="@id/errMsg"
         p1:id="@+id/scrollView1">
         <RelativeLayout
             p1:minWidth="25px"

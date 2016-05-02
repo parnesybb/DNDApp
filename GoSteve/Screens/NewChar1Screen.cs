@@ -41,7 +41,7 @@ namespace GoSteve
             c.CharacterName = null;
             c.Background = KnownValues.Background.NONE;
 
-            KnownValues.Race theRace = KnownValues.Race.DRAGONBORN;
+            KnownValues.Race theRace = KnownValues.Race.NONE;
             KnownValues.SubRace theSubRace = KnownValues.SubRace.NONE;
 
             newCharName.AfterTextChanged += (s, arg) =>
@@ -313,7 +313,7 @@ namespace GoSteve
 
             continueButton.Click += (s, arg) =>
             {
-                if (String.IsNullOrEmpty(c.CharacterName) || c.RaceInstance == null || c.Alignment == null || c.Background == KnownValues.Background.NONE || (pickSub.Visibility == ViewStates.Visible && c.getSubRace() == KnownValues.SubRace.NONE))
+                if (String.IsNullOrEmpty(c.CharacterName) || theRace == KnownValues.Race.NONE || c.Alignment == null || c.Background == KnownValues.Background.NONE || (pickSub.Visibility == ViewStates.Visible && theSubRace == KnownValues.SubRace.NONE))
                 {
                     missing1.Visibility = ViewStates.Visible;
                 }
@@ -321,6 +321,7 @@ namespace GoSteve
                 {
                     c.SetRace(theRace, true);
                     c.setSubRace(theSubRace);
+                    c.Level = 1;
 
                     var charScreen = new Intent(this, typeof(NewChar3Screen));
                     var gsMsg = new GSActivityMessage();
