@@ -72,7 +72,43 @@ namespace GoSteve
             Button chaMinus = FindViewById<Button>(Resource.Id.chaMinus);
             Button chaPlus = FindViewById<Button>(Resource.Id.chaPlus);
 
-            raceLabel.Text = c.RaceInstance.ToString().Substring(25);
+
+            switch (c.RaceInstance.SubRace)
+            {
+                case KnownValues.SubRace.DARK_ELF:
+                    raceLabel.Text = "Dark Elf";
+                    break;
+                case KnownValues.SubRace.FOREST_GNOME:
+                    raceLabel.Text = "Forest Gnome";
+                    break;
+                case KnownValues.SubRace.HIGH_ELF:
+                    raceLabel.Text = "High Elf";
+                    break;
+                case KnownValues.SubRace.HILL_DWARF:
+                    raceLabel.Text = "Hill Dwarf";
+                    break;
+                case KnownValues.SubRace.LIGHTFOOT_HALFLING:
+                    raceLabel.Text = "Lightfoot Halfling";
+                    break;
+                case KnownValues.SubRace.MOUNTAIN_DWARF:
+                    raceLabel.Text = "Mountain Dwarf";
+                    break;
+                case KnownValues.SubRace.NONE:
+                    raceLabel.Text = c.RaceInstance.ToString().Substring(25);
+                    break;
+                case KnownValues.SubRace.ROCK_GNOME:
+                    raceLabel.Text = "Rock Gnome";
+                    break;
+                case KnownValues.SubRace.STOUT_HALFLING:
+                    raceLabel.Text = "Stout Halfling";
+                    break;
+                case KnownValues.SubRace.WOOD_ELF:
+                    raceLabel.Text = "Wood Elf";
+                    break;
+                default:
+                    raceLabel.Text = "NOT FOUND";
+                    break;
+            }
 
             strMinus.Click += (s, arg) =>
             {

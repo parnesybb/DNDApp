@@ -20,6 +20,7 @@ namespace GoSteve.Structures.Classes
             this.HitDice.TotalAmount = 1;
             this.HitDice.AvailableAmount = 1;
             this.HitDice.NumberOfSides = 8;
+            _classType = KnownValues.ClassType.WARLOCK;
         }
 
         public override string[] GetEquipment()

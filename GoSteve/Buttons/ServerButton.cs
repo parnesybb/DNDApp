@@ -20,12 +20,21 @@ namespace GoSteve.Buttons
         public ServerButton(Context context) : base (context){ }
         public ServerButton(Context context, string hostName, int port) : base (context)
         {
-            HostName = hostName;
-            Port = port;
+            _hostName = hostName;
+            _port = port;
             updateText();
         }
+        public ServerButton(Context context, string serviceName, string hostName, int port) : base(context)
+        {
+            _hostName = hostName;
+            _port = port;
+            _serviceName = serviceName;
+            updateText();
+        }
+
         private string _hostName;
         private int _port;
+        private string _serviceName;
 
         public string HostName {
             get { return _hostName; }
@@ -44,9 +53,19 @@ namespace GoSteve.Buttons
             }
         }
 
+        public string ServiceName
+        {
+            get { return _serviceName; }
+            set
+            {
+                _serviceName = value;
+                updateText();
+            }
+        }
+
         private void updateText()
         {
-            Text = "Host: " + HostName + " Port: " + Port;
+            Text = ServiceName+ " : " + HostName + ":" + Port;
         }
     }
 }
