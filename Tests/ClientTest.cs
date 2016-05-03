@@ -3,123 +3,130 @@ using System.Threading;
 using System.Text;
 using System.Net;
 using System.Net.Sockets;
+using System.Collections.Generic;
+using System.Runtime.Serialization.Formatters.Binary;
+using GoSteve;
+using Zeroconf;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Tests
+namespace TestDriver.Network
 {
+    [TestClass]
     public class ClientTest
     {
+        private IObservable<IZeroconfHost> list;
+        public const string DNDSERVICETYPE = "_dnd._tcp.local.";
+        private Random rnd = new Random();
+        private IPAddressPort service;
 
-        // used to pass state information to delegate
-        class StateObject
+        public class IPAddressPort
         {
-            internal byte[] sBuffer;
-            internal Socket sSocket;
-            internal StateObject(int size, Socket sock)
-            {
-                sBuffer = new byte[size];
-                sSocket = sock;
-            }
+            public string Address { get; set; }
+            public int Port { get; set; }
         }
 
-        static void Main(string[] argHostName)
+        public ClientTest()
         {
-            IPAddress ipAddress =
-              Dns.Resolve(argHostName[0]).AddressList[0];
+        }
 
+        public void EnumerateAllServicesFromAllHosts()
+        {
+            list = ZeroconfResolver.Resolve(DNDSERVICETYPE);
+
+            IObservable<IZeroconfHost> listener = ZeroconfResolver.Resolve(DNDSERVICETYPE);
+
+            Action<IZeroconfHost> myaction = new Action<IZeroconfHost>( (IZeroconfHost host) => {
+                Console.WriteLine("Found Host "+host);
+                if (service == null)
+                {
+                    service = new IPAddressPort();
+                    service.Address = host.IPAddress;
+                    service.Port = host.Services.First().Value.Port;
+                }
+            });
+            listener.Subscribe(myaction) ;
+        }
+
+        [TestMethod]
+        public void SendCharacterSheetToServer()
+        {
+            EnumerateAllServicesFromAllHosts();
+            while (service == null)
+            {
+                Thread.Sleep(500);
+            }
+
+            CharacterSheet cs;
+            cs = CreateFakeRequest();
+
+            connectToServer(cs, service.Address, service.Port);
+        }
+
+        public void connectToServer(CharacterSheet cs, string ipAddress, int port)
+        {
+            Console.WriteLine("Connecting to: {0}:{1}", ipAddress, port);
             IPEndPoint ipEndpoint =
-              new IPEndPoint(ipAddress, 1800);
+              new IPEndPoint(IPAddress.Parse(ipAddress), port);
 
             Socket clientSocket = new Socket(
-              AddressFamily.InterNetwork,
-              SocketType.Stream,
-              ProtocolType.Tcp);
-
-            IAsyncResult asyncConnect = clientSocket.BeginConnect(
-              ipEndpoint,
-              new AsyncCallback(connectCallback),
-              clientSocket);
+                AddressFamily.InterNetwork,
+                SocketType.Stream,
+                ProtocolType.Tcp);
 
             Console.Write("Connection in progress.");
-            if (writeDot(asyncConnect) == true)
+
+            clientSocket.Connect(ipAddress, port);
+
+            if (clientSocket.Connected)
             {
-                // allow time for callbacks to
-                // finish before the program ends
-                Thread.Sleep(3000);
-            }
-        }
+                Console.Write("Connected.");
 
-        public static void
-          connectCallback(IAsyncResult asyncConnect)
-        {
-            Socket clientSocket =
-              (Socket)asyncConnect.AsyncState;
-            clientSocket.EndConnect(asyncConnect);
-            // arriving here means the operation completed
-            // (asyncConnect.IsCompleted = true) but not
-            // necessarily successfully
-            if (clientSocket.Connected == false)
+                BinaryFormatter bf = new BinaryFormatter();
+                byte[] csBytes = null;
+                var ms = new System.IO.MemoryStream();
+                bf.Serialize(ms, cs);
+                csBytes = ms.ToArray();
+                ms.Close();
+                int bytesRead = 0;
+
+                var dataLength = BitConverter.GetBytes(csBytes.Length);
+                Console.WriteLine("Setup to send a charactersheet that is " + csBytes.Length + " Bytes");
+                bytesRead = clientSocket.Send(dataLength, 4, SocketFlags.None);
+                Console.WriteLine("Sent {0} Bytes to the Server.", bytesRead);
+                bytesRead = clientSocket.Send(csBytes);
+                Console.WriteLine("Sent {0} Bytes to the Server.", bytesRead);
+
+                // get response...should be character id.
+                byte[] resp = new byte[256];
+                var respText = string.Empty;
+                clientSocket.Receive(resp, resp.Length - 1, SocketFlags.None);
+                respText = ASCIIEncoding.ASCII.GetString(resp).TrimEnd('\0');
+                if (!cs.ID.Equals(respText))
+                {
+                    Console.WriteLine("Failed to send data. ID mismatch");
+                }
+                Console.WriteLine("You sent character ID: '{0}' you recieved ID: '{1}'", cs.ID, respText);
+                clientSocket.Close();
+            }
+            else
             {
-                Console.WriteLine(".client is not connected.");
-                return;
+                Console.WriteLine("Could not connect to Server!!!");
             }
-            else Console.WriteLine(".client is connected.");
-
-            byte[] sendBuffer = Encoding.ASCII.GetBytes("Hello");
-            IAsyncResult asyncSend = clientSocket.BeginSend(
-              sendBuffer,
-              0,
-              sendBuffer.Length,
-              SocketFlags.None,
-              new AsyncCallback(sendCallback),
-              clientSocket);
-
-            Console.Write("Sending data.");
-            writeDot(asyncSend);
+            Thread.Sleep(1000);
         }
 
-        public static void sendCallback(IAsyncResult asyncSend)
+        private CharacterSheet CreateFakeRequest()
         {
-            Socket clientSocket = (Socket)asyncSend.AsyncState;
-            int bytesSent = clientSocket.EndSend(asyncSend);
-            Console.WriteLine(
-              ".{0} bytes sent.",
-              bytesSent.ToString());
+            var cs = new CharacterSheet();
+            cs.SetClass(KnownValues.ClassType.PALADIN, true);
+            cs.SetRace(KnownValues.Race.DWARF, true);
+            cs.Background = KnownValues.Background.SOLDIER;
+            cs.ID = "" + rnd.Next();
+            cs.CharacterName = "Flaf";
 
-            StateObject stateObject =
-              new StateObject(16, clientSocket);
-
-            // this call passes the StateObject because it
-            // needs to pass the buffer as well as the socket
-            IAsyncResult asyncReceive =
-              clientSocket.BeginReceive(
-                stateObject.sBuffer,
-                0,
-                stateObject.sBuffer.Length,
-                SocketFlags.None,
-                new AsyncCallback(receiveCallback),
-                stateObject);
-
-            Console.Write("Receiving response.");
-            writeDot(asyncReceive);
-        }
-
-        public static void
-          receiveCallback(IAsyncResult asyncReceive)
-        {
-            StateObject stateObject =
-             (StateObject)asyncReceive.AsyncState;
-
-            int bytesReceived =
-              stateObject.sSocket.EndReceive(asyncReceive);
-
-            Console.WriteLine(
-              ".{0} bytes received: {1}{2}{2}Shutting down.",
-              bytesReceived.ToString(),
-              Encoding.ASCII.GetString(stateObject.sBuffer),
-              Environment.NewLine);
-
-            stateObject.sSocket.Shutdown(SocketShutdown.Both);
-            stateObject.sSocket.Close();
+            return cs;
         }
 
         // times out after 2 seconds but operation continues
