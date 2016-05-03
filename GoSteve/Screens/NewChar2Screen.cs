@@ -8,21 +8,39 @@ using Android.OS;
 using System.Runtime.Serialization.Formatters.Binary;
 using GoSteve.Screens;
 using Server;
+using Android.Util;
+using System.Collections.Generic;
 
 namespace GoSteve
 {
     [Activity(Label = "GoSteve! Dungeons and Dragons")]
     public class NewChar2Screen : Activity
     {
+
+        private class Skills
+        {
+            public const int Str = 0;
+            public const int Dex = 1;
+            public const int Con = 2;
+            public const int Intel = 3;
+            public const int Wis = 4;
+            public const int Cha = 5;
+        }
+
+        private int[] _skillsNum;
+        // key minus button ID to position in _skillsNum ary
+        private Dictionary<int,int> _minusBtnAry;
+        // key plus button ID to position in _skillsNum ary
+        private Dictionary<int, int> _plusBtnAry;
+        private TextView[] _skillTxtAry;
+        private int _numPoints;
+        private TextView _remPoints;
+
         protected override void OnCreate(Bundle bundle)
         {
-            int numPoints = 27;
-            int str = 8;
-            int dex = 8;
-            int con = 8;
-            int intel = 8;
-            int wis = 8;
-            int cha = 8;
+            Button curBtn;
+            _numPoints = 27;
+            _skillsNum = new int[] { 8, 8, 8, 8, 8, 8 };
 
             var gsMsg = new GSActivityMessage();
             gsMsg.Message = (byte[])Intent.Extras.Get(gsMsg.CharacterMessage);
@@ -56,7 +74,7 @@ namespace GoSteve
             TextView intScoreNum = FindViewById<TextView>(Resource.Id.intScoreNum);
             TextView wisScoreNum = FindViewById<TextView>(Resource.Id.wisScoreNum);
             TextView chaScoreNum = FindViewById<TextView>(Resource.Id.chaScoreNum);
-            TextView remPoints = FindViewById<TextView>(Resource.Id.remPoints);
+            _remPoints = FindViewById<TextView>(Resource.Id.remPoints);
             TextView raceLabel = FindViewById<TextView>(Resource.Id.raceLabel);
             Button continueBtn = FindViewById<Button>(Resource.Id.continueBtn);
             Button strMinus = FindViewById<Button>(Resource.Id.strMinus);
@@ -71,6 +89,41 @@ namespace GoSteve
             Button wisPlus = FindViewById<Button>(Resource.Id.wisPlus);
             Button chaMinus = FindViewById<Button>(Resource.Id.chaMinus);
             Button chaPlus = FindViewById<Button>(Resource.Id.chaPlus);
+
+            _minusBtnAry = new Dictionary<int, int>();
+            _plusBtnAry = new Dictionary<int, int>();
+
+            // Add Minus button ID as key to position in _skillsAry
+            _minusBtnAry.Add(Resource.Id.strMinus, Skills.Str);
+            _minusBtnAry.Add(Resource.Id.dexMinus, Skills.Dex);
+            _minusBtnAry.Add(Resource.Id.conMinus, Skills.Con);
+            _minusBtnAry.Add(Resource.Id.intMinus, Skills.Intel);
+            _minusBtnAry.Add(Resource.Id.wisMinus, Skills.Wis);
+            _minusBtnAry.Add(Resource.Id.chaMinus, Skills.Cha);
+
+            // Add Plus button ID as key to position in _skillsAry
+            _plusBtnAry.Add(Resource.Id.strPlus, Skills.Str);
+            _plusBtnAry.Add(Resource.Id.dexPlus, Skills.Dex);
+            _plusBtnAry.Add(Resource.Id.conPlus, Skills.Con);
+            _plusBtnAry.Add(Resource.Id.intPlus, Skills.Intel);
+            _plusBtnAry.Add(Resource.Id.wisPlus, Skills.Wis);
+            _plusBtnAry.Add(Resource.Id.chaPlus, Skills.Cha);
+
+            _skillTxtAry = new TextView[] { strScoreNum, dexScoreNum, conScoreNum, intScoreNum, wisScoreNum, chaScoreNum };
+
+            foreach (KeyValuePair<int,int> elem in _plusBtnAry)
+            {
+                curBtn = FindViewById<Button>(elem.Key);
+                Log.Debug("NewChar2Screen","PlusButton id:"+elem.Key+"");
+                curBtn.Click += IncrementClicked;
+            }
+
+            foreach (KeyValuePair<int, int> elem in _minusBtnAry)
+            {
+                curBtn = FindViewById<Button>(elem.Key);
+                Log.Debug("NewChar2Screen", "MinusButton id:" + elem.Key + "");
+                curBtn.Click += DecrementClicked;
+            }
 
 
             switch (c.RaceInstance.SubRace)
@@ -110,778 +163,21 @@ namespace GoSteve
                     break;
             }
 
-            strMinus.Click += (s, arg) =>
-            {
-                switch (str)
-                {
-                    case 8:
-                        break;
-                    case 9:
-                        if (numPoints < 27)
-                        {
-                            str = 8;
-                            numPoints++;
-                        }
-                        break;
-                    case 10:
-                        if (numPoints < 27)
-                        {
-                            str = 9;
-                            numPoints++;
-                        }
-                        break;
-                    case 11:
-                        if (numPoints < 27)
-                        {
-                            str = 10;
-                            numPoints++;
-                        }
-                        break;
-                    case 12:
-                        if (numPoints < 27)
-                        {
-                            str = 11;
-                            numPoints++;
-                        }
-                        break;
-                    case 13:
-                        if (numPoints < 27)
-                        {
-                            str = 12;
-                            numPoints++;
-                        }
-                        break;
-                    case 14:
-                        if (numPoints < 27)
-                        {
-                            str = 13;
-                            numPoints += 2;
-                        }
-                        break;
-                    case 15:
-                        if (numPoints < 27)
-                        {
-                            str = 14;
-                            numPoints += 2;
-                        }
-                        break;
-                    default:
-                        break;
-                }
-
-                strScoreNum.Text = str.ToString();
-                remPoints.Text = "Remaining Points: " + numPoints;
-            };
-
-            strPlus.Click += (s, arg) =>
-            {
-                switch (str)
-                {
-                    case 8:
-                        if (numPoints > 0)
-                        {
-                            str = 9;
-                            numPoints--;
-                        }
-                        break;
-                    case 9:
-                        if (numPoints > 0)
-                        {
-                            str = 10;
-                            numPoints--;
-                        }
-                        break;
-                    case 10:
-                        if (numPoints > 0)
-                        {
-                            str = 11;
-                            numPoints--;
-                        }
-                        break;
-                    case 11:
-                        if (numPoints > 0)
-                        {
-                            str = 12;
-                            numPoints--;
-                        }
-                        break;
-                    case 12:
-                        if (numPoints > 0)
-                        {
-                            str = 13;
-                            numPoints--;
-                        }
-                        break;
-                    case 13:
-                        if (numPoints > 0)
-                        {
-                            str = 14;
-                            numPoints -= 2;
-                        }
-                        break;
-                    case 14:
-                        if (numPoints > 0)
-                        {
-                            str = 15;
-                            numPoints -= 2;
-                        }
-                        break;
-                    case 15:
-                        break;
-                    default:
-                        break;
-                }
-
-                strScoreNum.Text = str.ToString();
-                remPoints.Text = "Remaining Points: " + numPoints;
-            };
-
-            dexMinus.Click += (s, arg) =>
-            {
-                switch (dex)
-                {
-                    case 8:
-                        break;
-                    case 9:
-                        if (numPoints < 27)
-                        {
-                            dex = 8;
-                            numPoints++;
-                        }
-                        break;
-                    case 10:
-                        if (numPoints < 27)
-                        {
-                            dex = 9;
-                            numPoints++;
-                        }
-                        break;
-                    case 11:
-                        if (numPoints < 27)
-                        {
-                            dex = 10;
-                            numPoints++;
-                        }
-                        break;
-                    case 12:
-                        if (numPoints < 27)
-                        {
-                            dex = 11;
-                            numPoints++;
-                        }
-                        break;
-                    case 13:
-                        if (numPoints < 27)
-                        {
-                            dex = 12;
-                            numPoints++;
-                        }
-                        break;
-                    case 14:
-                        if (numPoints < 27)
-                        {
-                            dex = 13;
-                            numPoints += 2;
-                        }
-                        break;
-                    case 15:
-                        if (numPoints < 27)
-                        {
-                            dex = 14;
-                            numPoints += 2;
-                        }
-                        break;
-                    default:
-                        break;
-                }
-
-                dexScoreNum.Text = dex.ToString();
-                remPoints.Text = "Remaining Points: " + numPoints;
-            };
-
-            dexPlus.Click += (s, arg) =>
-            {
-                switch (dex)
-                {
-                    case 8:
-                        if (numPoints > 0)
-                        {
-                            dex = 9;
-                            numPoints--;
-                        }
-                        break;
-                    case 9:
-                        if (numPoints > 0)
-                        {
-                            dex = 10;
-                            numPoints--;
-                        }
-                        break;
-                    case 10:
-                        if (numPoints > 0)
-                        {
-                            dex = 11;
-                            numPoints--;
-                        }
-                        break;
-                    case 11:
-                        if (numPoints > 0)
-                        {
-                            dex = 12;
-                            numPoints--;
-                        }
-                        break;
-                    case 12:
-                        if (numPoints > 0)
-                        {
-                            dex = 13;
-                            numPoints--;
-                        }
-                        break;
-                    case 13:
-                        if (numPoints > 0)
-                        {
-                            dex = 14;
-                            numPoints -= 2;
-                        }
-                        break;
-                    case 14:
-                        if (numPoints > 0)
-                        {
-                            dex = 15;
-                            numPoints -= 2;
-                        }
-                        break;
-                    case 15:
-                        break;
-                    default:
-                        break;
-                }
-
-                dexScoreNum.Text = dex.ToString();
-                remPoints.Text = "Remaining Points: " + numPoints;
-            };
-
-            conMinus.Click += (s, arg) =>
-            {
-                switch (con)
-                {
-                    case 8:
-                        break;
-                    case 9:
-                        if (numPoints < 27)
-                        {
-                            con = 8;
-                            numPoints++;
-                        }
-                        break;
-                    case 10:
-                        if (numPoints < 27)
-                        {
-                            con = 9;
-                            numPoints++;
-                        }
-                        break;
-                    case 11:
-                        if (numPoints < 27)
-                        {
-                            con = 10;
-                            numPoints++;
-                        }
-                        break;
-                    case 12:
-                        if (numPoints < 27)
-                        {
-                            con = 11;
-                            numPoints++;
-                        }
-                        break;
-                    case 13:
-                        if (numPoints < 27)
-                        {
-                            con = 12;
-                            numPoints++;
-                        }
-                        break;
-                    case 14:
-                        if (numPoints < 27)
-                        {
-                            con = 13;
-                            numPoints += 2;
-                        }
-                        break;
-                    case 15:
-                        if (numPoints < 27)
-                        {
-                            con = 14;
-                            numPoints += 2;
-                        }
-                        break;
-                    default:
-                        break;
-                }
-
-                conScoreNum.Text = con.ToString();
-                remPoints.Text = "Remaining Points: " + numPoints;
-            };
-
-            conPlus.Click += (s, arg) =>
-            {
-                switch (con)
-                {
-                    case 8:
-                        if (numPoints > 0)
-                        {
-                            con = 9;
-                            numPoints--;
-                        }
-                        break;
-                    case 9:
-                        if (numPoints > 0)
-                        {
-                            con = 10;
-                            numPoints--;
-                        }
-                        break;
-                    case 10:
-                        if (numPoints > 0)
-                        {
-                            con = 11;
-                            numPoints--;
-                        }
-                        break;
-                    case 11:
-                        if (numPoints > 0)
-                        {
-                            con = 12;
-                            numPoints--;
-                        }
-                        break;
-                    case 12:
-                        if (numPoints > 0)
-                        {
-                            con = 13;
-                            numPoints--;
-                        }
-                        break;
-                    case 13:
-                        if (numPoints > 0)
-                        {
-                            con = 14;
-                            numPoints -= 2;
-                        }
-                        break;
-                    case 14:
-                        if (numPoints > 0)
-                        {
-                            con = 15;
-                            numPoints -= 2;
-                        }
-                        break;
-                    case 15:
-                        break;
-                    default:
-                        break;
-                }
-
-                conScoreNum.Text = con.ToString();
-                remPoints.Text = "Remaining Points: " + numPoints;
-            };
-
-            intMinus.Click += (s, arg) =>
-            {
-                switch (intel)
-                {
-                    case 8:
-                        break;
-                    case 9:
-                        if (numPoints < 27)
-                        {
-                            intel = 8;
-                            numPoints++;
-                        }
-                        break;
-                    case 10:
-                        if (numPoints < 27)
-                        {
-                            intel = 9;
-                            numPoints++;
-                        }
-                        break;
-                    case 11:
-                        if (numPoints < 27)
-                        {
-                            intel = 10;
-                            numPoints++;
-                        }
-                        break;
-                    case 12:
-                        if (numPoints < 27)
-                        {
-                            intel = 11;
-                            numPoints++;
-                        }
-                        break;
-                    case 13:
-                        if (numPoints < 27)
-                        {
-                            intel = 12;
-                            numPoints++;
-                        }
-                        break;
-                    case 14:
-                        if (numPoints < 27)
-                        {
-                            intel = 13;
-                            numPoints += 2;
-                        }
-                        break;
-                    case 15:
-                        if (numPoints < 27)
-                        {
-                            intel = 14;
-                            numPoints += 2;
-                        }
-                        break;
-                    default:
-                        break;
-                }
-
-                intScoreNum.Text = intel.ToString();
-                remPoints.Text = "Remaining Points: " + numPoints;
-            };
-
-            intPlus.Click += (s, arg) =>
-            {
-                switch (intel)
-                {
-                    case 8:
-                        if (numPoints > 0)
-                        {
-                            intel = 9;
-                            numPoints--;
-                        }
-                        break;
-                    case 9:
-                        if (numPoints > 0)
-                        {
-                            intel = 10;
-                            numPoints--;
-                        }
-                        break;
-                    case 10:
-                        if (numPoints > 0)
-                        {
-                            intel = 11;
-                            numPoints--;
-                        }
-                        break;
-                    case 11:
-                        if (numPoints > 0)
-                        {
-                            intel = 12;
-                            numPoints--;
-                        }
-                        break;
-                    case 12:
-                        if (numPoints > 0)
-                        {
-                            intel = 13;
-                            numPoints--;
-                        }
-                        break;
-                    case 13:
-                        if (numPoints > 0)
-                        {
-                            intel = 14;
-                            numPoints -= 2;
-                        }
-                        break;
-                    case 14:
-                        if (numPoints > 0)
-                        {
-                            intel = 15;
-                            numPoints -= 2;
-                        }
-                        break;
-                    case 15:
-                        break;
-                    default:
-                        break;
-                }
-
-                intScoreNum.Text = intel.ToString();
-                remPoints.Text = "Remaining Points: " + numPoints;
-            };
-
-            wisMinus.Click += (s, arg) =>
-            {
-                switch (wis)
-                {
-                    case 8:
-                        break;
-                    case 9:
-                        if (numPoints < 27)
-                        {
-                            wis = 8;
-                            numPoints++;
-                        }
-                        break;
-                    case 10:
-                        if (numPoints < 27)
-                        {
-                            wis = 9;
-                            numPoints++;
-                        }
-                        break;
-                    case 11:
-                        if (numPoints < 27)
-                        {
-                            wis = 10;
-                            numPoints++;
-                        }
-                        break;
-                    case 12:
-                        if (numPoints < 27)
-                        {
-                            wis = 11;
-                            numPoints++;
-                        }
-                        break;
-                    case 13:
-                        if (numPoints < 27)
-                        {
-                            wis = 12;
-                            numPoints++;
-                        }
-                        break;
-                    case 14:
-                        if (numPoints < 27)
-                        {
-                            wis = 13;
-                            numPoints += 2;
-                        }
-                        break;
-                    case 15:
-                        if (numPoints < 27)
-                        {
-                            wis = 14;
-                            numPoints += 2;
-                        }
-                        break;
-                    default:
-                        break;
-                }
-
-                wisScoreNum.Text = wis.ToString();
-                remPoints.Text = "Remaining Points: " + numPoints;
-            };
-
-            wisPlus.Click += (s, arg) =>
-            {
-                switch (wis)
-                {
-                    case 8:
-                        if (numPoints > 0)
-                        {
-                            wis = 9;
-                            numPoints--;
-                        }
-                        break;
-                    case 9:
-                        if (numPoints > 0)
-                        {
-                            wis = 10;
-                            numPoints--;
-                        }
-                        break;
-                    case 10:
-                        if (numPoints > 0)
-                        {
-                            wis = 11;
-                            numPoints--;
-                        }
-                        break;
-                    case 11:
-                        if (numPoints > 0)
-                        {
-                            wis = 12;
-                            numPoints--;
-                        }
-                        break;
-                    case 12:
-                        if (numPoints > 0)
-                        {
-                            wis = 13;
-                            numPoints--;
-                        }
-                        break;
-                    case 13:
-                        if (numPoints > 0)
-                        {
-                            wis = 14;
-                            numPoints -= 2;
-                        }
-                        break;
-                    case 14:
-                        if (numPoints > 0)
-                        {
-                            wis = 15;
-                            numPoints -= 2;
-                        }
-                        break;
-                    case 15:
-                        break;
-                    default:
-                        break;
-                }
-
-                wisScoreNum.Text = wis.ToString();
-                remPoints.Text = "Remaining Points: " + numPoints;
-            };
-
-            chaMinus.Click += (s, arg) =>
-            {
-                switch (cha)
-                {
-                    case 8:
-                        break;
-                    case 9:
-                        if (numPoints < 27)
-                        {
-                            cha = 8;
-                            numPoints++;
-                        }
-                        break;
-                    case 10:
-                        if (numPoints < 27)
-                        {
-                            cha = 9;
-                            numPoints++;
-                        }
-                        break;
-                    case 11:
-                        if (numPoints < 27)
-                        {
-                            cha = 10;
-                            numPoints++;
-                        }
-                        break;
-                    case 12:
-                        if (numPoints < 27)
-                        {
-                            cha = 11;
-                            numPoints++;
-                        }
-                        break;
-                    case 13:
-                        if (numPoints < 27)
-                        {
-                            cha = 12;
-                            numPoints++;
-                        }
-                        break;
-                    case 14:
-                        if (numPoints < 27)
-                        {
-                            cha = 13;
-                            numPoints += 2;
-                        }
-                        break;
-                    case 15:
-                        if (numPoints < 27)
-                        {
-                            cha = 14;
-                            numPoints += 2;
-                        }
-                        break;
-                    default:
-                        break;
-                }
-
-                chaScoreNum.Text = cha.ToString();
-                remPoints.Text = "Remaining Points: " + numPoints;
-            };
-
-            chaPlus.Click += (s, arg) =>
-            {
-                switch (cha)
-                {
-                    case 8:
-                        if (numPoints > 0)
-                        {
-                            cha = 9;
-                            numPoints--;
-                        }
-                        break;
-                    case 9:
-                        if (numPoints > 0)
-                        {
-                            cha = 10;
-                            numPoints--;
-                        }
-                        break;
-                    case 10:
-                        if (numPoints > 0)
-                        {
-                            cha = 11;
-                            numPoints--;
-                        }
-                        break;
-                    case 11:
-                        if (numPoints > 0)
-                        {
-                            cha = 12;
-                            numPoints--;
-                        }
-                        break;
-                    case 12:
-                        if (numPoints > 0)
-                        {
-                            cha = 13;
-                            numPoints--;
-                        }
-                        break;
-                    case 13:
-                        if (numPoints > 0)
-                        {
-                            cha = 14;
-                            numPoints -= 2;
-                        }
-                        break;
-                    case 14:
-                        if (numPoints > 0)
-                        {
-                            cha = 15;
-                            numPoints -= 2;
-                        }
-                        break;
-                    case 15:
-                        break;
-                    default:
-                        break;
-                }
-
-                chaScoreNum.Text = cha.ToString();
-                remPoints.Text = "Remaining Points: " + numPoints;
-            };
-
-
             continueBtn.Click += (s, arg) =>
             {
-                if (numPoints != 0)
+                if (_numPoints != 0)
                 {
                     errMsg.Text = "You must spend all 27 points!";
                     errMsg.Visibility = ViewStates.Visible;
                 }
                 else
                 {
-                    c.AbilitiesAndStats.Strength = str;
-                    c.AbilitiesAndStats.Dex = dex;
-                    c.AbilitiesAndStats.Con = con;
-                    c.AbilitiesAndStats.Wisdom = wis;
-                    c.AbilitiesAndStats.Intel = intel;
-                    c.AbilitiesAndStats.Charisma = cha;
+                    c.AbilitiesAndStats.Strength = _skillsNum[Skills.Str];
+                    c.AbilitiesAndStats.Dex = _skillsNum[Skills.Dex];
+                    c.AbilitiesAndStats.Con = _skillsNum[Skills.Con];
+                    c.AbilitiesAndStats.Wisdom = _skillsNum[Skills.Wis];
+                    c.AbilitiesAndStats.Intel = _skillsNum[Skills.Intel];
+                    c.AbilitiesAndStats.Charisma = _skillsNum[Skills.Cha];
 
                     var charScreen = new Intent(this, typeof(NewChar4Screen));
                     var gsMsg1 = new GSActivityMessage();
@@ -890,6 +186,43 @@ namespace GoSteve
                     StartActivity(charScreen);
                 }
             };
+        }
+
+        private void IncrementClicked(Object sender, EventArgs arg)
+        {
+            Button btn;
+            int pos;
+            btn = sender as Button;
+            pos=_plusBtnAry[btn.Id];
+            Log.Debug("Char2screen","Array Index:"+pos);
+            if(_skillsNum[pos] < 15 && _numPoints > 0)
+            {
+                _skillsNum[pos]++;
+                _numPoints--;
+                _skillTxtAry[pos].Text = _skillsNum[pos].ToString();
+                UpdateSkillsNumText();
+            }
+        }
+
+        private void DecrementClicked(Object sender, EventArgs arg)
+        {
+            Button btn;
+            int pos;
+            btn = sender as Button;
+            pos = _minusBtnAry[btn.Id];
+            Log.Debug("Char2screen", "Array Index:" + pos);
+            if (_skillsNum[pos] > 8 && _numPoints < 27)
+            {
+                _skillsNum[pos]--;
+                _numPoints++;
+                _skillTxtAry[pos].Text = _skillsNum[pos].ToString();
+                UpdateSkillsNumText();
+            }
+        }
+
+        private void UpdateSkillsNumText()
+        {
+            _remPoints.Text = "Remaining Points: " + _numPoints;
         }
     }
 }
