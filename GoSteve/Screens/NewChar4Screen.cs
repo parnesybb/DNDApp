@@ -8,12 +8,17 @@ using Android.OS;
 using System.Runtime.Serialization.Formatters.Binary;
 using GoSteve.Screens;
 using Server;
+using System.Collections.Generic;
 
 namespace GoSteve
 {
     [Activity(Label = "GoSteve! Dungeons and Dragons")]
     public class NewChar4Screen : Activity
     {
+        private int numSkillsChosen;
+        private int numMaxSkills;
+        private CheckBox[] chks;
+        private List<CheckBox> chksList;
 
 
         protected override void OnCreate(Bundle bundle)
@@ -22,12 +27,14 @@ namespace GoSteve
             gsMsg.Message = (byte[])Intent.Extras.Get(gsMsg.CharacterMessage);
             var cs = CharacterSheet.GetCharacterSheet(gsMsg.Message);
 
+            chksList = new List<CheckBox>();
+
             CharacterSheet c = cs;
 
             var bg = "";
             var race = "";
-            var numMaxSkills = 0;
-            var numSkillsChosen = 0;
+            numMaxSkills = 0;
+            numSkillsChosen = 0;
 
             base.OnCreate(bundle);
 
@@ -57,7 +64,7 @@ namespace GoSteve
             CheckBox survivalChk = FindViewById<CheckBox>(Resource.Id.survivalChk);
             Button continueBtn = FindViewById<Button>(Resource.Id.continueBtn);
 
-            CheckBox[] chks = { acrobaticsChk, animalhandlingChk, arcanaChk, athleticsChk, deceptionChk, historyChk, insightChk, intimidationChk, investigationChk, medicineChk, natureChk, perceptionChk, performanceChk, persuasionChk, religionChk, sleightChk, stealthChk, survivalChk };
+            chks = new CheckBox[] { acrobaticsChk, animalhandlingChk, arcanaChk, athleticsChk, deceptionChk, historyChk, insightChk, intimidationChk, investigationChk, medicineChk, natureChk, perceptionChk, performanceChk, persuasionChk, religionChk, sleightChk, stealthChk, survivalChk };
 
             switch(c.Background)
             {
@@ -438,6 +445,12 @@ namespace GoSteve
                 }
             }
 
+            foreach(CheckBox curBox in chks)
+            {
+                curBox.CheckedChange += CheckBoxChanged;
+            }
+
+            /*
             acrobaticsChk.Click += (s, arg) =>
             {
                 if(acrobaticsChk.Checked)
@@ -671,6 +684,7 @@ namespace GoSteve
                 }
 
             };
+            */
 
             yourOptions.Text = "Race: " + race + "\nClass: " + c.ClassInstance.ToString().Substring(27) + "\nBackground: " + bg;
             
@@ -698,6 +712,42 @@ namespace GoSteve
                     StartActivity(charScreen);
                 }
             };
+        }
+
+        private void CheckBoxChanged(Object sender, EventArgs arg)
+        {
+            CheckBox curItem;
+            curItem = sender as CheckBox;
+
+            if(curItem.Checked)
+            {
+                if(numSkillsChosen < numMaxSkills)
+                    numSkillsChosen++;
+
+                if (numSkillsChosen == numMaxSkills)
+                {
+                    foreach(CheckBox curBox in chks)
+                    {
+                        if(curBox.Enabled && !curBox.Checked)
+                        {
+                            chksList.Add(curBox);
+                            curBox.Enabled = false;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (numSkillsChosen == numMaxSkills)
+                {
+                    foreach (CheckBox curBox in chksList)
+                    {
+                        curBox.Enabled = true;
+                    }
+                    chksList.Clear();
+                }
+                numSkillsChosen--;
+            }
         }
     }
 }
