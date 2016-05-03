@@ -686,6 +686,11 @@ namespace GoSteve
                 }
                 else
                 {
+                    if (c != null)
+                    {
+                        RunOnUiThread(() => Toast.MakeText(this, "Saved", ToastLength.Long));
+                        CharacterSheet.WriteToFile(c);
+                    }
                     var charScreen = new Intent(this, typeof(CharacterScreen));
                     var gsMsg1 = new GSActivityMessage();
                     gsMsg1.Message = CharacterSheet.GetBytes(c);
