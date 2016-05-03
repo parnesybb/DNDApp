@@ -19,6 +19,8 @@ using System.Net;
 using System.IO;
 using Java.Net;
 using GoSteve.Structures;
+using Android.Net.Wifi;
+using Android.Net;
 
 namespace GoSteve.Services
 {
@@ -39,6 +41,11 @@ namespace GoSteve.Services
         private Campaign _campaign;
         private CharacterSheet _cs = null;
 
+        private WifiManager wifiMan;
+        private WifiManager.WifiLock wifiLock;
+        private PowerManager powerMan;
+        private PowerManager.WakeLock wakeLock;
+
         public bool IsServiceRunning { get { return _isServiceUp; } }
         public static DmServerService Service { get { return _service; } }
 
@@ -53,6 +60,8 @@ namespace GoSteve.Services
         public const string IntentFilter = "com.GoSteve.DmServerService";
         public const string CharSheetUpdatedAction = "CharacterSheetUpdated";
         public const string ServerStateChangedAction = "ServerStateChanged";
+        public const string WifiLockTag = "GoSteveWifiLock";
+        public const string PowerWakeLockTag = "GoSteveWakeLock";
         private const string TAG = "DmServerService";
 
         public const int notifyNewCharID = 0;
@@ -66,6 +75,12 @@ namespace GoSteve.Services
             Log.Debug(TAG, "OnCreate called");
             _service = this;
             _campaign = new Campaign();
+
+            //Initialize Wifi and Power Wake Locks
+            wifiMan = GetSystemService(Context.WifiService) as WifiManager;
+            powerMan = GetSystemService(Context.PowerService) as PowerManager;
+            wifiLock = wifiMan.CreateWifiLock(WifiMode.FullHighPerf, WifiLockTag);
+            wakeLock = powerMan.NewWakeLock(WakeLockFlags.Partial, PowerWakeLockTag);
         }
 
         /// <summary>
@@ -87,18 +102,9 @@ namespace GoSteve.Services
                 return StartCommandResult.Sticky;
             }
 
-            _stopServiceReceiver = new DmStopServiceReceiver();
-            var stopServIntentFilter = new IntentFilter(ShutdownDmServerService.StopServerServiceAction) { Priority = (int)IntentFilterPriority.HighPriority };
-            RegisterReceiver(_stopServiceReceiver, stopServIntentFilter);
+            
 
-            Log.Debug(TAG, "DemoService started");
-
-            StartServiceInForeground();
-
-            Toast.MakeText(this, "The dm service has started", ToastLength.Long).Show();
-            StartServer();
-
-            setServerRunning(true);
+            StartDMService();
 
             return StartCommandResult.Sticky;
         }
@@ -158,8 +164,12 @@ namespace GoSteve.Services
 
             if (_isServiceUp)
             {
-                StopService();
+                StopDMService();
             }
+            wifiLock = null;
+            wakeLock = null;
+            powerMan = null;
+            wifiMan = null;
         }
 
         /// <summary>
@@ -224,7 +234,7 @@ namespace GoSteve.Services
         /// to DMScreenBase activity.
         /// </summary>
         /// <param name="state"></param>
-        private void setServerRunning(bool state)
+        private void SetServerRunning(bool state)
         {
             if (state)
             {
@@ -392,6 +402,46 @@ namespace GoSteve.Services
                 StopSelf();
             }
         }
+        
+        /// <summary>
+        /// Starts the DM service
+        /// </summary>
+        public void StartDMService()
+        {
+            SetServerRunning(true);
+
+            // Set Wifi Lock
+            // We might need Wifi when the phone goes into power saving
+            // Someone could send us a character sheet
+            if (wifiLock != null && !wifiLock.IsHeld)
+            {
+                wifiLock.Acquire();
+            }
+
+            // Set Wake Lock
+            // We might need CPU when the phone goes into power saving
+            // We need to process the network stuff
+            // The API says it will block user shutdown of phone that is how they made it.
+            // My phone seems to work normally
+            if (wakeLock != null && !wakeLock.IsHeld)
+            {
+                wakeLock.Acquire();
+            }
+
+
+            _stopServiceReceiver = new DmStopServiceReceiver();
+            var stopServIntentFilter = new IntentFilter(ShutdownDmServerService.StopServerServiceAction) { Priority = (int)IntentFilterPriority.HighPriority };
+            RegisterReceiver(_stopServiceReceiver, stopServIntentFilter);
+
+            Log.Debug(TAG, "DemoService started");
+
+            StartServiceInForeground();
+
+            Toast.MakeText(this, "The dm service has started", ToastLength.Long).Show();
+            StartServer();
+
+            
+        }
 
         /// <summary>
         /// Stop the IP network server and wait for thread to finish.
@@ -405,7 +455,7 @@ namespace GoSteve.Services
                 _serverThread.Join();
                 _serverThread = null;
                 _server = null;
-                setServerRunning(false);
+                SetServerRunning(false);
             }
         }
 
@@ -426,7 +476,7 @@ namespace GoSteve.Services
         /// <summary>
         /// Stop the service. Called by OnDestroy()
         /// </summary>
-        public void StopService()
+        public void StopDMService()
         {
             Toast.MakeText(this, "The dm service has stopped", ToastLength.Long).Show();
             NotificationManager nManager =
@@ -438,6 +488,19 @@ namespace GoSteve.Services
                 UnregisterReceiver(_stopServiceReceiver);
             }
             StopServer();
+            // Remove Wifi Lock
+            // Release the wifi demons
+            if (wifiLock != null && wifiLock.IsHeld)
+            {
+                wifiLock.Release();
+            }
+
+            // Remove Wake Lock
+            // Relaese the power demons
+            if (wakeLock != null && wakeLock.IsHeld)
+            {
+                wakeLock.Release();
+            }
         }
 
         /// <summary>
@@ -534,7 +597,7 @@ namespace GoSteve.Services
 
                 if (service != null)
                 {
-                    service.StopService();
+                    service.StopDMService();
                 }
 
                 InvokeAbortBroadcast();

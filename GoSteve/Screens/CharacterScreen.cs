@@ -256,7 +256,7 @@ namespace GoSteve.Screens
             if (_cs != null && !_isDM)
             {
                 CharacterSheet.WriteToFile(_cs);
-                RunOnUiThread(() => Toast.MakeText(this, "Saved", ToastLength.Long));
+                Toast.MakeText(this, "Saved", ToastLength.Long).Show();
             }
         }
 
