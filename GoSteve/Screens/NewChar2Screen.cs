@@ -220,7 +220,7 @@ namespace GoSteve
                         }
                         break;
                     case 14:
-                        if (numPoints > 0)
+                        if (numPoints > 1)
                         {
                             str = 15;
                             numPoints -= 2;
@@ -346,7 +346,7 @@ namespace GoSteve
                         }
                         break;
                     case 14:
-                        if (numPoints > 0)
+                        if (numPoints > 1)
                         {
                             dex = 15;
                             numPoints -= 2;
@@ -472,7 +472,7 @@ namespace GoSteve
                         }
                         break;
                     case 14:
-                        if (numPoints > 0)
+                        if (numPoints > 1)
                         {
                             con = 15;
                             numPoints -= 2;
@@ -598,7 +598,7 @@ namespace GoSteve
                         }
                         break;
                     case 14:
-                        if (numPoints > 0)
+                        if (numPoints > 1)
                         {
                             intel = 15;
                             numPoints -= 2;
@@ -724,7 +724,7 @@ namespace GoSteve
                         }
                         break;
                     case 14:
-                        if (numPoints > 0)
+                        if (numPoints > 1)
                         {
                             wis = 15;
                             numPoints -= 2;
@@ -850,7 +850,7 @@ namespace GoSteve
                         }
                         break;
                     case 14:
-                        if (numPoints > 0)
+                        if (numPoints > 1)
                         {
                             cha = 15;
                             numPoints -= 2;
