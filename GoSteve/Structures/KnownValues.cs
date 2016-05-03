@@ -25,7 +25,8 @@ namespace GoSteve
             GNOME,
             HALF_ELF,
             HALF_ORC,
-            TIEFLING
+            TIEFLING,
+            NONE
         }
 
         public enum SubRace
