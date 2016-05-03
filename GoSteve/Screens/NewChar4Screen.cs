@@ -688,7 +688,7 @@ namespace GoSteve
                 {
                     if (c != null)
                     {
-                        RunOnUiThread(() => Toast.MakeText(this, "Saved", ToastLength.Long));
+                        Toast.MakeText(this, "Saved", ToastLength.Long).Show();
                         CharacterSheet.WriteToFile(c);
                     }
                     var charScreen = new Intent(this, typeof(CharacterScreen));
