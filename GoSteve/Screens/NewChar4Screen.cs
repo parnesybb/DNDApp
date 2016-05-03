@@ -453,10 +453,12 @@ namespace GoSteve
                 if(numSkillsChosen < numMaxSkills)
                 {
                     errMsg.Text = "YOU DID NOT PICK ALL OF YOUR SKILLS";
+                    numSkillsChosen = 0;
                 }
                 else if(numSkillsChosen > numMaxSkills)
                 {
                     errMsg.Text = "YOU HAVE CHOSEN TOO MANY SKILLS";
+                    numSkillsChosen = 0;
                 }
                 else
                 {
