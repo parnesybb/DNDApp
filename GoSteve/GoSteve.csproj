@@ -83,6 +83,11 @@
     <Compile Include="Screens\NewChar2Screen.cs" />
     <Compile Include="Screens\NewChar3Screen.cs" />
     <Compile Include="Screens\NewChar4Screen.cs" />
+    <Compile Include="Screens\NewCharOptionsScreen.cs" />
+    <Compile Include="Screens\Tutorial1Screen.cs" />
+    <Compile Include="Screens\Tutorial2Screen.cs" />
+    <Compile Include="Screens\Tutorial3Screen.cs" />
+    <Compile Include="Screens\Tutorial4Screen.cs" />
     <Compile Include="Services\DmServerService.cs" />
     <Compile Include="Services\ShutdownDmServerService.cs" />
     <Compile Include="Structures\Campaign.cs" />
@@ -163,6 +168,9 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\newChar4.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\NewCharOptions.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <None Include="Resources\xml\AboutResources.txt" />
