@@ -336,6 +336,9 @@ namespace GoSteve
 			// aapt resource value: 0x7f06006a
 			public const int continueButton = 2131099754;
 			
+			// aapt resource value: 0x7f0600b5
+			public const int createBtn = 2131099829;
+			
 			// aapt resource value: 0x7f0600a6
 			public const int deceptionChk = 2131099814;
 			
@@ -477,44 +480,44 @@ namespace GoSteve
 			// aapt resource value: 0x7f0600aa
 			public const int investigationChk = 2131099818;
 			
-			// aapt resource value: 0x7f0600b5
-			public const int item0 = 2131099829;
-			
-			// aapt resource value: 0x7f0600b6
-			public const int item1 = 2131099830;
-			
-			// aapt resource value: 0x7f0600bf
-			public const int item10 = 2131099839;
-			
-			// aapt resource value: 0x7f0600c0
-			public const int item11 = 2131099840;
-			
-			// aapt resource value: 0x7f0600c1
-			public const int item12 = 2131099841;
-			
 			// aapt resource value: 0x7f0600b7
-			public const int item2 = 2131099831;
+			public const int item0 = 2131099831;
 			
 			// aapt resource value: 0x7f0600b8
-			public const int item3 = 2131099832;
+			public const int item1 = 2131099832;
+			
+			// aapt resource value: 0x7f0600c1
+			public const int item10 = 2131099841;
+			
+			// aapt resource value: 0x7f0600c2
+			public const int item11 = 2131099842;
+			
+			// aapt resource value: 0x7f0600c3
+			public const int item12 = 2131099843;
 			
 			// aapt resource value: 0x7f0600b9
-			public const int item4 = 2131099833;
+			public const int item2 = 2131099833;
 			
 			// aapt resource value: 0x7f0600ba
-			public const int item5 = 2131099834;
+			public const int item3 = 2131099834;
 			
 			// aapt resource value: 0x7f0600bb
-			public const int item6 = 2131099835;
+			public const int item4 = 2131099835;
 			
 			// aapt resource value: 0x7f0600bc
-			public const int item7 = 2131099836;
+			public const int item5 = 2131099836;
 			
 			// aapt resource value: 0x7f0600bd
-			public const int item8 = 2131099837;
+			public const int item6 = 2131099837;
 			
 			// aapt resource value: 0x7f0600be
-			public const int item9 = 2131099838;
+			public const int item7 = 2131099838;
+			
+			// aapt resource value: 0x7f0600bf
+			public const int item8 = 2131099839;
+			
+			// aapt resource value: 0x7f0600c0
+			public const int item9 = 2131099840;
 			
 			// aapt resource value: 0x7f060000
 			public const int linearLayout1 = 2131099648;
@@ -627,6 +630,9 @@ namespace GoSteve
 			// aapt resource value: 0x7f0600b3
 			public const int survivalChk = 2131099827;
 			
+			// aapt resource value: 0x7f0600b6
+			public const int tutorialBtn = 2131099830;
+			
 			// aapt resource value: 0x7f06009b
 			public const int warlockBtn = 2131099803;
 			
@@ -702,6 +708,9 @@ namespace GoSteve
 			
 			// aapt resource value: 0x7f03000d
 			public const int newChar4 = 2130903053;
+			
+			// aapt resource value: 0x7f03000e
+			public const int NewCharOptions = 2130903054;
 			
 			static Layout()
 			{

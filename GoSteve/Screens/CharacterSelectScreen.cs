@@ -30,7 +30,7 @@ namespace GoSteve
 
             newCharButton.Click += (s, arg) =>
             {
-                StartActivity(typeof(NewChar1Screen));
+                StartActivity(typeof(NewCharOptionsScreen));
             };
 
             // Open menu of saved character sheets.
