@@ -158,7 +158,7 @@ namespace GoSteve
                 desc = "Wild and enigmatic, varied in form and function, the power of magic draws students who seek to master its mysteries.  Some aspire to become like the gods, shaping reality itself.  Though the casting of a typical spell requires merely the utterance of a few strange words, fleeting gestures, and sometimes a pinch or clump of exotic materials, these surface components barely hint at the expertise attained after years of apprenticeship and countless hours of study. \nIntelligence and Dexterity are most important to Wizards.";
                 classDesc.Text = desc;
                 wizardBtn.SetTextColor(Android.Graphics.Color.DarkCyan);
-                theClass = KnownValues.ClassType.WIZARD;
+                c.SetClass(KnownValues.ClassType.WIZARD, true);
 
                 continueBtn.SetTextColor(Android.Graphics.Color.DarkCyan);
             });
@@ -167,7 +167,6 @@ namespace GoSteve
 
             continueBtn.Click += (s, arg) =>
             {
-                cs.SetClass(theClass, true);
                 var charScreen = new Intent(this, typeof(Tutorial3Screen));
                 var gsMsg1 = new GSActivityMessage();
                 gsMsg1.Message = CharacterSheet.GetBytes(c);

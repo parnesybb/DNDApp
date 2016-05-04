@@ -900,12 +900,6 @@ namespace GoSteve
 
                 remPoints.Text = "Remaining Points: 0";
 
-                continueBtn.SetTextColor(Android.Graphics.Color.DarkCyan);
-            });
-            alert.Show();
-
-            continueBtn.Click += (s, arg) =>
-            {  
                 c.AbilitiesAndStats.Strength = 8;
                 c.AbilitiesAndStats.Dex = 15;
                 c.AbilitiesAndStats.Con = 10;
@@ -913,6 +907,12 @@ namespace GoSteve
                 c.AbilitiesAndStats.Intel = 11;
                 c.AbilitiesAndStats.Charisma = 12;
 
+                continueBtn.SetTextColor(Android.Graphics.Color.DarkCyan);
+            });
+            alert.Show();
+
+            continueBtn.Click += (s, arg) =>
+            {  
                 var charScreen = new Intent(this, typeof(Tutorial4Screen));
                 var gsMsg1 = new GSActivityMessage();
                 gsMsg1.Message = CharacterSheet.GetBytes(c);

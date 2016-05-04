@@ -439,7 +439,7 @@ namespace GoSteve
             }
 
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
-            alert.SetMessage("In the final step of our creation process, we will choose skills that our Hero will be good at.  Note that certain skills will be off limits or may already be chosen for you based on the choices of Race, Class and Background that were made earlier in the creation process.  Because Harry Potter is a Wizard, the skills available to him are as follows: Arcana, History, Insight, Investigation, Medicine, and Religion.  Note that due to his Background of Folk Hero, Animal Handling and Survival were chosen for him.  Because he is a Wizard, he gets two additional skills, which will be Arcana and Investigation.  Press the Continue button to proceed.");
+            alert.SetMessage("In the final step of our creation process, we will choose skills that our Hero will be good at.  Note that certain skills will be off limits or may already be chosen for you based on the choices of Race, Class and Background that were made earlier in the creation process.  Because Harry Potter is a Wizard, the skills available to him are as follows: Arcana, History, Insight, Investigation, Medicine, and Religion.  Note that due to his Background of Folk Hero, Animal Handling and Survival were chosen for him.  Because he is a Wizard, he gets two additional skills, which will be Arcana and Investigation.  Press the continue button to conclude the tutorial.");
             alert.SetCancelable(false);
             alert.SetPositiveButton("OK", delegate
             {
@@ -450,8 +450,17 @@ namespace GoSteve
                 {
                     chk.Enabled = false;
                 }
-
-                continueBtn.SetTextColor(Android.Graphics.Color.DarkCyan);
+                alert.SetMessage("This concludes our character creation tutorial!");
+                alert.SetPositiveButton("OK", delegate
+                {
+                    alert.SetMessage("CONGRATULATIONS!  YOU'RE A WIZARD HARRY!");
+                    alert.SetPositiveButton("OK", delegate
+                    {
+                        continueBtn.SetTextColor(Android.Graphics.Color.DarkCyan);
+                    });
+                    alert.Show();
+                });
+                alert.Show();
             });
             alert.Show();
 
@@ -459,11 +468,7 @@ namespace GoSteve
 
             continueBtn.Click += (s, arg) =>
             {
-                var charScreen = new Intent(this, typeof(TutorialCharacterScreen));
-                var gsMsg1 = new GSActivityMessage();
-                gsMsg1.Message = CharacterSheet.GetBytes(c);
-                charScreen.PutExtra(gsMsg1.CharacterMessage, gsMsg1.Message);
-                StartActivity(charScreen);
+                StartActivity(typeof(DNDMainMenuScreen));
             };
         }
     }
