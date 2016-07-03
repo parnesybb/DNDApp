@@ -45,6 +45,7 @@ namespace GoSteve
             Button sorcerorBtn = FindViewById<Button>(Resource.Id.sorcerorBtn);
             Button warlockBtn = FindViewById<Button>(Resource.Id.warlockBtn);
             Button wizardBtn = FindViewById<Button>(Resource.Id.wizardBtn);
+            Button bloodhunterBtn = FindViewById<Button>(Resource.Id.bloodhunterBtn);
             Button continueBtn = FindViewById<Button>(Resource.Id.continueBtn);
 
             barbarianBtn.Click += (s, arg) =>
@@ -141,6 +142,14 @@ namespace GoSteve
                 classDesc.Text = desc;
                 theClass = KnownValues.ClassType.WIZARD;
                 //c.SetClass(KnownValues.ClassType.WIZARD, true);
+            };
+
+            bloodhunterBtn.Click += (s, arg) =>
+            {
+                desc = "These warriors have chosen to merge the martial pursuit of deadly weapon play with elements of vicious blood magic to create impressively effective combat techniques.  They surrender their own vitality to form a bond with their weapon, allowing them to harness the elements in a whirlwind of dangerous strikes.  Their deep knowledge and unnatural connection with wicked creatures allows them advantage in tracking, hunting, and destroying even the most resilient of abhorrent fiends.  \nStrength and Wisdom are most important to Bloodhunters.";
+                classDesc.Text = desc;
+                theClass = KnownValues.ClassType.BLOODHUNTER;
+                //c.setclass(knownvalues.classtype.bloodhunter, true);
             };
 
             continueBtn.Click += (s, arg) =>

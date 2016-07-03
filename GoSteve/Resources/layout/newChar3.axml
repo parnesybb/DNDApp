@@ -100,11 +100,17 @@
         p1:layout_below="@+id/rogueBtn"
         p1:layout_toRightOf="@+id/warlockBtn"
         p1:id="@+id/wizardBtn" />
+    <Button
+        p1:text="Bloodhunter"
+        p1:layout_width="130.0dp"
+        p1:layout_height="47.0dp"
+        p1:layout_below="@+id/sorcerorBtn"
+        p1:id="@+id/bloodhunterBtn" />
     <TextView
         p1:textAppearance="?android:attr/textAppearanceSmall"
         p1:layout_width="match_parent"
-        p1:layout_height="227.0dp"
-        p1:layout_below="@+id/sorcerorBtn"
+        p1:layout_height="192.0dp"
+        p1:layout_below="@+id/bloodhunterBtn"
         p1:id="@+id/classDesc"
         p1:textColor="@android:color/holo_blue_bright" />
     <Button

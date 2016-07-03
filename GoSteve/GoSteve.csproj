@@ -93,13 +93,18 @@
     <Compile Include="Structures\Campaign.cs" />
     <Compile Include="Structures\CharacterSheet.cs" />
     <Compile Include="Buttons\CharacterButton.cs" />
+    <Compile Include="Structures\Classes\Bloodhunter.cs" />
     <Compile Include="Structures\HitDice.cs" />
     <Compile Include="Structures\HitPoints.cs" />
     <Compile Include="Structures\Currency.cs" />
+    <Compile Include="Structures\Races\Aarakocra.cs" />
+    <Compile Include="Structures\Races\Aasimar.cs" />
     <Compile Include="Structures\Races\Dragonborn.cs" />
     <Compile Include="Structures\Races\Dwarf.cs" />
     <Compile Include="Structures\Races\Elf.cs" />
+    <Compile Include="Structures\Races\Genasi.cs" />
     <Compile Include="Structures\Races\Gnome.cs" />
+    <Compile Include="Structures\Races\Goliath.cs" />
     <Compile Include="Structures\Races\HalfElf.cs" />
     <Compile Include="Structures\Races\Halfling.cs" />
     <Compile Include="Structures\Races\HalfOrc.cs" />
@@ -201,7 +206,9 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\uparrow.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <AndroidResource Include="Resources\xml\genasiSub.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Android.Support.Vector.Drawable.23.3.0\build\Xamarin.Android.Support.Vector.Drawable.targets" Condition="Exists('..\packages\Xamarin.Android.Support.Vector.Drawable.23.3.0\build\Xamarin.Android.Support.Vector.Drawable.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

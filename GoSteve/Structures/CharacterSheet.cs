@@ -178,6 +178,9 @@ namespace GoSteve
                 case KnownValues.ClassType.WIZARD:
                     this._class = new Wizard();
                     break;
+                case KnownValues.ClassType.BLOODHUNTER:
+                    this._class = new Bloodhunter();
+                    break;
                 default:
                     break;
             }
@@ -258,6 +261,12 @@ namespace GoSteve
         {
             switch (r)
             {
+                case KnownValues.Race.AARAKOCRA:
+                    this._race = new Aarakocra();
+                    break;
+                case KnownValues.Race.AASIMAR:
+                    this._race = new Aasimar();
+                    break;
                 case KnownValues.Race.DWARF:
                     this._race = new Dwarf();
                     break;
@@ -272,6 +281,12 @@ namespace GoSteve
                     break;
                 case KnownValues.Race.DRAGONBORN:
                     this._race = new Dragonborn();
+                    break;
+                case KnownValues.Race.GENASI:
+                    this._race = new Genasi();
+                    break;
+                case KnownValues.Race.GOLIATH:
+                    this._race = new Goliath();
                     break;
                 case KnownValues.Race.GNOME:
                     this._race = new Gnome();
