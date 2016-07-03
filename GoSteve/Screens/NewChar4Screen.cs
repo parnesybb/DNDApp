@@ -93,6 +93,21 @@ namespace GoSteve
                 case KnownValues.SubRace.WOOD_ELF:
                     race = "Wood Elf";
                     break;
+                case KnownValues.SubRace.AIR_GENASI:
+                    race = "Air Genasi";
+                    break;
+                case KnownValues.SubRace.DEEP_GNOME:
+                    race = "Deep Gnome";
+                    break;
+                case KnownValues.SubRace.EARTH_GENASI:
+                    race = "Earth Genasi";
+                    break;
+                case KnownValues.SubRace.FIRE_GENASI:
+                    race = "Fire Genasi";
+                    break;
+                case KnownValues.SubRace.WATER_GENASI:
+                    race = "Water Genasi";
+                    break;
                 default:
                     race = "NOT FOUND";
                     break;

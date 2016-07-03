@@ -75,6 +75,21 @@ namespace GoSteve
 
             switch (c.RaceInstance.SubRace)
             {
+                case KnownValues.SubRace.AIR_GENASI:
+                    raceLabel.Text = "Air Genasi";
+                    break;
+                case KnownValues.SubRace.DEEP_GNOME:
+                    raceLabel.Text = "Deep Gnome";
+                    break;
+                case KnownValues.SubRace.EARTH_GENASI:
+                    raceLabel.Text = "Earth Genasi";
+                    break;
+                case KnownValues.SubRace.FIRE_GENASI:
+                    raceLabel.Text = "Fire Genasi";
+                    break;
+                case KnownValues.SubRace.WATER_GENASI:
+                    raceLabel.Text = "Water Genasi";
+                    break;
                 case KnownValues.SubRace.DARK_ELF:
                     raceLabel.Text = "Dark Elf";
                     break;
