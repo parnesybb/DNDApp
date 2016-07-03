@@ -32,7 +32,7 @@ namespace GoSteve.Structures.Races
 
             set
             {
-                if (value == KnownValues.SubRace.ROCK_GNOME || value == KnownValues.SubRace.FOREST_GNOME)
+                if (value == KnownValues.SubRace.ROCK_GNOME || value == KnownValues.SubRace.FOREST_GNOME || value == KnownValues.SubRace.DEEP_GNOME)
                 {
                     this._subRace = value;
                 }
@@ -44,16 +44,22 @@ namespace GoSteve.Structures.Races
             var ret = new List<string>();
 
             ret.Add("Gnome Cunning");
-            ret.Add("Dark Vision - 60ft");
 
             if (this._subRace == KnownValues.SubRace.FOREST_GNOME)
             {
+                ret.Add("Dark Vision - 60ft");
                 ret.Add("Natural Illusionist");
                 ret.Add("Speak with Small Beasts");
             }
             else if (this._subRace == KnownValues.SubRace.ROCK_GNOME)
             {
+                ret.Add("Dark Vision - 60ft");
                 ret.Add("Artificer's Lore");
+            }
+            else if(this._subRace == KnownValues.SubRace.DEEP_GNOME)
+            {
+                ret.Add("Superior Darkvision");
+                ret.Add("Stone Camouflage");
             }
 
             return ret.ToArray();
@@ -69,6 +75,10 @@ namespace GoSteve.Structures.Races
             if (this._subRace == KnownValues.SubRace.ROCK_GNOME)
             {
                 ret.Add("Tinker");
+            }
+            else if(this._subRace == KnownValues.SubRace.DEEP_GNOME)
+            {
+                ret.Add("Undercommon");
             }
 
             return ret.ToArray();
