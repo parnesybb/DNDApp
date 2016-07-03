@@ -61,6 +61,39 @@ namespace GoSteve.Structures.Classes
         {
             switch (r.Race)
             {
+                case KnownValues.Race.AARAKOCRA:
+                    this.Dex += 2;
+                    this.Wisdom += 1;
+                    break;
+                case KnownValues.Race.GENASI:
+                    this.Con += 2;
+
+                    if(r.SubRace == KnownValues.SubRace.AIR_GENASI)
+                    {
+                        this.Dex += 1;
+                    }
+                    else if(r.SubRace == KnownValues.SubRace.EARTH_GENASI)
+                    {
+                        this.Strength += 1;
+                    }
+                    else if(r.SubRace == KnownValues.SubRace.FIRE_GENASI)
+                    {
+                        this.Intel += 1;
+                    }
+                    else if(r.SubRace == KnownValues.SubRace.WATER_GENASI)
+                    {
+                        this.Wisdom += 1;
+                    }
+                    break;
+                case KnownValues.Race.GOLIATH:
+                    this.Strength += 2;
+                    this.Con += 1;
+                    this._skills.SetProficient = KnownValues.SkillType.Athletics;
+                    break;
+                case KnownValues.Race.AASIMAR:
+                    this.Charisma += 2;
+                    this.Wisdom += 1;
+                    break;
                 case KnownValues.Race.DWARF:
                     this.Con += 2;
 
@@ -130,6 +163,10 @@ namespace GoSteve.Structures.Classes
                     {
                         this.Con += 1;
                     }
+                    else if(r.SubRace == KnownValues.SubRace.DEEP_GNOME)
+                    {
+                        this.Dex += 1;
+                    }
                     break;
 
                 case KnownValues.Race.HALF_ELF:
@@ -171,6 +208,10 @@ namespace GoSteve.Structures.Classes
                 case KnownValues.ClassType.BARD:
                     this._savingThrows.IsDexProf = true;
                     this._savingThrows.IsChrmProf = true;
+                    break;
+                case KnownValues.ClassType.BLOODHUNTER:
+                    this._savingThrows.IsStrProf = true;
+                    this._savingThrows.IsWisProf = true;
                     break;
                 case KnownValues.ClassType.CLERIC:
                     this._savingThrows.IsWisProf = true;

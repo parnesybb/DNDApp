@@ -84,6 +84,18 @@ namespace GoSteve
 
                     switch (pickRace.Text)
                     {
+                        case "Aarakocra":
+                            instructionSubRace.Visibility = ViewStates.Invisible;
+                            pickSub.Visibility = ViewStates.Invisible;
+                            theRace = KnownValues.Race.AARAKOCRA;
+                            theSubRace = KnownValues.SubRace.NONE;
+                            break;
+                        case "Aasimar":
+                            instructionSubRace.Visibility = ViewStates.Invisible;
+                            pickSub.Visibility = ViewStates.Invisible;
+                            theRace = KnownValues.Race.AASIMAR;
+                            theSubRace = KnownValues.SubRace.NONE;
+                            break;
                         case "Dragonborn":
                             instructionSubRace.Visibility = ViewStates.Invisible;
                             pickSub.Visibility = ViewStates.Invisible;
@@ -105,6 +117,18 @@ namespace GoSteve
                             theRace = KnownValues.Race.ELF;
                             theSubRace = KnownValues.SubRace.NONE;
                             //c.SetRace(KnownValues.Race.ELF, true);
+                            break;
+                        case "Genasi":
+                            instructionSubRace.Visibility = ViewStates.Visible;
+                            pickSub.Visibility = ViewStates.Visible;
+                            theRace = KnownValues.Race.GENASI;
+                            theSubRace = KnownValues.SubRace.NONE;
+                            break;
+                        case "Goliath":
+                            instructionSubRace.Visibility = ViewStates.Invisible;
+                            pickSub.Visibility = ViewStates.Invisible;
+                            theRace = KnownValues.Race.GOLIATH;
+                            theSubRace = KnownValues.SubRace.NONE;
                             break;
                         case "Gnome":
                             instructionSubRace.Visibility = ViewStates.Visible;
@@ -176,6 +200,9 @@ namespace GoSteve
                         m.Inflate(Resource.Xml.elfSub);
                         //c.setSubRace(KnownValues.SubRace.NONE);
                         break;
+                    case "Genasi":
+                        m.Inflate(Resource.Xml.genasiSub);
+                        break;
                     case "Gnome":
                         //pickSub.Text = "Pick a Sub Race";
                         m.Inflate(Resource.Xml.gnomeSub);
@@ -216,6 +243,18 @@ namespace GoSteve
                             theSubRace = KnownValues.SubRace.DARK_ELF;
                             // c.setSubRace(KnownValues.SubRace.DARK_ELF);
                             break;
+                        case "Air":
+                            theSubRace = KnownValues.SubRace.AIR_GENASI;
+                            break;
+                        case "Earth":
+                            theSubRace = KnownValues.SubRace.EARTH_GENASI;
+                            break;
+                        case "Fire":
+                            theSubRace = KnownValues.SubRace.FIRE_GENASI;
+                            break;
+                        case "Water":
+                            theSubRace = KnownValues.SubRace.WATER_GENASI;
+                            break;
                         case "Rock":
                             theSubRace = KnownValues.SubRace.ROCK_GNOME;
                             // c.setSubRace(KnownValues.SubRace.ROCK_GNOME);
@@ -223,6 +262,9 @@ namespace GoSteve
                         case "Forest":
                             theSubRace = KnownValues.SubRace.FOREST_GNOME;
                             // c.setSubRace(KnownValues.SubRace.FOREST_GNOME);
+                            break;
+                        case "Deep":
+                            theSubRace = KnownValues.SubRace.DEEP_GNOME;
                             break;
                         case "Lightfoot":
                             theSubRace = KnownValues.SubRace.LIGHTFOOT_HALFLING;

@@ -17,11 +17,15 @@ namespace GoSteve
 
         public enum Race
         {
+            AARAKOCRA,
+            AASIMAR,
             DWARF,
             ELF,
             HALFLING,
             HUMAN,
             DRAGONBORN,
+            GENASI,
+            GOLIATH,
             GNOME,
             HALF_ELF,
             HALF_ORC,
@@ -40,7 +44,12 @@ namespace GoSteve
             LIGHTFOOT_HALFLING,
             STOUT_HALFLING,
             FOREST_GNOME,
-            ROCK_GNOME
+            ROCK_GNOME,
+            DEEP_GNOME,
+            AIR_GENASI,
+            EARTH_GENASI,
+            FIRE_GENASI,
+            WATER_GENASI
         }
 
         public enum Background

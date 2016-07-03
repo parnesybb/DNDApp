@@ -787,13 +787,16 @@ namespace GoSteve
 			public const int elfSub = 2130968580;
 			
 			// aapt resource value: 0x7f040005
-			public const int gnomeSub = 2130968581;
+			public const int genasiSub = 2130968581;
 			
 			// aapt resource value: 0x7f040006
-			public const int halflingSub = 2130968582;
+			public const int gnomeSub = 2130968582;
 			
 			// aapt resource value: 0x7f040007
-			public const int RaceList = 2130968583;
+			public const int halflingSub = 2130968583;
+			
+			// aapt resource value: 0x7f040008
+			public const int RaceList = 2130968584;
 			
 			static Xml()
 			{
