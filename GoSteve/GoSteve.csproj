@@ -93,6 +93,7 @@
     <Compile Include="Structures\Campaign.cs" />
     <Compile Include="Structures\CharacterSheet.cs" />
     <Compile Include="Buttons\CharacterButton.cs" />
+    <Compile Include="Structures\Classes\Bloodhunter.cs" />
     <Compile Include="Structures\HitDice.cs" />
     <Compile Include="Structures\HitPoints.cs" />
     <Compile Include="Structures\Currency.cs" />

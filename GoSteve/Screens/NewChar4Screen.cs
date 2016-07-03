@@ -28,6 +28,8 @@ namespace GoSteve
             var race = "";
             var numMaxSkills = 0;
             var numSkillsChosen = 0;
+            var numBGSkills = 0;
+            var numBGSkillsChosen = 0;
 
             base.OnCreate(bundle);
 
@@ -58,129 +60,6 @@ namespace GoSteve
             Button continueBtn = FindViewById<Button>(Resource.Id.continueBtn);
 
             CheckBox[] chks = { acrobaticsChk, animalhandlingChk, arcanaChk, athleticsChk, deceptionChk, historyChk, insightChk, intimidationChk, investigationChk, medicineChk, natureChk, perceptionChk, performanceChk, persuasionChk, religionChk, sleightChk, stealthChk, survivalChk };
-
-            switch(c.Background)
-            {
-                case KnownValues.Background.ACOLYTE:
-                    bg = "Acolyte";
-                    insightChk.Checked = true;
-                    insightChk.Enabled = false;
-                    insightChk.SetTextColor(Android.Graphics.Color.Cyan);
-                    religionChk.Checked = true;
-                    religionChk.Enabled = false;
-                    religionChk.SetTextColor(Android.Graphics.Color.Cyan);
-                    break;
-                case KnownValues.Background.CHARLATAN:
-                    bg = "Charlatan";
-                    deceptionChk.Checked = true;
-                    deceptionChk.Enabled = false;
-                    deceptionChk.SetTextColor(Android.Graphics.Color.Cyan);
-                    sleightChk.Checked = true;
-                    sleightChk.Enabled = false;
-                    sleightChk.SetTextColor(Android.Graphics.Color.Cyan);
-                    break;
-                case KnownValues.Background.CRIMINAL:
-                    bg = "Criminal";
-                    deceptionChk.Checked = true;
-                    deceptionChk.Enabled = false;
-                    deceptionChk.SetTextColor(Android.Graphics.Color.Cyan);
-                    stealthChk.Checked = true;
-                    stealthChk.Enabled = false;
-                    stealthChk.SetTextColor(Android.Graphics.Color.Cyan);
-                    break;
-                case KnownValues.Background.ENTERTAINER:
-                    bg = "Entertainer";
-                    acrobaticsChk.Checked = true;
-                    acrobaticsChk.Enabled = false;
-                    acrobaticsChk.SetTextColor(Android.Graphics.Color.Cyan);
-                    performanceChk.Checked = true;
-                    performanceChk.Enabled = false;
-                    performanceChk.SetTextColor(Android.Graphics.Color.Cyan);
-                    break;
-                case KnownValues.Background.FOLK_HERO:
-                    bg = "Folk Hero";
-                    animalhandlingChk.Checked = true;
-                    animalhandlingChk.Enabled = false;
-                    animalhandlingChk.SetTextColor(Android.Graphics.Color.Cyan);
-                    survivalChk.Checked = true;
-                    survivalChk.Enabled = false;
-                    survivalChk.SetTextColor(Android.Graphics.Color.Cyan);
-                    break;
-                case KnownValues.Background.GUILD_ARTISAN:
-                    bg = "Guild Artisan";
-                    insightChk.Checked = true;
-                    insightChk.Enabled = false;
-                    insightChk.SetTextColor(Android.Graphics.Color.Cyan);
-                    persuasionChk.Checked = true;
-                    persuasionChk.Enabled = false;
-                    persuasionChk.SetTextColor(Android.Graphics.Color.Cyan);
-                    break;
-                case KnownValues.Background.HERMIT:
-                    bg = "Hermit";
-                    medicineChk.Checked = true;
-                    medicineChk.Enabled = false;
-                    medicineChk.SetTextColor(Android.Graphics.Color.Cyan);
-                    religionChk.Checked = true;
-                    religionChk.Enabled = false;
-                    religionChk.SetTextColor(Android.Graphics.Color.Cyan);
-                    break;
-                case KnownValues.Background.NOBLE:
-                    bg = "Noble";
-                    historyChk.Checked = true;
-                    historyChk.Enabled = false;
-                    historyChk.SetTextColor(Android.Graphics.Color.Cyan);
-                    persuasionChk.Checked = true;
-                    persuasionChk.Enabled = false;
-                    persuasionChk.SetTextColor(Android.Graphics.Color.Cyan);
-                    break;
-                case KnownValues.Background.OUTLANDER:
-                    bg = "Outlander";
-                    athleticsChk.Checked = true;
-                    athleticsChk.Enabled = false;
-                    athleticsChk.SetTextColor(Android.Graphics.Color.Cyan);
-                    survivalChk.Checked = true;
-                    survivalChk.Enabled = false;
-                    survivalChk.SetTextColor(Android.Graphics.Color.Cyan);
-                    break;
-                case KnownValues.Background.SAGE:
-                    bg = "Sage";
-                    arcanaChk.Checked = true;
-                    arcanaChk.Enabled = false;
-                    arcanaChk.SetTextColor(Android.Graphics.Color.Cyan);
-                    historyChk.Checked = true;
-                    historyChk.Enabled = false;
-                    historyChk.SetTextColor(Android.Graphics.Color.Cyan);
-                    break;
-                case KnownValues.Background.SAILOR:
-                    bg = "Sailor";
-                    athleticsChk.Checked = true;
-                    athleticsChk.Enabled = false;
-                    athleticsChk.SetTextColor(Android.Graphics.Color.Cyan);
-                    perceptionChk.Checked = true;
-                    perceptionChk.Enabled = false;
-                    perceptionChk.SetTextColor(Android.Graphics.Color.Cyan);
-                    break;
-                case KnownValues.Background.SOLDIER:
-                    bg = "Soldier";
-                    athleticsChk.Checked = true;
-                    athleticsChk.Enabled = false;
-                    athleticsChk.SetTextColor(Android.Graphics.Color.Cyan);
-                    intimidationChk.Checked = true;
-                    intimidationChk.Enabled = false;
-                    intimidationChk.SetTextColor(Android.Graphics.Color.Cyan);
-                    break;
-                case KnownValues.Background.URCHIN:
-                    bg = "Urchin";
-                    sleightChk.Checked = true;
-                    sleightChk.Enabled = false;
-                    sleightChk.SetTextColor(Android.Graphics.Color.Cyan);
-                    stealthChk.Checked = true;
-                    stealthChk.Enabled = false;
-                    stealthChk.SetTextColor(Android.Graphics.Color.Cyan);
-                    break;
-                default:
-                    break;
-            }
 
             switch(c.RaceInstance.SubRace)
             {
@@ -256,6 +135,145 @@ namespace GoSteve
                     break;
                 case "Wizard":
                     numMaxSkills = 2;
+                    break;
+                case "Bloodhunter":
+                    numMaxSkills = 2;
+                    break;
+                default:
+                    break;
+            }
+
+            switch (c.Background)
+            {
+                case KnownValues.Background.ACOLYTE:
+                    bg = "Acolyte";
+                    insightChk.Checked = true;
+                    insightChk.Enabled = false;
+                    insightChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    religionChk.Checked = true;
+                    religionChk.Enabled = false;
+                    religionChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    break;
+                case KnownValues.Background.CHARLATAN:
+                    bg = "Charlatan";
+                    deceptionChk.Checked = true;
+                    deceptionChk.Enabled = false;
+                    deceptionChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    sleightChk.Checked = true;
+                    sleightChk.Enabled = false;
+                    sleightChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    break;
+                case KnownValues.Background.CRIMINAL:
+                    bg = "Criminal";
+                    deceptionChk.Checked = true;
+                    deceptionChk.Enabled = false;
+                    deceptionChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    stealthChk.Checked = true;
+                    stealthChk.Enabled = false;
+                    stealthChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    break;
+                case KnownValues.Background.ENTERTAINER:
+                    bg = "Entertainer";
+                    acrobaticsChk.Checked = true;
+                    acrobaticsChk.Enabled = false;
+                    acrobaticsChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    performanceChk.Checked = true;
+                    performanceChk.Enabled = false;
+                    performanceChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    break;
+                case KnownValues.Background.FOLK_HERO:
+                    bg = "Folk Hero";
+                    animalhandlingChk.Checked = true;
+                    animalhandlingChk.Enabled = false;
+                    animalhandlingChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    survivalChk.Checked = true;
+                    survivalChk.Enabled = false;
+                    survivalChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    break;
+                case KnownValues.Background.GUILD_ARTISAN:
+                    bg = "Guild Artisan";
+                    insightChk.Checked = true;
+                    insightChk.Enabled = false;
+                    insightChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    persuasionChk.Checked = true;
+                    persuasionChk.Enabled = false;
+                    persuasionChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    break;
+                case KnownValues.Background.HAUNTED_ONE:
+                    bg = "Haunted One";
+                    numMaxSkills += 2;
+                    numBGSkills = 2;
+                    arcanaChk.Enabled = true;
+                    arcanaChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    investigationChk.Enabled = true;
+                    investigationChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    religionChk.Enabled = true;
+                    religionChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    survivalChk.Enabled = true;
+                    survivalChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    break;
+                case KnownValues.Background.HERMIT:
+                    bg = "Hermit";
+                    medicineChk.Checked = true;
+                    medicineChk.Enabled = false;
+                    medicineChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    religionChk.Checked = true;
+                    religionChk.Enabled = false;
+                    religionChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    break;
+                case KnownValues.Background.NOBLE:
+                    bg = "Noble";
+                    historyChk.Checked = true;
+                    historyChk.Enabled = false;
+                    historyChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    persuasionChk.Checked = true;
+                    persuasionChk.Enabled = false;
+                    persuasionChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    break;
+                case KnownValues.Background.OUTLANDER:
+                    bg = "Outlander";
+                    athleticsChk.Checked = true;
+                    athleticsChk.Enabled = false;
+                    athleticsChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    survivalChk.Checked = true;
+                    survivalChk.Enabled = false;
+                    survivalChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    break;
+                case KnownValues.Background.SAGE:
+                    bg = "Sage";
+                    arcanaChk.Checked = true;
+                    arcanaChk.Enabled = false;
+                    arcanaChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    historyChk.Checked = true;
+                    historyChk.Enabled = false;
+                    historyChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    break;
+                case KnownValues.Background.SAILOR:
+                    bg = "Sailor";
+                    athleticsChk.Checked = true;
+                    athleticsChk.Enabled = false;
+                    athleticsChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    perceptionChk.Checked = true;
+                    perceptionChk.Enabled = false;
+                    perceptionChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    break;
+                case KnownValues.Background.SOLDIER:
+                    bg = "Soldier";
+                    athleticsChk.Checked = true;
+                    athleticsChk.Enabled = false;
+                    athleticsChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    intimidationChk.Checked = true;
+                    intimidationChk.Enabled = false;
+                    intimidationChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    break;
+                case KnownValues.Background.URCHIN:
+                    bg = "Urchin";
+                    sleightChk.Checked = true;
+                    sleightChk.Enabled = false;
+                    sleightChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    stealthChk.Checked = true;
+                    stealthChk.Enabled = false;
+                    stealthChk.SetTextColor(Android.Graphics.Color.Cyan);
                     break;
                 default:
                     break;
@@ -435,6 +453,21 @@ namespace GoSteve
                             checkbox.Enabled = false;
                         }
                         break;
+                    case "Bloodhunter":
+                        if (checkbox.CurrentTextColor == Android.Graphics.Color.Cyan)
+                        {
+                            continue;
+                        }
+                        else if(checkbox == athleticsChk || checkbox == acrobaticsChk || checkbox == arcanaChk || checkbox == insightChk || checkbox == investigationChk || checkbox == survivalChk)
+                        {
+                            checkbox.SetTextColor(Android.Graphics.Color.Cyan);
+                            checkbox.Enabled = true;
+                        }
+                        else
+                        {
+                            checkbox.Enabled = false;
+                        }
+                        break;
                 }
             }
 
@@ -442,36 +475,77 @@ namespace GoSteve
             
             continueBtn.Click += (s, arg) =>
             {
-                foreach(CheckBox chk in chks)
+                if (c.Background != KnownValues.Background.HAUNTED_ONE)
                 {
-                    if(chk.Checked == true && chk.Enabled == true)
+                    foreach (CheckBox chk in chks)
                     {
-                        numSkillsChosen++;
+                        if (chk.Checked == true && chk.Enabled == true)
+                        {
+                            numSkillsChosen++;
+                        }
                     }
-                }
 
-                if(numSkillsChosen < numMaxSkills)
-                {
-                    errMsg.Text = "YOU DID NOT PICK ALL OF YOUR SKILLS";
-                    numSkillsChosen = 0;
-                }
-                else if(numSkillsChosen > numMaxSkills)
-                {
-                    errMsg.Text = "YOU HAVE CHOSEN TOO MANY SKILLS";
-                    numSkillsChosen = 0;
+                    if (numSkillsChosen < numMaxSkills)
+                    {
+                        errMsg.Text = "YOU DID NOT PICK ALL OF YOUR SKILLS";
+                        numSkillsChosen = 0;
+                    }
+                    else if (numSkillsChosen > numMaxSkills)
+                    {
+                        errMsg.Text = "YOU HAVE CHOSEN TOO MANY SKILLS";
+                        numSkillsChosen = 0;
+                    }
+                    else
+                    {
+                        if (c != null)
+                        {
+                            Toast.MakeText(this, "Saved", ToastLength.Long).Show();
+                            CharacterSheet.WriteToFile(c);
+                        }
+                        var charScreen = new Intent(this, typeof(CharacterScreen));
+                        var gsMsg1 = new GSActivityMessage();
+                        gsMsg1.Message = CharacterSheet.GetBytes(c);
+                        charScreen.PutExtra(gsMsg1.CharacterMessage, gsMsg1.Message);
+                        StartActivity(charScreen);
+                    }
                 }
                 else
                 {
-                    if (c != null)
+                    foreach(CheckBox chk in chks)
                     {
-                        Toast.MakeText(this, "Saved", ToastLength.Long).Show();
-                        CharacterSheet.WriteToFile(c);
+                        if((chk != arcanaChk || chk != investigationChk || chk != religionChk || chk != survivalChk) && chk.Checked == true && chk.Enabled == true)
+                        {
+                            numSkillsChosen++;
+                        }
+                        else if(chk == arcanaChk || chk == investigationChk || chk == religionChk || chk == survivalChk)
+                        {
+                            numBGSkillsChosen++;
+                        }
                     }
-                    var charScreen = new Intent(this, typeof(CharacterScreen));
-                    var gsMsg1 = new GSActivityMessage();
-                    gsMsg1.Message = CharacterSheet.GetBytes(c);
-                    charScreen.PutExtra(gsMsg1.CharacterMessage, gsMsg1.Message);
-                    StartActivity(charScreen);
+
+                    if ((numSkillsChosen < numMaxSkills) || (numBGSkillsChosen < numBGSkills))
+                    {
+                        errMsg.Text = "YOU DID NOT PICK ALL OF YOUR SKILLS";
+                        numSkillsChosen = 0;
+                    }
+                    else if ((numSkillsChosen > numMaxSkills) || (numBGSkillsChosen > numBGSkills))
+                    {
+                        errMsg.Text = "YOU HAVE CHOSEN TOO MANY SKILLS";
+                        numSkillsChosen = 0;
+                    }
+                    else
+                    {
+                        if (c != null)
+                        {
+                            Toast.MakeText(this, "Saved", ToastLength.Long).Show();
+                            CharacterSheet.WriteToFile(c);
+                        }
+                        var charScreen = new Intent(this, typeof(CharacterScreen));
+                        var gsMsg1 = new GSActivityMessage();
+                        gsMsg1.Message = CharacterSheet.GetBytes(c);
+                        charScreen.PutExtra(gsMsg1.CharacterMessage, gsMsg1.Message);
+                        StartActivity(charScreen);
+                    }
                 }
             };
         }

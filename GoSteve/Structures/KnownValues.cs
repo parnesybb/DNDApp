@@ -51,6 +51,7 @@ namespace GoSteve
             ENTERTAINER,
             FOLK_HERO,
             GUILD_ARTISAN,
+            HAUNTED_ONE,
             HERMIT,
             NOBLE,
             NONE,
@@ -65,6 +66,7 @@ namespace GoSteve
         {
             BARBARIAN,
             BARD,
+            BLOODHUNTER,
             CLERIC,
             DRUID,
             FIGHTER,

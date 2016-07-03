@@ -5,6 +5,8 @@
   <item android:id="@+id/item1"
         android:title="Bard" />
   <item android:id="@+id/item1"
+        android:title="Bloodhunter" />
+  <item android:id="@+id/item1"
         android:title="Cleric" />
   <item android:id="@+id/item1"
         android:title="Druid" />
@@ -22,8 +24,6 @@
         android:title="Sorcerer" />
   <item android:id="@+id/item1"
         android:title="Rogue" />
-  <item android:id="@+id/item1"
-        android:title="Thief" />
   <item android:id="@+id/item1"
         android:title="Warlock" />
 </menu>

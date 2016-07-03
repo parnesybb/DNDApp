@@ -272,6 +272,9 @@ namespace GoSteve
                         case "Guild Artisan":
                             c.Background = KnownValues.Background.GUILD_ARTISAN;
                             break;
+                        case "Haunted One":
+                            c.Background = KnownValues.Background.HAUNTED_ONE;
+                            break;
                         case "Hermit":
                             c.Background = KnownValues.Background.HERMIT;
                             break;

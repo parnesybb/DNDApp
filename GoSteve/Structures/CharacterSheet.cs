@@ -178,6 +178,9 @@ namespace GoSteve
                 case KnownValues.ClassType.WIZARD:
                     this._class = new Wizard();
                     break;
+                case KnownValues.ClassType.BLOODHUNTER:
+                    this._class = new Bloodhunter();
+                    break;
                 default:
                     break;
             }
