@@ -160,45 +160,45 @@ namespace GoSteve
                     break;
             }
 
-            switch(c.ClassInstance.ToString().Substring(27))
+            switch(c.ClassInstance.Type)
             {
-                case "Barbarian":
+                case KnownValues.ClassType.BARBARIAN:
                     numMaxSkills = 2;
                     break;
-                case "Bard":
+                case KnownValues.ClassType.BARD:
                     numMaxSkills = 3;
                     break;
-                case "Cleric":
+                case KnownValues.ClassType.CLERIC:
                     numMaxSkills = 2;
                     break;
-                case "Druid":
+                case KnownValues.ClassType.DRUID:
                     numMaxSkills = 2;
                     break;
-                case "Fighter":
+                case KnownValues.ClassType.FIGHTER:
                     numMaxSkills = 2;
                     break;
-                case "Monk":
+                case KnownValues.ClassType.MONK:
                     numMaxSkills = 2;
                     break;
-                case "Paladin":
+                case KnownValues.ClassType.PALADIN:
                     numMaxSkills = 2;
                     break;
-                case "Ranger":
+                case KnownValues.ClassType.RANGER:
                     numMaxSkills = 3;
                     break;
-                case "Rogue":
+                case KnownValues.ClassType.ROGUE:
                     numMaxSkills = 4;
                     break;
-                case "Sorceror":
+                case KnownValues.ClassType.SORCERER:
                     numMaxSkills = 2;
                     break;
-                case "Warlock":
+                case KnownValues.ClassType.WARLOCK:
                     numMaxSkills = 2;
                     break;
-                case "Wizard":
+                case KnownValues.ClassType.WIZARD:
                     numMaxSkills = 2;
                     break;
-                case "Bloodhunter":
+                case KnownValues.ClassType.BLOODHUNTER:
                     numMaxSkills = 2;
                     break;
                 default:
