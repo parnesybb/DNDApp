@@ -75,8 +75,8 @@ namespace GoSteve
 
             switch (c.RaceInstance.SubRace)
             {
-                case KnownValues.SubRace.DARK_ELF:
-                    raceLabel.Text = "Dark Elf";
+                case KnownValues.SubRace.DROW:
+                    raceLabel.Text = "Drow";
                     break;
                 case KnownValues.SubRace.FOREST_GNOME:
                     raceLabel.Text = "Forest Gnome";

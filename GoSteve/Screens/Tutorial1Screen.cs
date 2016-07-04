@@ -212,9 +212,21 @@ namespace GoSteve
                             theSubRace = KnownValues.SubRace.HIGH_ELF;
                             //c.setSubRace(KnownValues.SubRace.HIGH_ELF);
                             break;
-                        case "Dark":
-                            theSubRace = KnownValues.SubRace.DARK_ELF;
+                        case "Drow":
+                            theSubRace = KnownValues.SubRace.DROW;
                             // c.setSubRace(KnownValues.SubRace.DARK_ELF);
+                            break;
+                        case "Air":
+                            theSubRace = KnownValues.SubRace.AIR_GENASI;
+                            break;
+                        case "Earth":
+                            theSubRace = KnownValues.SubRace.EARTH_GENASI;
+                            break;
+                        case "Fire":
+                            theSubRace = KnownValues.SubRace.FIRE_GENASI;
+                            break;
+                        case "Water":
+                            theSubRace = KnownValues.SubRace.WATER_GENASI;
                             break;
                         case "Rock":
                             theSubRace = KnownValues.SubRace.ROCK_GNOME;
@@ -223,6 +235,9 @@ namespace GoSteve
                         case "Forest":
                             theSubRace = KnownValues.SubRace.FOREST_GNOME;
                             // c.setSubRace(KnownValues.SubRace.FOREST_GNOME);
+                            break;
+                        case "Deep":
+                            theSubRace = KnownValues.SubRace.DEEP_GNOME;
                             break;
                         case "Lightfoot":
                             theSubRace = KnownValues.SubRace.LIGHTFOOT_HALFLING;

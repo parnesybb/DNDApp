@@ -32,7 +32,7 @@ namespace GoSteve.Structures.Races
 
             set
             {
-                if (value == KnownValues.SubRace.DARK_ELF || value == KnownValues.SubRace.HIGH_ELF || value == KnownValues.SubRace.WOOD_ELF)
+                if (value == KnownValues.SubRace.DROW || value == KnownValues.SubRace.HIGH_ELF || value == KnownValues.SubRace.WOOD_ELF)
                 {
                     this._subRace = value;
 
@@ -52,7 +52,7 @@ namespace GoSteve.Structures.Races
             ret.Add("Fey Ancestry");
             ret.Add("Trance");
 
-            if (this._subRace == KnownValues.SubRace.DARK_ELF)
+            if (this._subRace == KnownValues.SubRace.DROW)
             {
                 ret.Add("Superior Dark Vision - 120ft");
                 ret.Add("Sunlight Sensitivity");
@@ -78,7 +78,7 @@ namespace GoSteve.Structures.Races
             ret.Add("Common");
             ret.Add("Elvish");
 
-            if (this._subRace == KnownValues.SubRace.DARK_ELF)
+            if (this._subRace == KnownValues.SubRace.DROW)
             {
                 ret.Add("Drow Weapon Training");
             }

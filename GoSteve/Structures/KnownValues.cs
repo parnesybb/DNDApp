@@ -38,9 +38,12 @@ namespace GoSteve
             NONE,
             HILL_DWARF,
             MOUNTAIN_DWARF,
+            DUERGAR,
             HIGH_ELF,
             WOOD_ELF,
-            DARK_ELF,
+            DROW,
+            ORIGINAL,
+            WATER_ELF,
             LIGHTFOOT_HALFLING,
             STOUT_HALFLING,
             FOREST_GNOME,
@@ -49,7 +52,8 @@ namespace GoSteve
             AIR_GENASI,
             EARTH_GENASI,
             FIRE_GENASI,
-            WATER_GENASI
+            WATER_GENASI,
+            FERAL
         }
 
         public enum Background

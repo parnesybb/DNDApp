@@ -30,12 +30,15 @@ namespace GoSteve.Structures.Races
         {
             get
             {
-                return KnownValues.SubRace.NONE;
+                return this._subRace;
             }
 
             set
             {
-                throw new NotImplementedException();
+                if(value == KnownValues.SubRace.ORIGINAL || value == KnownValues.SubRace.FERAL)
+                {
+                    this._subRace = value;
+                }
             }
         }
 
@@ -45,7 +48,7 @@ namespace GoSteve.Structures.Races
 
             ret.Add("Dark Vision - 60ft");
             ret.Add("Hellish Resistance");
-            ret.Add("Infernal Legacy");
+            ret.Add("Infernal Legacy or Devil's Tongue or Hellfire or Winged");
 
             return ret.ToArray();
         }
@@ -55,7 +58,7 @@ namespace GoSteve.Structures.Races
             var ret = new List<string>();
 
             ret.Add("Common");
-            ret.Add("Infernal Language");
+            ret.Add("Infernal");
 
             return ret.ToArray();
         }

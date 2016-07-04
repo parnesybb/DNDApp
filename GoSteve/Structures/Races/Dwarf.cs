@@ -32,7 +32,7 @@ namespace GoSteve.Structures.Races
 
             set
             {
-                if (value == KnownValues.SubRace.HILL_DWARF || value == KnownValues.SubRace.MOUNTAIN_DWARF)
+                if (value == KnownValues.SubRace.HILL_DWARF || value == KnownValues.SubRace.MOUNTAIN_DWARF || value == KnownValues.SubRace.DUERGAR)
                 {
                    this._subRace = value;
                 }
@@ -55,6 +55,14 @@ namespace GoSteve.Structures.Races
             {
                 ret.Add("Dwarven Toughness");
             }
+            else if(this.SubRace == KnownValues.SubRace.DUERGAR)
+            {
+                ret.Remove("Dark Vision - 60FT");
+                ret.Add("Superior Darkvision");
+                ret.Add("Duergar Resilience");
+                ret.Add("Duergar Magic");
+                ret.Add("Sunlight Sensitivity");
+            }
 
             return ret.ToArray();
         }
@@ -74,6 +82,10 @@ namespace GoSteve.Structures.Races
             {
                 ret.Add("Light Armor");
                 ret.Add("Medium Armor");
+            }
+            else if(this.SubRace == KnownValues.SubRace.DUERGAR)
+            {
+                ret.Add("Undercommon");
             }
 
             return ret.ToArray();

@@ -63,14 +63,28 @@ namespace GoSteve
 
             switch(c.RaceInstance.SubRace)
             {
-                case KnownValues.SubRace.DARK_ELF:
-                    race = "Dark Elf";
+                case KnownValues.SubRace.DROW:
+                    if (c.RaceInstance.Race == KnownValues.Race.ELF)
+                    {
+                        race = "Drow";
+                    }
+                    else if (c.RaceInstance.Race == KnownValues.Race.HALF_ELF)
+                    {
+                        race = "Half Drow";
+                    }
                     break;
                 case KnownValues.SubRace.FOREST_GNOME:
                     race = "Forest Gnome";
                     break;
                 case KnownValues.SubRace.HIGH_ELF:
-                    race = "High Elf";
+                    if(c.RaceInstance.Race == KnownValues.Race.ELF)
+                    {
+                        race = "High Elf";
+                    }
+                    else if(c.RaceInstance.Race == KnownValues.Race.HALF_ELF)
+                    {
+                        race = "Half High Elf";
+                    }
                     break;
                 case KnownValues.SubRace.HILL_DWARF:
                     race = "Hill Dwarf";
@@ -91,7 +105,14 @@ namespace GoSteve
                     race = "Stout Halfling";
                     break;
                 case KnownValues.SubRace.WOOD_ELF:
-                    race = "Wood Elf";
+                    if (c.RaceInstance.Race == KnownValues.Race.ELF)
+                    {
+                        race = "Wood Elf";
+                    }
+                    else if (c.RaceInstance.Race == KnownValues.Race.HALF_ELF)
+                    {
+                        race = "Half Wood Elf";
+                    }
                     break;
                 case KnownValues.SubRace.AIR_GENASI:
                     race = "Air Genasi";
@@ -107,6 +128,32 @@ namespace GoSteve
                     break;
                 case KnownValues.SubRace.WATER_GENASI:
                     race = "Water Genasi";
+                    break;
+                case KnownValues.SubRace.DUERGAR:
+                    race = "Duergar";
+                    break;
+                case KnownValues.SubRace.ORIGINAL:
+                    if(c.RaceInstance.Race == KnownValues.Race.HALF_ELF)
+                    {
+                        race = "Half Elf";
+                    }
+                    else if(c.RaceInstance.Race == KnownValues.Race.TIEFLING)
+                    {
+                        race = "Tiefling";
+                    }
+                    break;
+                case KnownValues.SubRace.WATER_ELF:
+                    if(c.RaceInstance.Race == KnownValues.Race.ELF)
+                    {
+                        race = "Water Elf";
+                    }
+                    else if(c.RaceInstance.Race == KnownValues.Race.HALF_ELF)
+                    {
+                        race = "Half Water Elf";
+                    }
+                    break;
+                case KnownValues.SubRace.FERAL:
+                    race = "Feral Tiefling";
                     break;
                 default:
                     race = "NOT FOUND";
