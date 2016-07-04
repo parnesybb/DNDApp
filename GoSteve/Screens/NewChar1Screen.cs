@@ -237,9 +237,15 @@ namespace GoSteve
                             theSubRace = KnownValues.SubRace.MOUNTAIN_DWARF;
                             //c.setSubRace(KnownValues.SubRace.MOUNTAIN_DWARF);
                             break;
+                        case "Wood Elf":
+                            theSubRace = KnownValues.SubRace.WOOD_ELF;
+                            break;
                         case "Wood":
                             theSubRace = KnownValues.SubRace.WOOD_ELF;
                             //c.setSubRace(KnownValues.SubRace.WOOD_ELF);
+                            break;
+                        case "High Elf":
+                            theSubRace = KnownValues.SubRace.HIGH_ELF;
                             break;
                         case "High":
                             theSubRace = KnownValues.SubRace.HIGH_ELF;
@@ -259,14 +265,10 @@ namespace GoSteve
                             theSubRace = KnownValues.SubRace.FIRE_GENASI;
                             break;
                         case "Water":
-                            if(theRace == KnownValues.Race.GENASI)
-                            {
-                                theSubRace = KnownValues.SubRace.WATER_GENASI;
-                            }
-                            else if(theRace == KnownValues.Race.ELF)
-                            {
-                                theSubRace = KnownValues.SubRace.WATER_ELF;
-                            }
+                            theSubRace = KnownValues.SubRace.WATER_GENASI;
+                            break;
+                        case "Water Elf":
+                            theSubRace = KnownValues.SubRace.WATER_ELF;
                             break;
                         case "Rock":
                             theSubRace = KnownValues.SubRace.ROCK_GNOME;
@@ -289,6 +291,9 @@ namespace GoSteve
                             break;
                         case "Original":
                             theSubRace = KnownValues.SubRace.ORIGINAL;
+                            break;
+                        case "Feral":
+                            theSubRace = KnownValues.SubRace.FERAL;
                             break;
                         default:
                             theSubRace = KnownValues.SubRace.NONE;
