@@ -2,16 +2,28 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
   <item android:id="@+id/item0" android:title="Acolyte" />
   <item android:id="@+id/item1" android:title="Charlatan" />
-  <item android:id="@+id/item2" android:title="Criminal" />
-  <item android:id="@+id/item3" android:title="Entertainer" />
-  <item android:id="@+id/item4" android:title="Folk Hero" />
-  <item android:id="@+id/item5" android:title="Guild Artisan" />
-  <item android:id="@+id/item6" android:title="Haunted One" />
-  <item android:id="@+id/item7" android:title="Hermit" />
-  <item android:id="@+id/item8" android:title="Noble" />
-  <item android:id="@+id/item9" android:title="Outlander" />
-  <item android:id="@+id/item10" android:title="Sage" />
-  <item android:id="@+id/item11" android:title="Sailor" />
-  <item android:id="@+id/item12" android:title="Soldier" />
-  <item android:id="@+id/item13" android:title="Urchin" />
+  <item android:id="@+id/item2" android:title="City Watch" />
+  <item android:id="@+id/item3" android:title="Clan Crafter" />
+  <item android:id="@+id/item4" android:title="Cloistered Scholar" />
+  <item android:id="@+id/item5" android:title="Courtier" />
+  <item android:id="@+id/item6" android:title="Criminal" />
+  <item android:id="@+id/item7" android:title="Entertainer" />
+  <item android:id="@+id/item8" android:title="Faction Agent" />
+  <item android:id="@+id/item9" android:title="Far Traveler" />
+  <item android:id="@+id/item10" android:title="Folk Hero" />
+  <item android:id="@+id/item11" android:title="Guild Artisan" />
+  <item android:id="@+id/item12" android:title="Haunted One" />
+  <item android:id="@+id/item13" android:title="Hermit" />
+  <item android:id="@+id/item14" android:title="Inheritor" />
+  <item android:id="@+id/item15" android:title="Knight of the Order" />
+  <item android:id="@+id/item16" android:title="Mercenary Veteran" />
+  <item android:id="@+id/item17" android:title="Noble" />
+  <item android:id="@+id/item18" android:title="Outlander" />
+  <item android:id="@+id/item19" android:title="Sage" />
+  <item android:id="@+id/item20" android:title="Sailor" />
+  <item android:id="@+id/item21" android:title="Soldier" />
+  <item android:id="@+id/item22" android:title="Urban Bounty Hunter" />
+  <item android:id="@+id/item23" android:title="Urchin" />
+  <item android:id="@+id/item24" android:title="Uthgardt Tribe Member" />
+  <item android:id="@+id/item25" android:title="Waterdhavian Noble" />
 </menu>

@@ -68,7 +68,20 @@ namespace GoSteve
             SAGE,
             SAILOR,
             SOLDIER,
-            URCHIN
+            URCHIN,
+            CITY_WATCH,
+            CLAN_CRAFTER,
+            CLOISTERED_SCHOLAR,
+            COURTIER,
+            FACTION_AGENT,
+            FAR_TRAVELER,
+            INHERITOR,
+            KNIGHT_OF_THE_ORDER,
+            MERCENARY_VETERAN,
+            URBAN_BOUNTY_HUNTER,
+            UTHGARDT_TRIBE_MEMBER,
+            WATERDHAVIAN_NOBLE
+
         }
 
         public enum ClassType
