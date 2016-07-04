@@ -290,6 +290,133 @@ namespace GoSteve
                     stealthChk.Enabled = false;
                     stealthChk.SetTextColor(Android.Graphics.Color.Cyan);
                     break;
+                case KnownValues.Background.CITY_WATCH:
+                    bg = "City Watch";
+                    athleticsChk.Checked = true;
+                    athleticsChk.Enabled = false;
+                    athleticsChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    insightChk.Checked = true;
+                    insightChk.Enabled = false;
+                    insightChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    break;
+                case KnownValues.Background.CLAN_CRAFTER:
+                    bg = "Clan Crafter";
+                    historyChk.Checked = true;
+                    historyChk.Enabled = false;
+                    historyChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    insightChk.Checked = true;
+                    insightChk.Enabled = false;
+                    insightChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    break;
+                case KnownValues.Background.CLOISTERED_SCHOLAR:
+                    bg = "Cloistered Scholar";
+                    numMaxSkills += 1;
+                    numBGSkills = 1;
+                    historyChk.Checked = true;
+                    historyChk.Enabled = false;
+                    historyChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    arcanaChk.Enabled = true;
+                    arcanaChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    natureChk.Enabled = true;
+                    natureChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    religionChk.Enabled = true;
+                    religionChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    break;
+                case KnownValues.Background.COURTIER:
+                    bg = "Courtier";
+                    insightChk.Checked = true;
+                    insightChk.Enabled = false;
+                    insightChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    persuasionChk.Checked = true;
+                    persuasionChk.Enabled = false;
+                    persuasionChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    break;
+                case KnownValues.Background.FACTION_AGENT:
+                    bg = "Faction Agent";
+                    insightChk.Checked = true;
+                    insightChk.Enabled = false;
+                    insightChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    //FIGURE OUT HOW TF YOU'RE GOING TO GET THIS ONE WORKING
+                    break;
+                case KnownValues.Background.FAR_TRAVELER:
+                    bg = "Far Traveler";
+                    insightChk.Checked = true;
+                    insightChk.Enabled = false;
+                    insightChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    perceptionChk.Checked = true;
+                    perceptionChk.Enabled = false;
+                    perceptionChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    break;
+                case KnownValues.Background.INHERITOR:
+                    bg = "Inheritor";
+                    numMaxSkills += 1;
+                    numBGSkills = 1;
+                    survivalChk.Checked = true;
+                    survivalChk.Enabled = false;
+                    survivalChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    arcanaChk.Enabled = true;
+                    arcanaChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    historyChk.Enabled = true;
+                    historyChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    religionChk.Enabled = true;
+                    religionChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    break;
+                case KnownValues.Background.KNIGHT_OF_THE_ORDER:
+                    bg = "Knight of the Order";
+                    numMaxSkills += 1;
+                    numBGSkills = 1;
+                    persuasionChk.Checked = true;
+                    persuasionChk.Enabled = false;
+                    persuasionChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    arcanaChk.Enabled = true;
+                    arcanaChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    historyChk.Enabled = true;
+                    historyChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    natureChk.Enabled = true;
+                    natureChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    religionChk.Enabled = true;
+                    religionChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    break;
+                case KnownValues.Background.MERCENARY_VETERAN:
+                    bg = "Mercenary Veteran";
+                    athleticsChk.Checked = true;
+                    athleticsChk.Enabled = false;
+                    athleticsChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    persuasionChk.Checked = true;
+                    persuasionChk.Enabled = false;
+                    persuasionChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    break;
+                case KnownValues.Background.URBAN_BOUNTY_HUNTER:
+                    bg = "Urban Bounty Hunter";
+                    numMaxSkills += 2;
+                    numBGSkills = 2;
+                    deceptionChk.Enabled = true;
+                    deceptionChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    insightChk.Enabled = true;
+                    insightChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    persuasionChk.Enabled = true;
+                    persuasionChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    stealthChk.Enabled = true;
+                    stealthChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    break;
+                case KnownValues.Background.UTHGARDT_TRIBE_MEMBER:
+                    bg = "Uthgardt Tribe Member";
+                    athleticsChk.Checked = true;
+                    athleticsChk.Enabled = false;
+                    athleticsChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    survivalChk.Checked = true;
+                    survivalChk.Enabled = false;
+                    survivalChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    break;
+                case KnownValues.Background.WATERDHAVIAN_NOBLE:
+                    bg = "Waterdhavian Noble";
+                    historyChk.Checked = true;
+                    historyChk.Enabled = false;
+                    historyChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    persuasionChk.Checked = true;
+                    persuasionChk.Enabled = false;
+                    persuasionChk.SetTextColor(Android.Graphics.Color.Cyan);
+                    break;
                 default:
                     break;
             }
@@ -538,15 +665,25 @@ namespace GoSteve
                         }
                     }
 
-                    if ((numSkillsChosen < numMaxSkills) || (numBGSkillsChosen < numBGSkills))
+                    if (numSkillsChosen < numMaxSkills)
                     {
-                        errMsg.Text = "YOU DID NOT PICK ALL OF YOUR SKILLS";
+                        errMsg.Text = "YOU DID NOT PICK ALL OF YOUR NON-BACKGROUND SKILLS";
                         numSkillsChosen = 0;
                     }
-                    else if ((numSkillsChosen > numMaxSkills) || (numBGSkillsChosen > numBGSkills))
+                    else if(numBGSkillsChosen < numBGSkills)
+                    {
+                        errMsg.Text = "YOU DID NOT PICK ALL OF YOUR BACKGROUND SKILLS.";
+                        numBGSkillsChosen = 0;
+                    }
+                    else if (numSkillsChosen > numMaxSkills)
                     {
                         errMsg.Text = "YOU HAVE CHOSEN TOO MANY SKILLS";
                         numSkillsChosen = 0;
+                    }
+                    else if(numBGSkillsChosen > numBGSkills)
+                    {
+                        errMsg.Text = "YOU HAVE CHOSEN TOO MANY BACKGROUND SKILLS";
+                        numBGSkillsChosen = 0;
                     }
                     else
                     {

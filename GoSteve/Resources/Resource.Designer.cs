@@ -501,8 +501,44 @@ namespace GoSteve
 			// aapt resource value: 0x7f0600c5
 			public const int item13 = 2131099845;
 			
+			// aapt resource value: 0x7f0600c6
+			public const int item14 = 2131099846;
+			
+			// aapt resource value: 0x7f0600c7
+			public const int item15 = 2131099847;
+			
+			// aapt resource value: 0x7f0600c8
+			public const int item16 = 2131099848;
+			
+			// aapt resource value: 0x7f0600c9
+			public const int item17 = 2131099849;
+			
+			// aapt resource value: 0x7f0600ca
+			public const int item18 = 2131099850;
+			
+			// aapt resource value: 0x7f0600cb
+			public const int item19 = 2131099851;
+			
 			// aapt resource value: 0x7f0600ba
 			public const int item2 = 2131099834;
+			
+			// aapt resource value: 0x7f0600cc
+			public const int item20 = 2131099852;
+			
+			// aapt resource value: 0x7f0600cd
+			public const int item21 = 2131099853;
+			
+			// aapt resource value: 0x7f0600ce
+			public const int item22 = 2131099854;
+			
+			// aapt resource value: 0x7f0600cf
+			public const int item23 = 2131099855;
+			
+			// aapt resource value: 0x7f0600d0
+			public const int item24 = 2131099856;
+			
+			// aapt resource value: 0x7f0600d1
+			public const int item25 = 2131099857;
 			
 			// aapt resource value: 0x7f0600bb
 			public const int item3 = 2131099835;

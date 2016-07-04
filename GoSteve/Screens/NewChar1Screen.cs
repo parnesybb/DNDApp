@@ -338,6 +338,44 @@ namespace GoSteve
                         case "Urchin":
                             c.Background = KnownValues.Background.URCHIN;
                             break;
+                        case "City Watch":
+                            c.Background = KnownValues.Background.CITY_WATCH;
+                            break;
+                        case "Clan Crafter":
+                            c.Background = KnownValues.Background.CLAN_CRAFTER;
+                            break;
+                        case "Cloistered Scholar":
+                            c.Background = KnownValues.Background.CLOISTERED_SCHOLAR;
+                            break;
+                        case "Courtier":
+                            c.Background = KnownValues.Background.COURTIER;
+                            break;
+                        case "Faction Agent":
+                            c.Background = KnownValues.Background.FACTION_AGENT;
+                            break;
+                        case "Far Traveler":
+                            c.Background = KnownValues.Background.FAR_TRAVELER;
+                            break;
+                        case "Inheritor":
+                            c.Background = KnownValues.Background.INHERITOR;
+                            break;
+                        case "Knight of the Order":
+                            c.Background = KnownValues.Background.KNIGHT_OF_THE_ORDER;
+                            break;
+                        case "Mercenary Veteran":
+                            c.Background = KnownValues.Background.MERCENARY_VETERAN;
+                            break;
+                        case "Urban Bounty Hunter":
+                            c.Background = KnownValues.Background.URBAN_BOUNTY_HUNTER;
+                            break;
+                        case "Uthgardt Tribe Member":
+                            c.Background = KnownValues.Background.UTHGARDT_TRIBE_MEMBER;
+                            break;
+                        case "Waterdhavian Noble":
+                            c.Background = KnownValues.Background.WATERDHAVIAN_NOBLE;
+                            break;
+                        default:
+                            break;
                     }
                 };
             };

@@ -326,6 +326,46 @@ namespace GoSteve.Structures.Classes
                     this._skills.SetProficient = KnownValues.SkillType.Sleight_Of_Hand;
                     this._skills.SetProficient = KnownValues.SkillType.Stealth;
                     break;
+                case KnownValues.Background.CITY_WATCH:
+                    this._skills.SetProficient = KnownValues.SkillType.Athletics;
+                    this._skills.SetProficient = KnownValues.SkillType.Insight;
+                    break;
+                case KnownValues.Background.CLAN_CRAFTER:
+                    this._skills.SetProficient = KnownValues.SkillType.History;
+                    this._skills.SetProficient = KnownValues.SkillType.Insight;
+                    break;
+                case KnownValues.Background.CLOISTERED_SCHOLAR:
+                    this._skills.SetProficient = KnownValues.SkillType.History;
+                    break;
+                case KnownValues.Background.COURTIER:
+                    this._skills.SetProficient = KnownValues.SkillType.Insight;
+                    this._skills.SetProficient = KnownValues.SkillType.Persuasion;
+                    break;
+                case KnownValues.Background.FACTION_AGENT:
+                    this._skills.SetProficient = KnownValues.SkillType.Insight;
+                    break;
+                case KnownValues.Background.FAR_TRAVELER:
+                    this._skills.SetProficient = KnownValues.SkillType.Insight;
+                    this._skills.SetProficient = KnownValues.SkillType.Perception;
+                    break;
+                case KnownValues.Background.INHERITOR:
+                    this._skills.SetProficient = KnownValues.SkillType.Survival;
+                    break;
+                case KnownValues.Background.KNIGHT_OF_THE_ORDER:
+                    this._skills.SetProficient = KnownValues.SkillType.Persuasion;
+                    break;
+                case KnownValues.Background.MERCENARY_VETERAN:
+                    this._skills.SetProficient = KnownValues.SkillType.Athletics;
+                    this._skills.SetProficient = KnownValues.SkillType.Persuasion;
+                    break;
+                case KnownValues.Background.UTHGARDT_TRIBE_MEMBER:
+                    this._skills.SetProficient = KnownValues.SkillType.Athletics;
+                    this._skills.SetProficient = KnownValues.SkillType.Survival;
+                    break;
+                case KnownValues.Background.WATERDHAVIAN_NOBLE:
+                    this._skills.SetProficient = KnownValues.SkillType.History;
+                    this._skills.SetProficient = KnownValues.SkillType.Persuasion;
+                    break;
                 default:
                     break;
             }

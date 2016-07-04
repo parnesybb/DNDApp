@@ -117,8 +117,7 @@ namespace GoSteve.Screens
             FindViewById<TextView>(Resource.Id.characterScreenAlignment).Text = _cs.Alignment;
             if (_cs.RaceInstance.SubRace != KnownValues.SubRace.NONE)
             {
-                FindViewById<TextView>(Resource.Id.characterScreenRace).Text = _cs.RaceInstance.Race.ToString() + " " +
-                    _cs.RaceInstance.SubRace.ToString();
+                FindViewById<TextView>(Resource.Id.characterScreenRace).Text = _cs.RaceInstance.SubRace.ToString();
             }
             else
             {
