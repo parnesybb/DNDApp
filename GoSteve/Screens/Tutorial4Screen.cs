@@ -184,8 +184,8 @@ namespace GoSteve
 
             switch (c.RaceInstance.SubRace)
             {
-                case KnownValues.SubRace.DARK_ELF:
-                    race = "Dark Elf";
+                case KnownValues.SubRace.DROW:
+                    race = "Drow";
                     break;
                 case KnownValues.SubRace.FOREST_GNOME:
                     race = "Forest Gnome";

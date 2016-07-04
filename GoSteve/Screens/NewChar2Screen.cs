@@ -90,14 +90,18 @@ namespace GoSteve
                 case KnownValues.SubRace.WATER_GENASI:
                     raceLabel.Text = "Water Genasi";
                     break;
-                case KnownValues.SubRace.DARK_ELF:
-                    raceLabel.Text = "Dark Elf";
-                    break;
                 case KnownValues.SubRace.FOREST_GNOME:
                     raceLabel.Text = "Forest Gnome";
                     break;
                 case KnownValues.SubRace.HIGH_ELF:
-                    raceLabel.Text = "High Elf";
+                    if(c.RaceInstance.Race == KnownValues.Race.ELF)
+                    {
+                        raceLabel.Text = "High Elf";
+                    }
+                    else if(c.RaceInstance.Race == KnownValues.Race.HALF_ELF)
+                    {
+                        raceLabel.Text = "Half High Elf";
+                    }
                     break;
                 case KnownValues.SubRace.HILL_DWARF:
                     raceLabel.Text = "Hill Dwarf";
@@ -118,7 +122,50 @@ namespace GoSteve
                     raceLabel.Text = "Stout Halfling";
                     break;
                 case KnownValues.SubRace.WOOD_ELF:
-                    raceLabel.Text = "Wood Elf";
+                    if (c.RaceInstance.Race == KnownValues.Race.ELF)
+                    {
+                        raceLabel.Text = "Wood Elf";
+                    }
+                    else if (c.RaceInstance.Race == KnownValues.Race.HALF_ELF)
+                    {
+                        raceLabel.Text = "Half Wood Elf";
+                    }
+                    break;
+                case KnownValues.SubRace.DUERGAR:
+                    raceLabel.Text = "Duergar";
+                    break;
+                case KnownValues.SubRace.DROW:
+                    if (c.RaceInstance.Race == KnownValues.Race.ELF)
+                    {
+                        raceLabel.Text = "Drow";
+                    }
+                    else if (c.RaceInstance.Race == KnownValues.Race.HALF_ELF)
+                    {
+                        raceLabel.Text = "Half Drow";
+                    }
+                    break;
+                case KnownValues.SubRace.ORIGINAL:
+                    if(c.RaceInstance.Race == KnownValues.Race.HALF_ELF)
+                    {
+                        raceLabel.Text = "Half Elf";
+                    }
+                    else if(c.RaceInstance.Race == KnownValues.Race.TIEFLING)
+                    {
+                        raceLabel.Text = "Tiefling";
+                    }
+                    break;
+                case KnownValues.SubRace.WATER_ELF:
+                    if(c.RaceInstance.Race == KnownValues.Race.ELF)
+                    {
+                        raceLabel.Text = "Water Elf";
+                    }
+                    else if(c.RaceInstance.Race == KnownValues.Race.HALF_ELF)
+                    {
+                        raceLabel.Text = "Half Water Elf";
+                    }
+                    break;
+                case KnownValues.SubRace.FERAL:
+                    raceLabel.Text = "Feral Tiefling";
                     break;
                 default:
                     raceLabel.Text = "NOT FOUND";

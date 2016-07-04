@@ -105,6 +105,10 @@ namespace GoSteve.Structures.Classes
                     {
                         this.Wisdom += 1;
                     }
+                    else if(r.SubRace == KnownValues.SubRace.DUERGAR)
+                    {
+                        this.Strength += 1;
+                    }
                     break;
 
                 case KnownValues.Race.ELF:
@@ -119,7 +123,7 @@ namespace GoSteve.Structures.Classes
                     {
                         this.Wisdom += 1;
                     }
-                    else if (r.SubRace == KnownValues.SubRace.DARK_ELF)
+                    else if (r.SubRace == KnownValues.SubRace.DROW)
                     {
                         this.Charisma += 1;
                     }
@@ -182,7 +186,14 @@ namespace GoSteve.Structures.Classes
 
                 case KnownValues.Race.TIEFLING:
                     this.Intel += 1;
-                    this.Charisma += 2;
+                    if(r.SubRace == KnownValues.SubRace.ORIGINAL)
+                    {
+                        this.Charisma += 2;
+                    }
+                    else if(r.SubRace == KnownValues.SubRace.FERAL)
+                    {
+                        this.Dex += 2;
+                    }
                     break;
 
                 default:

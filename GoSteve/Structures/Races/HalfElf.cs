@@ -30,12 +30,19 @@ namespace GoSteve.Structures.Races
         {
             get
             {
-                return KnownValues.SubRace.NONE;
+                return this._subRace;
             }
 
             set
             {
-                throw new NotImplementedException();
+                if(value == KnownValues.SubRace.ORIGINAL || value == KnownValues.SubRace.WOOD_ELF || value == KnownValues.SubRace.HIGH_ELF || value == KnownValues.SubRace.DROW || value == KnownValues.SubRace.WATER_ELF)
+                {
+                    this._subRace = value;
+                }
+                else
+                {
+                    this._subRace = KnownValues.SubRace.NONE;
+                }
             }
         }
 
@@ -46,14 +53,33 @@ namespace GoSteve.Structures.Races
             ret.Add("Dark Vision - 60ft");
             ret.Add("Fey Ancestry");
 
+            if(this.SubRace == KnownValues.SubRace.ORIGINAL)
+            {
+                ret.Add("Skill Versatility or Keen Senses");
+            }
+            else if(this.SubRace == KnownValues.SubRace.WOOD_ELF)
+            {
+                ret.Add("Elf Weapon Training or Fleet of Foot, or Mask of the Wild");
+            }
+            else if(this.SubRace == KnownValues.SubRace.HIGH_ELF)
+            {
+                ret.Add("Elf Weapon Training or High Elf Cantrip");
+            }
+            else if(this.SubRace == KnownValues.SubRace.DROW)
+            {
+                ret.Add("Drow Magic");
+            }
+            else if(this.SubRace == KnownValues.SubRace.WATER_ELF)
+            {
+                ret.Add("Swim speed - 30ft");
+            }
+
             return ret.ToArray();
         }
 
         public override string[] GetProficienciesLanguages()
         {
             var ret = new List<string>();
-
-            ret.Add("Skill Versatility");
             ret.Add("Common");
             ret.Add("Elvish");
             ret.Add("CHOOSE ONE EXTRA LANGUAGE");

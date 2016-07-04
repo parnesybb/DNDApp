@@ -138,8 +138,8 @@ namespace GoSteve
                             //c.SetRace(KnownValues.Race.GNOME, true);
                             break;
                         case "Half-Elf":
-                            instructionSubRace.Visibility = ViewStates.Invisible;
-                            pickSub.Visibility = ViewStates.Invisible;
+                            instructionSubRace.Visibility = ViewStates.Visible;
+                            pickSub.Visibility = ViewStates.Visible;
                             theRace = KnownValues.Race.HALF_ELF;
                             theSubRace = KnownValues.SubRace.NONE;
                             //c.SetRace(KnownValues.Race.HALF_ELF, true);
@@ -169,8 +169,8 @@ namespace GoSteve
                             //c.setSubRace(KnownValues.SubRace.NONE);
                             break;
                         case "Tiefling":
-                            instructionSubRace.Visibility = ViewStates.Invisible;
-                            pickSub.Visibility = ViewStates.Invisible;
+                            instructionSubRace.Visibility = ViewStates.Visible;
+                            pickSub.Visibility = ViewStates.Visible;
                             theRace = KnownValues.Race.TIEFLING;
                             theSubRace = KnownValues.SubRace.NONE;
                             //c.SetRace(KnownValues.Race.TIEFLING, true);
@@ -200,6 +200,9 @@ namespace GoSteve
                         m.Inflate(Resource.Xml.elfSub);
                         //c.setSubRace(KnownValues.SubRace.NONE);
                         break;
+                    case "Half-Elf":
+                        m.Inflate(Resource.Xml.halfelfSub);
+                        break;
                     case "Genasi":
                         m.Inflate(Resource.Xml.genasiSub);
                         break;
@@ -212,6 +215,9 @@ namespace GoSteve
                         //pickSub.Text = "Pick a Sub Race";
                         m.Inflate(Resource.Xml.halflingSub);
                         //c.setSubRace(KnownValues.SubRace.NONE);
+                        break;
+                    case "Tiefling":
+                        m.Inflate(Resource.Xml.tieflingSub);
                         break;
                 }
 
@@ -239,8 +245,8 @@ namespace GoSteve
                             theSubRace = KnownValues.SubRace.HIGH_ELF;
                             //c.setSubRace(KnownValues.SubRace.HIGH_ELF);
                             break;
-                        case "Dark":
-                            theSubRace = KnownValues.SubRace.DARK_ELF;
+                        case "Drow":
+                            theSubRace = KnownValues.SubRace.DROW;
                             // c.setSubRace(KnownValues.SubRace.DARK_ELF);
                             break;
                         case "Air":
@@ -253,7 +259,14 @@ namespace GoSteve
                             theSubRace = KnownValues.SubRace.FIRE_GENASI;
                             break;
                         case "Water":
-                            theSubRace = KnownValues.SubRace.WATER_GENASI;
+                            if(theRace == KnownValues.Race.GENASI)
+                            {
+                                theSubRace = KnownValues.SubRace.WATER_GENASI;
+                            }
+                            else if(theRace == KnownValues.Race.ELF)
+                            {
+                                theSubRace = KnownValues.SubRace.WATER_ELF;
+                            }
                             break;
                         case "Rock":
                             theSubRace = KnownValues.SubRace.ROCK_GNOME;
@@ -273,6 +286,9 @@ namespace GoSteve
                         case "Stout":
                             theSubRace = KnownValues.SubRace.STOUT_HALFLING;
                             //c.setSubRace(KnownValues.SubRace.STOUT_HALFLING);
+                            break;
+                        case "Original":
+                            theSubRace = KnownValues.SubRace.ORIGINAL;
                             break;
                         default:
                             theSubRace = KnownValues.SubRace.NONE;

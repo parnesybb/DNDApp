@@ -829,10 +829,16 @@ namespace GoSteve
 			public const int gnomeSub = 2130968582;
 			
 			// aapt resource value: 0x7f040007
-			public const int halflingSub = 2130968583;
+			public const int halfelfSub = 2130968583;
 			
 			// aapt resource value: 0x7f040008
-			public const int RaceList = 2130968584;
+			public const int halflingSub = 2130968584;
+			
+			// aapt resource value: 0x7f040009
+			public const int RaceList = 2130968585;
+			
+			// aapt resource value: 0x7f04000a
+			public const int tieflingSub = 2130968586;
 			
 			static Xml()
 			{
