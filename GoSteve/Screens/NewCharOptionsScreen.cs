@@ -12,15 +12,15 @@ using Android.Widget;
 
 namespace GoSteve.Screens
 {
-    [Activity(Label = "GoSteve! Dungeons and Dragons")]
-    public class NewCharOptionsScreen : Activity
+    [Activity(Theme = "@style/AppTheme", Label = "GoSteve! Dungeons and Dragons")]
+    public class NewCharOptionsScreen : BaseActivity
     {
         protected override void OnCreate(Bundle bundle)
         {
-            base.OnCreate(bundle);
-
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.NewCharOptions);
+
+            base.OnCreate(bundle);
 
             Button createBtn = FindViewById<Button>(Resource.Id.createBtn);
             Button tutorialBtn = FindViewById<Button>(Resource.Id.tutorialBtn);

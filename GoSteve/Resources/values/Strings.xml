@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="ApplicationName">GoSteve</string>
+    <string name="DefaultTitle">GoSteve! Dungeons and Dragons</string>
   
     <string name="CharacterName">Character</string>
     <string name="Class">Class</string>

@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/linearLayout1">
+    android:id="@+id/linearLayout1"
+    tools:menu="basemenu">
+    <include
+        android:id="@+id/baseToolbar"
+        layout="@layout/baseToolbar" />
     <TextView
         android:text="Tell Me A Little Bit About Your New Character"
         android:textAppearance="?android:attr/textAppearanceMedium"

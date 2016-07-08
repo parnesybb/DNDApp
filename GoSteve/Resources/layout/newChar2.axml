@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:p1="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     p1:minWidth="25px"
     p1:minHeight="25px"
     p1:layout_width="match_parent"
     p1:layout_height="match_parent"
     p1:id="@+id/relativeLayout1">
+    <include
+        p1:id="@+id/baseToolbar"
+        layout="@layout/baseToolbar" />
     <TextView
         p1:text="Lets Generate Ability Scores!"
         p1:textAppearance="?android:attr/textAppearanceMedium"
         p1:layout_width="match_parent"
         p1:layout_height="wrap_content"
+        p1:layout_below="@+id/baseToolbar"
         p1:id="@+id/instructionAb1"
         p1:textAlignment="center" />
     <TextView

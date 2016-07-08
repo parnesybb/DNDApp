@@ -8,18 +8,19 @@ using Android.OS;
 using System.Runtime.Serialization.Formatters.Binary;
 using GoSteve.Screens;
 using Server;
+using Android.Support.V7.App;
 
 namespace GoSteve
 {
-    [Activity(Label = "GoSteve! Dungeons and Dragons")]
-    public class NewChar1Screen : Activity
+    [Activity( Theme = "@style/AppTheme", Label = "GoSteve! Dungeons and Dragons")]
+    public class NewChar1Screen : BaseActivity
     {
         protected override void OnCreate(Bundle bundle)
         {
-            base.OnCreate(bundle);
-
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.newChar1);
+
+            base.OnCreate(bundle);
 
             // Set fields.
             TextView newCharName = FindViewById<TextView>(Resource.Id.newCharName);
@@ -435,5 +436,7 @@ namespace GoSteve
                 }
             };
         }
+
+        
     }
 }
