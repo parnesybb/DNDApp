@@ -11,8 +11,8 @@ using Server;
 
 namespace GoSteve
 {
-    [Activity(Label = "GoSteve! Dungeons and Dragons")]
-    public class NewChar4Screen : Activity
+    [Activity(Theme = "@style/AppTheme", Label = "GoSteve! Dungeons and Dragons")]
+    public class NewChar4Screen : BaseActivity
     {
 
 
@@ -31,10 +31,10 @@ namespace GoSteve
             var numBGSkills = 0;
             var numBGSkillsChosen = 0;
 
-            base.OnCreate(bundle);
-
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.newChar4);
+
+            base.OnCreate(bundle);
 
             TextView yourOptions = FindViewById<TextView>(Resource.Id.yourOptions);
             TextView numPoints = FindViewById<TextView>(Resource.Id.numPoints);

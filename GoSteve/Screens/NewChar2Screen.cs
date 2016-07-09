@@ -11,8 +11,8 @@ using Server;
 
 namespace GoSteve
 {
-    [Activity(Label = "GoSteve! Dungeons and Dragons")]
-    public class NewChar2Screen : Activity
+    [Activity(Theme = "@style/AppTheme", Label = "GoSteve! Dungeons and Dragons")]
+    public class NewChar2Screen : BaseActivity
     {
         protected override void OnCreate(Bundle bundle)
         {
@@ -30,10 +30,10 @@ namespace GoSteve
 
             CharacterSheet c = cs;
 
-            base.OnCreate(bundle);
-
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.newChar2);
+
+            base.OnCreate(bundle);
 
             TextView instructionAb1 = FindViewById<TextView>(Resource.Id.instructionAb1);
             TextView instructionAb2 = FindViewById<TextView>(Resource.Id.instructionAb2);

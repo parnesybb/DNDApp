@@ -11,8 +11,8 @@ using Server;
 
 namespace GoSteve
 {
-    [Activity(Label = "GoSteve! Dungeons and Dragons")]
-    public class NewChar3Screen : Activity
+    [Activity(Theme = "@style/AppTheme", Label = "GoSteve! Dungeons and Dragons")]
+    public class NewChar3Screen : BaseActivity
     {
         private KnownValues.ClassType theClass;
 
@@ -26,10 +26,10 @@ namespace GoSteve
             
             string desc = "";
 
-            base.OnCreate(bundle);
-
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.newChar3);
+
+            base.OnCreate(bundle);
 
             TextView classDesc = FindViewById<TextView>(Resource.Id.classDesc);
             TextView errMsg = FindViewById<TextView>(Resource.Id.errMsg);

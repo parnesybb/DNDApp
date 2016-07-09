@@ -13,19 +13,26 @@ using Android.Util;
 using GoSteve.Buttons;
 using Server;
 using GoSteve.GSNetwork;
+using Android.Support.Design.Widget;
+using Android.Support.V4.View;
+using Android.Support.V4.App;
+using GoSteve.Fragments;
+using Fragment = Android.Support.V4.App.Fragment;
 
 namespace GoSteve.Screens
 {
-    [Activity(Label = "Character Screen")]
-    public class CharacterScreen : Activity
+    [Activity(Theme = "@style/AppTheme", Label = "Character Screen")]
+    public class CharacterScreen : BaseFragmentActivity
     {
         private static CharacterSheet _cs = null;
         private static bool _isDM = false;
         private static readonly string TAG = "CharacterScreen";
 
-        private readonly string[] _tabNames = { "Stats/Skills", "Health/Attacks", "Features/Traits", "Prof/Langs", "Equip", "Info"};
+        //private readonly string[] _tabNames = { "Stats/Skills", "Health/Attacks", "Features/Traits", "Prof/Langs", "Equip", "Info"};
         private Fragment[] _fragments;
         private System.Timers.Timer _timer;
+        private TabLayout _tabLayout;
+        private ViewPager _viewPager;
 
         internal GSPlayer _gsPlayer;
 
@@ -69,23 +76,22 @@ namespace GoSteve.Screens
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            SetContentView(Resource.Layout.CharacterBaseScreen);
             base.OnCreate(savedInstanceState);
 
-            SetContentView(Resource.Layout.CharacterBaseScreen);
-            ActionBar.NavigationMode = ActionBarNavigationMode.Tabs;
-            ActionBar.SetHomeButtonEnabled(true);
-
+            _tabLayout = FindViewById<TabLayout>(Resource.Id.tablayout1);
+            _viewPager = FindViewById<ViewPager>(Resource.Id.viewpager1);
             ReceiveMessage();
 
             _fragments = new Fragment[]
-          {
+            {
                 new StatsSkillsFragment(),
                 new AbilitiesFragment(),
                 new FeaturesTraitsFragment(),
                 new ProfsLangsFragment(),
                 new EquipFragment(),
                 new InfoFragment()
-          };
+            };
 
             CreateTabs();
 
@@ -156,7 +162,6 @@ namespace GoSteve.Screens
             {
                 _dmMenu = menu;
                 //_dmMenu = menu.AddSubMenu("Upload");
-                return true;
             }
 
             return base.OnCreateOptionsMenu(menu);
@@ -239,15 +244,9 @@ namespace GoSteve.Screens
 
         private void CreateTabs()
         {
-            for (int i = 0; i < _tabNames.Length; i++)
-            {
-                var tab = ActionBar.NewTab();
-                tab.SetText(_tabNames[i]);
-                tab.TabSelected += TabClick;
-                ActionBar.AddTab(tab);
-            }
-
-            //ActionBar.
+            var _tabNames = CharSequence.ArrayFromStringArray(new[] { "Stats/Skills", "Health/Attacks", "Features/Traits", "Prof/Langs", "Equip", "Info" });
+            _viewPager.Adapter = new TabsFragmentPagerAdapter(SupportFragmentManager, _fragments, _tabNames);
+            _tabLayout.SetupWithViewPager(_viewPager);
         }
 
         private void TimedSave(object sender, System.Timers.ElapsedEventArgs e)
@@ -257,19 +256,6 @@ namespace GoSteve.Screens
                 CharacterSheet.WriteToFile(_cs);
                 Toast.MakeText(this, "Saved", ToastLength.Long).Show();
             }
-        }
-
-        private void TabClick(object sender, ActionBar.TabEventArgs e)
-        {
-            var tab = sender as ActionBar.Tab;
-            Log.Debug(TAG, "TabClick -> {0}", tab.Text);
-
-            try
-            {
-                e.FragmentTransaction.Replace(Resource.Id.characterScreenDisplay, _fragments[tab.Position]);
-            }
-            catch (Exception)
-            {/*Supress for now*/}
         }
     }
 }

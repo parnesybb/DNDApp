@@ -13,15 +13,15 @@ using System.Collections.Generic;
 
 namespace GoSteve
 {
-    [Activity(Label = "GoSteve! Dungeons and Dragons")]
-    public class CharacterSelectScreen : Activity
+    [Activity(Theme = "@style/AppTheme", Label = "GoSteve! Dungeons and Dragons")]
+    public class CharacterSelectScreen : BaseActivity
     {
         protected override void OnCreate(Bundle bundle)
         {
-            base.OnCreate(bundle);
-
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.CharacterSelect);
+
+            base.OnCreate(bundle);
 
             // Set fields.
             Button newCharButton = FindViewById<Button>(Resource.Id.newCharButton);

@@ -28,8 +28,8 @@ namespace GoSteve.Screens
     /// that runs a IP network server and DNS Domain Name Service. This allows 
     /// clients to connect and update charactersheets
     /// </summary>
-    [Activity(Label = "DM Mode", LaunchMode = Android.Content.PM.LaunchMode.SingleTask)]
-    public class DmScreenBase : Activity
+    [Activity(Theme = "@style/AppTheme", Label = "DM Mode", LaunchMode = Android.Content.PM.LaunchMode.SingleTask)]
+    public class DmScreenBase : BaseActivity
     {
         private Campaign _campaign;
         private int _buttonCount;
@@ -128,10 +128,10 @@ namespace GoSteve.Screens
         /// <param name="savedInstanceState">Contains previous instance data</param>
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            base.OnCreate(savedInstanceState);
-
             // Create your application here
             SetContentView(Resource.Layout.DmScreenBase);
+
+            base.OnCreate(savedInstanceState);
 
             CharacterScreen.IsDM = true;
 

@@ -10,6 +10,7 @@ using Android.Runtime;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using Fragment = Android.Support.V4.App.Fragment;
 
 /*
 * These classes hold the fragments to display for each tab

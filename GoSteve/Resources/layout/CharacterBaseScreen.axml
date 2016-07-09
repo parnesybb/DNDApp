@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:minHeight="25px">
+    <include
+        android:id="@+id/baseToolbar"
+        layout="@layout/baseToolbar" />
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tablayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        local:tabMode="scrollable" />
     <FrameLayout
         android:minWidth="25px"
         android:minHeight="125px"
@@ -136,10 +145,10 @@
             </TableLayout>
         </HorizontalScrollView>
     </FrameLayout>
-    <FrameLayout
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager1"
         android:minWidth="25px"
         android:minHeight="25px"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/characterScreenDisplay" />
+        android:layout_height="match_parent" />
 </LinearLayout>

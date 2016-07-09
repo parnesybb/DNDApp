@@ -5,11 +5,15 @@
     p1:layout_width="match_parent"
     p1:layout_height="match_parent"
     p1:id="@+id/relativeLayout1">
+    <include
+        p1:id="@+id/baseToolbar"
+        layout="@layout/baseToolbar" />
     <TextView
         p1:text="What Is Your Hero Good At?"
         p1:textAppearance="?android:attr/textAppearanceLarge"
         p1:layout_width="match_parent"
         p1:layout_height="wrap_content"
+        p1:layout_below="@+id/baseToolbar"
         p1:id="@+id/instructionSkills"
         p1:gravity="center" />
     <TextView
