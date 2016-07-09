@@ -296,6 +296,9 @@ namespace GoSteve
                         case "Feral":
                             theSubRace = KnownValues.SubRace.FERAL;
                             break;
+                        case "Eladrin":
+                            theSubRace = KnownValues.SubRace.ELADRIN;
+                            break;
                         default:
                             theSubRace = KnownValues.SubRace.NONE;
                             // c.setSubRace(KnownValues.SubRace.NONE);

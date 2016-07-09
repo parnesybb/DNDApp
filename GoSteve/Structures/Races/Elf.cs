@@ -32,7 +32,7 @@ namespace GoSteve.Structures.Races
 
             set
             {
-                if (value == KnownValues.SubRace.DROW || value == KnownValues.SubRace.HIGH_ELF || value == KnownValues.SubRace.WOOD_ELF)
+                if (value == KnownValues.SubRace.DROW || value == KnownValues.SubRace.HIGH_ELF || value == KnownValues.SubRace.WOOD_ELF || value == KnownValues.SubRace.WATER_ELF || value == KnownValues.SubRace.ELADRIN)
                 {
                     this._subRace = value;
 
@@ -66,6 +66,11 @@ namespace GoSteve.Structures.Races
             {
                 ret.Add("Dark Vision - 60ft");
                 ret.Add("Mask of the Wild");
+            }
+            else if (this._subRace == KnownValues.SubRace.ELADRIN)
+            {
+                ret.Add("Elf Weapon Training");
+                ret.Add("Fey Step");
             }
 
             return ret.ToArray();

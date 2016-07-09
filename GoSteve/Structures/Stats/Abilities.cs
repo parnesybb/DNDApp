@@ -127,6 +127,10 @@ namespace GoSteve.Structures.Classes
                     {
                         this.Charisma += 1;
                     }
+                    else if (r.SubRace == KnownValues.SubRace.ELADRIN)
+                    {
+                        this.Intel += 1;
+                    }
                     break;
 
                 case KnownValues.Race.HALFLING:
