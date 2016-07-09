@@ -177,13 +177,10 @@ namespace GoSteve.Screens
                 {
                     _dmMenu.RemoveItem(item.ItemId);
                 }
-
-                return true;
+                
             }
-            else
-            {
-                return base.OnOptionsItemSelected(item);
-            }      
+
+            return base.OnOptionsItemSelected(item);
         }
 
         protected override void OnPause()
