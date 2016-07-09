@@ -53,7 +53,8 @@ namespace GoSteve
             EARTH_GENASI,
             FIRE_GENASI,
             WATER_GENASI,
-            FERAL
+            FERAL,
+            ELADRIN
         }
 
         public enum Background
