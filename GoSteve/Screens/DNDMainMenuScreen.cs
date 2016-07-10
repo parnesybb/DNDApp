@@ -13,7 +13,8 @@ using GoSteve.Screens;
 
 namespace GoSteve
 {
-    [Activity(Label = "GoSteve! Dungeons and Dragons", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "GoSteve! Dungeons and Dragons", MainLauncher = true, Icon = "@drawable/icon",
+        Theme = "@style/AppTheme.NoActionBar")]
     public class DNDMainMenuScreen : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)
