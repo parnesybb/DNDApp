@@ -3,4 +3,6 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat">
     </style>
+    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.NoActionBar">
+    </style>
   </resources>
