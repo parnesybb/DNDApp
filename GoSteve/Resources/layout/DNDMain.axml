@@ -3,6 +3,16 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <Button
+        android:text="DM Mode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/dmModeBtn" />
+    <Button
+        android:text="Player Mode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/playerModeBtn" />
     <ImageView
         android:src="@drawable/gostevemainlogo"
         android:layout_width="wrap_content"
@@ -13,23 +23,11 @@
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
         android:layout_alignParentTop="true"
-        android:layout_weight="1"
         android:layout_gravity="center"
-        android:layout_margin="0dp" />
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0">
-        <Button
-            android:text="DM Mode"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/dmModeBtn" />
-        <Button
-            android:text="Player Mode"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/playerModeBtn" />
-    </LinearLayout>
+        android:layout_margin="0dp"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:visibility="visible"
+        android:visibility="visible"
+        android:saveEnabled="true"
+        android:contentDescription="Go Steve Dungeons and Dragons Logo" />
 </LinearLayout>

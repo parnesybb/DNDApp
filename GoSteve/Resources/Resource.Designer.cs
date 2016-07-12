@@ -2255,8 +2255,8 @@ namespace GoSteve
 			// aapt resource value: 0x7f08006e
 			public const int CharacterAbilitiesSpeed = 2131230830;
 			
-			// aapt resource value: 0x7f0800cc
-			public const int GoSteveLogo = 2131230924;
+			// aapt resource value: 0x7f0800ce
+			public const int GoSteveLogo = 2131230926;
 			
 			// aapt resource value: 0x7f0800ac
 			public const int StatsSkillsAcrobatics = 2131230892;
@@ -2648,8 +2648,8 @@ namespace GoSteve
 			// aapt resource value: 0x7f08000e
 			public const int disableHome = 2131230734;
 			
-			// aapt resource value: 0x7f0800cd
-			public const int dmModeBtn = 2131230925;
+			// aapt resource value: 0x7f0800cc
+			public const int dmModeBtn = 2131230924;
 			
 			// aapt resource value: 0x7f0800cb
 			public const int dmScreenBaseCharacterLayout = 2131230923;
@@ -3077,8 +3077,8 @@ namespace GoSteve
 			// aapt resource value: 0x7f080029
 			public const int pin = 2131230761;
 			
-			// aapt resource value: 0x7f0800ce
-			public const int playerModeBtn = 2131230926;
+			// aapt resource value: 0x7f0800cd
+			public const int playerModeBtn = 2131230925;
 			
 			// aapt resource value: 0x7f080006
 			public const int progress_circular = 2131230726;
